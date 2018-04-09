@@ -7,4 +7,4 @@ In the App_Data folder, the following files are:
 
 [GPDB_ER_diagram_updated.pdf] : the diagram of the database design.
 
-[gpdb1] : The MySQL Database file which helps restore the whole gpdb database.
+[gpdb1.sql] : The MySQL Database file which helps restore the whole gpdb database.
