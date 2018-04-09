@@ -1,0 +1,150 @@
+﻿@model System.Data.DataSet
+@{
+    ViewBag.Title = "AddCourses";
+    //System.Data.DataTable building = Model.Tables["BuildingList"];
+    System.Data.DataTable subject = Model.Tables["SubjectList"];
+    System.Data.DataTable room = Model.Tables["RoomList"];
+}
+
+<h2>添加课程</h2>
+<br />
+<form id="addCourse" method="post" action="AddCourse">
+    <div class="text-info" style="font-size:x-large">
+        完善课程信息
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="subject">选择学科门类</label>
+        <select id="subject" class="form-control" name="subject" onload="loadSubject();">
+            @foreach (System.Data.DataRow rows in subject.Rows)
+            {
+                <option value="@rows[0]"> @rows[1]</option>
+            }
+
+            @*<option value="CA">哲学</option>
+                <option value="CB">经济学</option>
+                <option value="CC">法学</option>
+                <option value="CD">教育学</option>
+                <option value="CE">文学</option>
+                <option value="CF">历史学</option>
+                <option value="CG">理学</option>
+                <option value="CH">工学</option>
+                <option value="CI">农学</option>
+                <option value="CJ">医学</option>
+                <option value="CK">军事学</option>
+                <option value="CL">管理学</option>
+                <option value="CM">艺术学</option>*@
+        </select>
+
+        <label class="control-label" for="form-group-input">课程名称</label>
+        <input type="text" id="form-group-input" name="courseName" class="form-control" placeholder="请输入少于50个汉字">
+
+        <label class="control-label" for="datetimepicker1">起始时间</label>
+        <input type="text" id="datetimepicker1" name="startDate" class="form-control" placeholder="若不确定请留空" />
+
+        <label class="control-label" for="datetimepicker2">结束时间</label>
+        <input type="text" id="datetimepicker2" name="endDate" class="form-control" placeholder="若不确定请留空" />
+
+        <label class="control-label" for="form-group-input1">上课地点</label>
+        <input type="text" id="form-group-input1" name="venue" class="form-control" placeholder="例：第一教学楼305">
+
+        <label class="control-label" for="form-group-input2">上课时间</label>
+        <input type="text" id="form-group-input2" name="period" class="form-control" placeholder="例：星期三上午9:55至11:25">
+
+        <label class="control-label" for="form-group-input3">课程介绍</label>
+        <textarea id="form-group-input3" rows="4" cols="20" name="courseInfo" class="form-control"></textarea>
+    </div>
+
+    <div class="text-info" style="font-size:x-large;margin-top:5%">
+        完善考试信息
+    </div>
+
+    <label class="control-label" for="datetimepicker3">考试时间</label>
+    <input type="text" id="datetimepicker3" name="examPeriod" class="form-control" placeholder="若不确定请留空" />
+
+    @*此处应该改为列表选择教学楼数据【未完成】*@
+    @*<label class="control-label" for="form-group-input4">考试教学楼</label>
+        <select type="text" id="form-group-input4" name="examVenueBuild" class="form-control">
+            @foreach (System.Data.DataRow rows in building.Rows)
+            {
+                <option value="@rows[0]"> @rows[1]</option>
+            }
+        </select>*@
+    <label class="control-label" for="form-group-input4_">考试教室</label>
+    <select type="text" id="form-group-input4_" name="examVenueClass" class="form-control" onclick="getSelectedBuilding()">
+        <option>-------请选择-------</option>
+        @foreach (System.Data.DataRow rows in room.Rows)
+        {
+            <option value="@rows[0]"> @rows[1] [容量 @rows[2]人]</option>
+        }
+    </select>
+
+
+    <label class="control-label" for="form-group-input5">考试时长</label>
+    <select id="form-group-input5" name="examDuration" class="form-control">
+        <option value="1">1小时</option>
+        <option value="1.5">1.5小时</option>
+        <option value="2">2小时</option>
+        <option value="2.5">2.5小时</option>
+        <option value="3">3小时</option>
+        <option value="3.5">3.5小时</option>
+        <option value="4">4小时</option>
+        <option value="4.5">4.5小时</option>
+        <option value="5">5小时</option>
+    </select>
+
+    <label class="control-label" for="form-group-input1">考试类型</label>
+    <select id="subject" class="form-control" name="examType">
+        <option value="open">开卷考试</option>
+        <option value="close">闭卷考试</option>
+    </select>
+
+    <div style="margin-top:3%">
+        <input id="submitCourse" type="submit" value="添加课程" class="form-control btn-info" />
+    </div>
+</form>
+
+
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/jquery.datetimepicker.full.min.js"></script>
+<script>
+    var logic = function (currentDateTime) {
+        if (currentDateTime && currentDateTime.getDay() == 6) {
+            this.setOptions({
+                minTime: '11:00'
+            });
+        } else
+            this.setOptions({
+                minTime: '8:00'
+            });
+    };
+    $('#datetimepicker1').datetimepicker({
+        onChangeDateTime: logic,
+        onShow: logic
+    });
+
+    $('#datetimepicker2').datetimepicker({
+        onChangeDateTime: logic,
+        onShow: logic
+    });
+
+    $('#datetimepicker3').datetimepicker({
+        onChangeDateTime: logic,
+        onShow: logic
+    });
+</script>
+
+<script>
+    //此处目的为实现教学楼和教室的级联选择【未完成】
+    function getSelectedBuilding() {
+        @*var x = document.getElementById("form-group-input4").value;
+        for (int i = 0; i <@room.Rows.Count; i++)
+        {
+            @{ int index = 0;}
+            if (x =="@room.Rows[@index]["roomID"].ToString().Substring(4,2)") {
+                alert("HHH");
+            }
+            @{ index++;}
+        }*@
+    }
+
+</script>

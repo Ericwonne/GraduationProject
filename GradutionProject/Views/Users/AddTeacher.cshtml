@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewBag.Title = "AddTeacher";
+}
+@*This page is for the registering users who adds their personal information.*@
+
+@*<link rel="stylesheet" href="~/Content/zMy_Created_Css.css" />
+    <script type="text/javascript" src="~/Scripts/zMy_Created_Js.js"></script>*@
+
+<form id="addTeacherInfo" action="TeacherMainPage" method="post">
+    <section class="jq22-content bgcolor-10">
+        <h2 style="margin-bottom:10px">注册成功，请完善您的个人信息</h2>
+        <br />
+        <span class="input input--shoko">
+
+            <input class="input__field input__field--shoko" type="text" name="name" id="input-1" style="color:black" />
+            <label class="input__label input__label--shoko" for="input-1">
+                <span class="input__label-content input__label-content--shoko">姓名</span>
+            </label>
+            <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+                <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0" />
+            </svg>
+        </span>
+
+        <span class="input input--shoko">
+            <input class="input__field input__field--shoko" type="text" name="gender" id="input-2" style="color:black" placeholder="请填入“男”或“女”" />
+            <label class="input__label input__label--shoko" for="input-2">
+                <span class="input__label-content input__label-content--shoko">性别</span>
+            </label>
+            <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+                <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0" />
+            </svg>
+        </span>
+
+        <span class="input input--shoko">
+            <input class="input__field input__field--shoko" type="text" name="age" id="input-3" style="color:black" placeholder="请填入数字" />
+            <label class="input__label input__label--shoko" for="input-3">
+                <span class="input__label-content input__label-content--shoko">年龄</span>
+            </label>
+            <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+                <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0" />
+            </svg>
+        </span>
+
+        <span class="input input--shoko">
+            <input class="input__field input__field--shoko" type="text" name="wechat" id="input-4" style="color:black" />
+            <label class="input__label input__label--shoko" for="input-4">
+                <span class="input__label-content input__label-content--shoko">微信</span>
+            </label>
+            <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+                <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0" />
+            </svg>
+        </span>
+
+        <span class="input input--shoko">
+            <input class="input__field input__field--shoko" type="text" name="qq" id="input-5" style="color:black" />
+            <label class="input__label input__label--shoko" for="input-5">
+                <span class="input__label-content input__label-content--shoko">QQ号码</span>
+            </label>
+            <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+                <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0" />
+            </svg>
+        </span>
+
+        <span class="input input--shoko">
+            <input class="input__field input__field--shoko" type="text" name="phone" id="input-6" style="color:black" />
+            <label class="input__label input__label--shoko" for="input-6">
+                <span class="input__label-content input__label-content--shoko">电话号码</span>
+            </label>
+            <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+                <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0" />
+            </svg>
+        </span>
+
+        <span class="input input--shoko">
+            <input class="input__field input__field--shoko" type="text" name="university" id="input-7" style="color:black" />
+            <label class="input__label input__label--shoko" for="input-7">
+                <span class="input__label-content input__label-content--shoko">毕业院校</span>
+            </label>
+            <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+                <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0" />
+            </svg>
+        </span>
+
+        <span class="input input--shoko">
+            <input class="input__field input__field--shoko" type="text" name="college" id="input-8" style="color:black" />
+            <label class="input__label input__label--shoko" for="input-8">
+                <span class="input__label-content input__label-content--shoko">学院</span>
+            </label>
+            <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+                <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0" />
+            </svg>
+        </span>
+
+        <span class="input input--shoko">
+            <input class="input__field input__field--shoko" type="text" name="major" id="input-9" style="color:black" />
+            <label class="input__label input__label--shoko" for="input-9">
+                <span class="input__label-content input__label-content--shoko">所属专业</span>
+            </label>
+            <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+                <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0" />
+            </svg>
+        </span>
+
+        <span class="input input--shoko">
+            <input class="input__field input__field--shoko" type="text" name="workNo" id="input-a" style="color:black" />
+            <label class="input__label input__label--shoko" for="input-a">
+                <span class="input__label-content input__label-content--shoko">工号</span>
+            </label>
+            <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+                <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0" />
+            </svg>
+        </span>
+
+        <span class="input input--shoko">
+            <input class="input__field input__field--shoko" type="password" name="workPass" id="input-b" style="color:black" />
+            <label class="input__label input__label--shoko" for="input-b">
+                <span class="input__label-content input__label-content--shoko">密码</span>
+            </label>
+            <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+                <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0" />
+            </svg>
+        </span>
+        @*The id for inputs are countered now due to paste reasons*@
+    </section>
+
+
+
+    <div style="margin-top:10px">
+        <input id="submitTeacherInfo" type="submit" value="提交个人信息" class="btn btn-info form-control" />
+        <input id="reset" type="button" value="重新填写" class="btn btn-default form-control" onclick="resetInputs()" />
+    </div>
+
+</form>
+
+<script>
+    function resetInputs() {
+        var list = "0123456789ab";
+        for (var i = 0; i < list.length(); i++) {
+            var id = "input-" + list[i].toString();
+            var input = document.getElementById(id);
+            input.value = "";
+        }
+    }
+</script>

@@ -1,0 +1,331 @@
+﻿@model System.Data.DataSet
+@{
+    ViewBag.Title = "TeacherMainPage";
+
+    System.Data.DataTable CoursesOfTeacher = Model.Tables["CoursesOfTeacher"];
+    System.Data.DataTable this_semester_course = Model.Tables["this_semester_course"];
+    System.Data.DataTable AllMyStudent = Model.Tables["AllMyStudent"];
+
+    string[] Count_All = new string[CoursesOfTeacher.Rows.Count];
+    int counts = 0;
+    for (int index = 0; index < CoursesOfTeacher.Rows.Count; index++)
+    {
+        Count_All[index] = Model.Tables["count" + CoursesOfTeacher.Rows[index][0].ToString()].Rows[0][0].ToString();
+        counts += Convert.ToInt32(Count_All[index]);
+    }
+
+
+    DateTime date = DateTime.Now.Date;
+    //Get the current workday
+    DayOfWeek dayOfweek = date.DayOfWeek;
+    DateTime[] wholeweek = new DateTime[7];
+    TimeSpan timespan = new TimeSpan(1, 0, 0, 0);
+    if (dayOfweek == DayOfWeek.Sunday)
+    {
+        wholeweek[(int)dayOfweek] = date;
+        while (dayOfweek < DayOfWeek.Saturday)
+        {
+            wholeweek[(int)dayOfweek + 1] = wholeweek[(int)dayOfweek] + timespan;
+            dayOfweek++;
+        }
+    }
+    else if (dayOfweek == DayOfWeek.Saturday)
+    {
+        wholeweek[(int)dayOfweek] = date;
+        while (dayOfweek > DayOfWeek.Sunday)
+        {
+            wholeweek[(int)dayOfweek - 1] = wholeweek[(int)dayOfweek] - timespan;
+            dayOfweek--;
+        }
+    }
+    else
+    {
+        int sunday = 0, saturday = 6;
+        wholeweek[(int)dayOfweek] = date;
+        while (sunday < (int)dayOfweek)
+        {
+            wholeweek[sunday] = wholeweek[(int)dayOfweek] - new TimeSpan((int)dayOfweek - sunday, 0, 0, 0);
+            sunday++;
+        }
+        while ((int)dayOfweek < saturday)
+        {
+            wholeweek[saturday] = wholeweek[(int)dayOfweek] + new TimeSpan(saturday - (int)dayOfweek, 0, 0, 0);
+            saturday--;
+        }
+    }
+
+    System.Data.DataRow[] home1 = Model.Tables["this_semester_course"].Select("startDate like'" + wholeweek[0].ToString("yyyy-MM-dd") + "%'");
+    System.Data.DataRow[] home2 = Model.Tables["this_semester_course"].Select("startDate like'" + wholeweek[1].ToString("yyyy-MM-dd") + "%'");
+    System.Data.DataRow[] home3 = Model.Tables["this_semester_course"].Select("startDate like'" + wholeweek[2].ToString("yyyy-MM-dd") + "%'");
+    System.Data.DataRow[] home4 = Model.Tables["this_semester_course"].Select("startDate like'" + wholeweek[3].ToString("yyyy-MM-dd") + "%'");
+    System.Data.DataRow[] home5 = Model.Tables["this_semester_course"].Select("startDate like'" + wholeweek[4].ToString("yyyy-MM-dd") + "%'");
+    System.Data.DataRow[] home6 = Model.Tables["this_semester_course"].Select("startDate like'" + wholeweek[5].ToString("yyyy-MM-dd") + "%'");
+    System.Data.DataRow[] home7 = Model.Tables["this_semester_course"].Select("startDate like'" + wholeweek[6].ToString("yyyy-MM-dd") + "%'");
+}
+
+
+
+<div class="form-inline">
+    <h2>欢迎你！@ViewData["V_uname"].ToString()老师</h2>
+    <div>
+        <p style="padding-top:1%;color:midnightblue">当前教学周：第<span>X</span>周（本学期起止时间：<apan>XXXX-XX</apan>到<apan>XXXX-XX</apan>））</p>
+    </div>
+</div>
+<br />
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active">
+        <a href="#home" data-toggle="tab">
+            首页
+        </a>
+    </li>
+    <li><a href="#ios" data-toggle="tab">个人中心</a></li>
+    <li class="dropdown">
+        <a href="#" id="myTabDrop1" class="dropdown-toggle"
+           data-toggle="dropdown">
+            我的消息
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+            <li><a href="#jmeter" tabindex="-1" data-toggle="tab">课程相关</a></li>
+            <li><a href="#ejb" tabindex="-1" data-toggle="tab">学生相关</a></li>
+        </ul>
+    </li>
+</ul>
+
+<div id="myTabContent" class="tab-content">
+
+    <div class="tab-pane fade in active" id="home" style="padding-top:20px">
+        <div style="color:black;font-size:20px;font-weight:200;">
+            我本周的课表：
+            <span style="font-size:smaller">一共有<span>八</span>门课</span>&nbsp;&nbsp;（ @Html.ActionLink("发布新课程", "AddCourses", "Courses") ）@*, new { @class = "color:blue" }*@
+        </div>
+        <br>
+        <ul id="myTab1" class="nav nav-tabs">
+            <li class="active"><a href="#home1" data-toggle="tab">星期日-@wholeweek[0].Date.ToString("yyyy-MM-dd")</a></li>
+            <li><a href="#home2" data-toggle="tab">星期一-@wholeweek[1].Date.ToString("yyyy-MM-dd")</a></li>
+            <li><a href="#home3" data-toggle="tab">星期二-@wholeweek[2].Date.ToString("yyyy-MM-dd")</a></li>
+            <li><a href="#home4" data-toggle="tab">星期三-@wholeweek[3].Date.ToString("yyyy-MM-dd")</a></li>
+            <li><a href="#home5" data-toggle="tab">星期四-@wholeweek[4].Date.ToString("yyyy-MM-dd")</a></li>
+            <li><a href="#home6" data-toggle="tab">星期五-@wholeweek[5].Date.ToString("yyyy-MM-dd")</a></li>
+            <li><a href="#home7" data-toggle="tab">星期六-@wholeweek[6].Date.ToString("yyyy-MM-dd")</a></li>
+        </ul>
+
+        <div id="myTab1Content" class="tab-content active">
+            <div class="tab-pane" id="home1">
+                @{
+                    if (home1.Length == 0)
+                    {
+                        <p>周日您没有课程</p>
+                    }
+                    else
+                    {
+                        <p>周日您有课程</p>
+                    }
+                }
+            </div>
+            <div class="tab-pane" id="home2">
+                @{
+                    if (home1.Length == 0)
+                    {
+                        <p>周一您没有课程</p>
+                    }
+                    else
+                    {
+
+                    }
+                }
+            </div>
+            <div class="tab-pane" id="home3">
+                @{
+                    if (home1.Length == 0)
+                    {
+                        <p>周二您没有课程</p>
+                    }
+                    else
+                    {
+
+                    }
+                }
+            </div>
+            <div class="tab-pane" id="home4">
+                @{
+                    if (home1.Length == 0)
+                    {
+                        <p>周三您没有课程</p>
+                    }
+                    else
+                    {
+
+                    }
+                }
+            </div>
+            <div class="tab-pane" id="home5">
+                @{
+                    if (home1.Length == 0)
+                    {
+                        <p>周四您没有课程</p>
+                    }
+                    else
+                    {
+
+                    }
+                }
+            </div>
+            <div class="tab-pane" id="home6">
+                @{
+                    if (home1.Length == 0)
+                    {
+                        <p>周五您没有课程</p>
+                    }
+                    else
+                    {
+
+                    }
+                }
+            </div>
+            <div class="tab-pane" id="home7">
+                @{
+                    if (home1.Length == 0)
+                    {
+                        <p>周六您没有课程</p>
+                    }
+                    else
+                    {
+
+                    }
+                }
+            </div>
+        </div>
+        <hr />
+        <div style="color:black;font-size:20px;font-weight:200;margin-top:2%">
+            我开设的所有课程：
+            <span style="font-size:smaller">一共有<span>@CoursesOfTeacher.Rows.Count</span>门课</span>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>课程名称</th>
+                    <th>开始日期</th>
+                    <th>结束日期</th>
+                    <th>上课地点</th>
+                    <th>上课时间</th>
+                    <th>选课人数</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (System.Data.DataRow row in CoursesOfTeacher.Rows)
+                {
+                    <tr>
+                        <td><a href="SpecificCourse?id=@row[0]"> @row[1] </a> </td>
+                        <td>@row[4]</td>
+                        <td>@row[5]</td>
+                        <td>@row[6]</td>
+                        <td>@row[7]</td>
+                        <td>@Count_All[CoursesOfTeacher.Rows.IndexOf(row)]</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+        <hr />
+        <div style="color:black;font-size:20px;font-weight:200;margin-top:2%">
+            我所有的学生：
+            <span style="font-size:smaller">一共有<span>@counts.ToString()</span>人</span>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>学生姓名</th>
+                    <th>性别</th>
+                    <th>来自课程</th>
+                    <th>成绩</th>
+                    <th>是否已结束</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (System.Data.DataRow row in AllMyStudent.Rows)
+                {
+                    var x = row[2].ToString() == "M" ? "男" : "女";
+                    <tr>
+                        <td><a href="SpecificCourse?id=@row[0]"> @row[1] </a> </td>
+                        <td>@x</td>
+                        <td>Placeholder</td>
+                        <td>Placeholder</td>
+                        <td>Placeholder</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="tab-pane fade" id="ios" style="padding-top:20px">
+
+        <div style="color:black;font-size:20px;font-weight:200;">
+            我本学期的课程：
+            <span style="font-size:smaller">一共有<span>八</span>门课</span>
+        </div>
+        <hr />
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>课程名称</th>
+                    <th>开始日期</th>
+                    <th>结束日期</th>
+                    <th>上课地点</th>
+                    <th>上课时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td><label><a href="#">详细信息</a></label></td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td><label><a href="#">详细信息</a></label></td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td><label><a href="#">详细信息</a></label></td>
+                </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="tab-pane fade" id="jmeter" style="padding-top:20px">
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.3
+
+    </div>
+
+    <div class="tab-pane fade" id="ejb" style="padding-top:20px">
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.4
+
+    </div>
+</div>
+
+<script>
+
+</script>

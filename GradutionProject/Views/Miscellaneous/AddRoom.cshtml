@@ -1,0 +1,48 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "AddRoom";
+}
+
+<h2>添加教室信息</h2>
+<br />
+
+<form id="addRoom" method="post" action="AddRooms">
+    <div class="text-info" style="font-size:x-large">
+        添加教室详细信息
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="building">选择教室所在建筑</label>
+        <select id="building" class="form-control" name="building">
+            @foreach (System.Data.DataRow rows in Model.Rows)
+            {
+                <option value="@rows[0]"> @rows[1]</option>
+            }
+        </select>
+
+        <label class="control-label" for="form-group-input">教室编号</label>
+        <input type="text" id="form-group-input" name="roomNo" class="form-control" placeholder="例：305">
+
+
+
+        <label class="control-label" for="roomTag">教室别称</label>
+        <input type="text" id="roomTag" name="roomTag" class="form-control" placeholder="若无请留空" />
+
+        <label class="control-label" for="roomCapa">教室容纳人数</label>
+        <select id="roomCapa" class="form-control" name="roomCapa">
+            @{
+                int i = 1;
+                int x = 15;
+            }
+            @while (i <= x)
+            {
+                int cap = i * 10;
+                <option value="@cap"> @cap 人 </option>
+                i++;
+            }
+        </select>
+    </div>
+    <div style="margin-top:3%">
+        <input id="submitRoom" type="submit" value="添加教室" class="form-control btn-info" />
+    </div>
+
+</form>

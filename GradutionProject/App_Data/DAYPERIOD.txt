@@ -1,0 +1,15 @@
+ENUM('AA','AB','AC','AD','AE','AF','CA','CB','CC','CD','CE','CF','DA','DB','DC','DD','DE','DF','EA','EB','EC','ED','EE','EF','FA','FB','FC','FD','FE','FF','GA','GB','GC','GD','GE','GF')
+
+AA		AB		AC		AD		AE		AF	
+											
+BA		BB		BC		BD		BE			BF	
+											
+CA		CB		CC		CD		CE		CF	
+											
+DA		DB		DC		DD		DE		DF	
+											
+EA		EB			EC		ED		EE			EF	
+											
+FA		FB			FC		FD		FE			FF	
+											
+GA		GB		GC		GD		GE		GF

@@ -1,0 +1,61 @@
+﻿@model System.Data.DataSet
+@{
+    ViewBag.Title = "DisplayCourses";
+    System.Data.DataTable AllCourses = Model.Tables["courses"];
+}
+
+<h2>课程展示</h2>
+<br />
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>课程名称</th>
+                <th>开始日期</th>
+                <th>结束日期</th>
+                <th>上课地点</th>
+                <th>上课时间</th>
+                <th>课程容量</th>
+                <th>当前人数</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (System.Data.DataRow row in AllCourses.Rows)
+            {
+                <tr>
+                    <td>
+                        <a href="SpecificCourse?id=@row[0]&state=@row[7]">
+                            @row[1]
+                        </a>
+                        @{
+                            if (row[7].ToString() == GradutionProject.Models.ManipCourseType.C.ToString())
+                            {
+                                <span class="label label-info">已选</span>
+                                <span class="label label-info">已收藏</span>
+                            }
+                            else if (row[7].ToString() == GradutionProject.Models.ManipCourseType.A.ToString())
+                            {
+                                <span class="label label-info">已选</span>
+                            }
+                            else if (row[7].ToString() == GradutionProject.Models.ManipCourseType.B.ToString())
+                            {
+                                <span class="label label-info">已收藏</span>
+                            }
+                            else
+                            {
+
+                            }
+                        }
+
+                    </td>
+                    <td>@row[2].ToString().Substring(0, 10)</td>
+                    <td>@row[3].ToString().Substring(0, 10)</td>
+                    <td>@row[4]</td>
+                    <td>@row[5]</td>
+                    <td>@row[6]</td>
+                    <td>@row[8]</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

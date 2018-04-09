@@ -1,0 +1,117 @@
+﻿@model System.Data.DataSet
+@{
+    System.Data.DataTable c = Model.Tables["courseInfo"];
+    System.Data.DataTable t = Model.Tables["teacherInfo"];
+
+    System.Data.DataRow crow = c.Rows[0];
+    System.Data.DataRow trow = t.Rows[0];
+
+    ViewBag.Title = crow[1] + "-学生选课管理信息系统";
+}
+<body onload="onButtonLoad()">
+    <h2 style="display:inline-block">
+        @crow[1]
+    </h2>
+    <h4 style="display:inline-block">
+        @{
+            if (ViewData["V_state"].ToString() == GradutionProject.Models.ManipCourseType.C.ToString())
+            {
+                <span class="label label-info">已选</span>
+                <span class="label label-info">已收藏</span>
+            }
+            else if (ViewData["V_state"].ToString() == GradutionProject.Models.ManipCourseType.A.ToString())
+            {
+                <span class="label label-info">已选</span>
+            }
+            else if (ViewData["V_state"].ToString() == GradutionProject.Models.ManipCourseType.B.ToString())
+            {
+                <span class="label label-info">已收藏</span>
+            }
+            else
+            {
+
+            }
+        }
+    </h4>
+    <br /><br />
+
+
+    <div>
+        <label>任课教师：</label>&nbsp;&nbsp;&nbsp;&nbsp;<label> @trow[1] </label><br />
+        <label>发布时间：</label>&nbsp;&nbsp;&nbsp;&nbsp;<label> @crow[3] </label><br />
+        <label>结束选课时间：</label>&nbsp;&nbsp;&nbsp;&nbsp;<label> @crow[4] </label><br />
+        <label>课程结束时间：</label>&nbsp;&nbsp;&nbsp;&nbsp;<label> @crow[5] </label><br />
+        <label>考试时间：</label>&nbsp;&nbsp;&nbsp;&nbsp;<label> @crow[8] </label><br />
+        <label>上课地点：</label>&nbsp;&nbsp;&nbsp;&nbsp;<label> @crow[6] </label><br />
+        <label>上课时间：</label>&nbsp;&nbsp;&nbsp;&nbsp;<label> @crow[7] </label><br />
+    </div>
+
+    <br /><br /><br />
+
+    <div>
+        <input id="choose" type="button" value="加入我的课表" onclick="choose()" />
+        <input id="collect" type="button" value="收藏该课程" onclick="collect()" />
+        <input id="back" type="button" value="返回课程列表" onclick="returnToList()" />
+    </div>
+</body>
+
+@*                course_information                              teacher_information
+     0               courseID      |                                 uniqueClientI
+     1               courseName    |                                 name        |
+     2               courseTeacher |                                 gender      |
+     3               publishDate   |                                 age         |
+     4               startDate     |                                 email       |
+     5               endDate       |                                 wechat      |
+     6               venue         |                                 qqNumber    |
+     7               period        |                                 phone       |
+     8               examID        |                                 university  |
+     9               chosen        |                                 college     |
+    10               collected     |                                 major       |
+    11               courseInfo    |                                 workNo      |
+    12               detailInfo    |                                 workPass    |
+    13               subTag        |                                 courses     |         *@
+
+<script>
+    function choose(){
+        location.href = 'ChooseCourse';
+    }
+    function unchoose(){
+        location.href = 'UnchooseCourse';
+    }
+    function collect(){
+        location.href = 'CollectCourse';
+    }
+    function uncollect(){
+        location.href = 'UncollectCourse';
+    }
+    function returnToList (){
+        location.href = 'DisplayCourses';
+    }
+
+
+    function onButtonLoad() {
+        var ifselected = "@ViewData["V_state"].ToString()";
+        if (ifselected == "A") {
+            var button = document.getElementById("choose");
+            button.setAttribute("value", "移出我的课表");
+            button.setAttribute("onclick", "unchoose()");
+        }
+        else if (ifselected == "B") {
+            var button = document.getElementById("collect");
+            button.setAttribute("value", "取消收藏");
+            button.setAttribute("onclick", "uncollect()");
+        }
+        else if (ifselected == "C") {
+            var button1 = document.getElementById("choose");
+            button1.setAttribute("value", "移出我的课表");
+            button1.setAttribute("onclick", "unchoose()");
+
+            var button2 = document.getElementById("collect");
+            button2.setAttribute("value", "取消收藏");
+            button2.setAttribute("onclick", "uncollect()");
+        }
+        else {
+
+        }
+    }
+</script>

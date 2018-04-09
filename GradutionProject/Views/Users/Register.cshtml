@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>注册</h2>
+<br />
+<form id="registryForm" role="form" action="AddStudent" method="post">
+    <div class="form-group">
+        <label class="control-label" for="inputEmail">电子邮箱</label>
+        <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="输入您的邮件地址">
+        
+        <label class="control-label" for="inputPassword">密码</label>
+        <input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="密码必须超过六个字符">
+    </div>
+    <div class="checkbox">
+        <label>
+            <input id="checkType" type="checkbox" checked="checked"> 你是学生?
+        </label>
+    </div>
+    <button type="submit" class="btn btn-default" onclick="JudgeRegistryType()">注册</button>
+</form>
+<br />
+<lable class="alert-link">已有账号？点击<a href="Login">登录</a></lable>
+
+<script>
+    function JudgeRegistryType() {
+        var checkbox = document.getElementById("checkType");
+        var form = document.getElementById("registryForm");
+
+        if (checkbox.checked == false) {
+            form.setAttribute("action", "AddTeacher");
+        }
+    }
+</script>

@@ -1,0 +1,89 @@
+﻿@model System.Data.DataSet
+@{
+    ViewBag.Title = "StudentMainPage";
+    System.Data.DataTable selectedCourseInfo = Model.Tables["selectedCourseInfo"];
+    System.Data.DataTable courseCollected = Model.Tables["courseCollected"];
+
+}
+
+<h2>欢迎你！@ViewData["V_uname"].ToString()同学</h2>
+
+<br />
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active">
+        <a href="#home" data-toggle="tab">
+            首页
+        </a>
+    </li>
+    <li><a href="#ios" data-toggle="tab">个人中心</a></li>
+    <li class="dropdown">
+        <a href="#" id="myTabDrop1" class="dropdown-toggle"
+           data-toggle="dropdown">
+            我的消息
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+            <li><a href="#jmeter" tabindex="-1" data-toggle="tab">课程相关</a></li>
+            <li><a href="#ejb" tabindex="-1" data-toggle="tab">学生相关</a></li>
+        </ul>
+    </li>
+</ul>
+
+<div id="myTabContent" class="tab-content">
+
+    <div class="tab-pane fade in active" id="home" style="padding-top:20px">
+        <div style="color:saddlebrown;padding-bottom:10px">
+            @Html.ActionLink("查看本学期选课列表？", "DisplayCourses", "Courses")
+        </div>
+
+        <div>
+
+            <p>本周课程</p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>课程名称</th>
+                        <th>开始日期</th>
+                        <th>结束日期</th>
+                        <th>上课地点</th>
+                        <th>上课时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (System.Data.DataRow row in selectedCourseInfo.Rows)
+                    {
+                        <tr>
+                            <td>@row[1] </td>
+                            <td>@row[4].ToString().Substring(0, 10)</td>
+                            <td>@row[5].ToString().Substring(0, 10)</td>
+                            <td>@row[6]</td>
+                            <td>@row[7]</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="tab-pane fade" id="ios" style="padding-top:20px">
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.2
+
+    </div>
+
+    <div class="tab-pane fade" id="jmeter" style="padding-top:20px">
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.3
+
+    </div>
+    <div class="tab-pane fade" id="ejb" style="padding-top:20px">
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.4
+
+    </div>
+</div>
+
+<script>
+
+</script>
