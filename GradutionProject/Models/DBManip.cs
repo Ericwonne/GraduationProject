@@ -213,6 +213,21 @@ namespace GradutionProject.Models
             return table;
         }
 
+        public static DataTable GetTeacherTable()
+        {
+            MySqlConnection connect = new MySqlConnection(connectionString);
+            string cmdTxt = "select * from teacher_information";
+            DataSet set = new DataSet();
+
+            //Start of connection
+            connect.Open();
+            MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "teacher_information");
+            connect.Close();
+            DataTable table = set.Tables["teacher_information"];
+
+            return table;
+        }
 
         public static DataSet GetCourseTable(string studentID = "")
         {

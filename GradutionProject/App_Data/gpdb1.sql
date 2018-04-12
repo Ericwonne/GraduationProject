@@ -346,6 +346,7 @@ CREATE TABLE `teacher_information` (
   `courses` varchar(125) DEFAULT NULL COMMENT '表示方法：JSON格式{''courseID1'',''courseID2'',...}',
   `workNo` varchar(20) DEFAULT NULL COMMENT '学生卡上的号码',
   `workPass` varchar(1024) DEFAULT NULL COMMENT '此处的密码经过函数加密，存储方式为：密文',
+  UNIQUE KEY `uniqueClientID_UNIQUE` (`uniqueClientID`),
   KEY `uniqueClientID_idx` (`uniqueClientID`),
   CONSTRAINT `uniqueClientIDt` FOREIGN KEY (`uniqueClientID`) REFERENCES `login_examine` (`uniqueClientID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='教师信息表（teacher_information）';
@@ -357,7 +358,7 @@ CREATE TABLE `teacher_information` (
 
 LOCK TABLES `teacher_information` WRITE;
 /*!40000 ALTER TABLE `teacher_information` DISABLE KEYS */;
-INSERT INTO `teacher_information` VALUES ('UT00000001','庙军培','M',23,'miaojunpei1995@qq.com',NULL,NULL,NULL,'北京邮电大学',NULL,NULL,NULL,NULL,NULL),('UT00000002','李凯馨','F',27,'happy@anothermail.com','','','','Nottingham University','','','','',''),('UT00000003','巴则则','M',29,'busybuzzy@anothermail.com','','','','Harvard University','','','','',''),('UT00000004','江小辉','M',40,'jiangxianghui@anothermail.com','','','','北京大学','','','','','');
+INSERT INTO `teacher_information` VALUES ('UT00000001','庙军培','M',23,'miaojunpei1995@qq.com','miaojunpei','1049175213','15316831929','北京邮电大学','计算机学院','通信工程','','1412480409',NULL),('UT00000002','李凯馨','F',27,'happy@anothermail.com','happy','1049234563','15314567689','Nottingham University','计算机学院','通信工程','','1412580409',''),('UT00000003','巴则则','M',29,'busybuzzy@anothermail.com','busybuzzy','4391334563','15856567689','Harvard University','计算机学院','通信工程','','1412559409',''),('UT00000004','江小辉','M',40,'jiangxianghui@anothermail.com','jiangxianghui','4391343563','15786567689','北京大学','计算机学院','通信工程','','1417559409','');
 /*!40000 ALTER TABLE `teacher_information` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -370,4 +371,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-08 19:43:46
+-- Dump completed on 2018-04-12 20:20:31

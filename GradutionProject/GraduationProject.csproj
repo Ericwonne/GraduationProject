@@ -197,6 +197,10 @@
     <Content Include="App_Data\GPDB_ER_diagram_updated.pdf" />
     <Content Include="Content\json\hf.json" />
     <Content Include="Content\json\pl.json" />
+    <Content Include="App_Data\Required Documents\中期报告-王启帆-by刘亚.doc" />
+    <Content Include="App_Data\Required Documents\中期检查表.doc" />
+    <Content Include="App_Data\Required Documents\任务书-王启帆-by刘亚.doc" />
+    <Content Include="App_Data\Required Documents\王启帆-立题卡.docx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -238,6 +242,7 @@
     <Content Include="Views\Miscellaneous\AddBuilding.cshtml" />
     <Content Include="Views\Users\AddTeacher.cshtml" />
     <Content Include="Views\Courses\SpecificCourse.cshtml" />
+    <Content Include="Views\Users\DisplayTeachers.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

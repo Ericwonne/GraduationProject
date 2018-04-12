@@ -135,6 +135,14 @@ namespace GradutionProject.Controllers
 
             return View(table);
         }
+
+        public ActionResult DisplayTeachers()
+        {
+            DataTable table = DBManip.GetTeacherTable();
+
+            return View(table);
+        }
+
         public ActionResult AddStudent(FormCollection fc)
         {
             User student = new User(fc["inputEmail"], fc["inputPassword"], 'S');
