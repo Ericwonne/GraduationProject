@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "DisplayTeachers";
+    ViewBag.Title = "DisplayStudents";
 }
 
 <style type="text/css">
@@ -10,7 +10,7 @@
     }
 </style>
 
-<h2>教师列表</h2>
+<h2>学生列表</h2>
 <br />
 <div class="container">
     <div class="input-group">
@@ -28,24 +28,25 @@
                 <th>QQ</th>
                 <th>毕业院校</th>
                 <th>专业</th>
-                <th>课程</th>
+                <th>未获学位</th>
+                <th>年级</th>
             </tr>
         </thead>
         <tbody>
             @foreach (System.Data.DataRow rows in Model.Rows)
             {
-            <tr>
-                <td><a style="color:blue" href="SpecificUser?id=@rows[0]">@rows[1]</a></td>
-                <td>@rows[2]</td>
-                <td>@rows[3]</td>
-                <td>@rows[4]</td>
-                <td>@rows[7]</td>
-                <td>@rows[6]</td>
-                <td>@rows[8]</td>
-                <td>@rows[10]</td>
-                <td>Placeholder</td>
-            </tr>
-
+                <tr>
+                    <td><a style="color:blue" href="SpecificUser?id=@rows[0]">@rows[1]</a></td>
+                    <td>@rows[2]</td>
+                    <td>@rows[3]</td>
+                    <td>@rows[4]</td>
+                    <td>@rows[7]</td>
+                    <td>@rows[6]</td>
+                    <td>@rows[8]</td>
+                    <td>@rows[10]</td>
+                    <td>@rows[11]</td>
+                    <td>@rows[12]</td>
+                </tr>
             }
         </tbody>
     </table>
@@ -61,3 +62,4 @@
         });
     });
 </script>
+

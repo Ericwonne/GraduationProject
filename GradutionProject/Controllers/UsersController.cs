@@ -143,6 +143,13 @@ namespace GradutionProject.Controllers
             return View(table);
         }
 
+        public ActionResult DisplayStudents()
+        {
+            DataTable table = DBManip.GetStudentTable();
+
+            return View(table);
+        }
+
         public ActionResult AddStudent(FormCollection fc)
         {
             User student = new User(fc["inputEmail"], fc["inputPassword"], 'S');
@@ -168,6 +175,11 @@ namespace GradutionProject.Controllers
             }
             //DBManip.AddUser(teacher);
             Session["S_teacher"] = teacher;
+            return View();
+        }
+
+        public ActionResult SpecificUser(string id)
+        {
             return View();
         }
     }

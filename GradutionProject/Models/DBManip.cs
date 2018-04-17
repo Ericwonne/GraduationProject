@@ -12,7 +12,7 @@ namespace GradutionProject.Models
         private static string connectionString = "Server=localhost;Database=gpdb;User id = root; password=;";
 
         //Check if user already exist in the DB table gpdb.login_examine
-        public static bool CheckUserExistence(ref User user)
+        internal static bool CheckUserExistence(ref User user)
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
             string cmdTxt = "select uniqueClientID from login_examine where username='" + user.Username + "' and password='" + user.Password + "' and registryType='" + user.RegistryType.ToString() + "'";
@@ -36,7 +36,7 @@ namespace GradutionProject.Models
         }
 
         //Add new user into DB table gpdb.login_examine
-        public static void AddUser(User user, object X)
+        internal static void AddUser(User user, object X)
         {
 
             MySqlConnection connect = new MySqlConnection(connectionString);
@@ -86,7 +86,7 @@ namespace GradutionProject.Models
         }
 
         //
-        public static void AddCourse(Course course, Exam exam)
+        internal static void AddCourse(Course course, Exam exam)
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
 
@@ -156,8 +156,9 @@ namespace GradutionProject.Models
             connect.Close();
         }
 
+
         //【此函数已废弃使用】
-        public static void AddExam(Exam exam)
+        internal static void AddExam(Exam exam)
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
 
@@ -197,10 +198,11 @@ namespace GradutionProject.Models
 
 
         // 此处下面两个【Method】还有许多需要优化的地方：数据库连接操作可以封装起来
-        public static DataTable GetUserTable()
+        internal static DataTable GetUserTable()
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
-            string cmdTxt = "select uniqueClientID, username, registryDate, registryType from login_examine";
+            string cmdTxt = "select v_uidname.uid,v_uidname.uname,login_examine.username,login_examine.registryDate,login_examine.registryType from v_uidname inner join login_examine on v_uidname.uid=login_examine.uniqueclientid order by uniqueclientid";
+
             DataSet set = new DataSet();
 
             //Start of connection
@@ -213,7 +215,7 @@ namespace GradutionProject.Models
             return table;
         }
 
-        public static DataTable GetTeacherTable()
+        internal static DataTable GetTeacherTable()
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
             string cmdTxt = "select * from teacher_information";
@@ -229,7 +231,23 @@ namespace GradutionProject.Models
             return table;
         }
 
-        public static DataSet GetCourseTable(string studentID = "")
+        internal static DataTable GetStudentTable()
+        {
+            MySqlConnection connect = new MySqlConnection(connectionString);
+            string cmdTxt = "select * from student_information";
+            DataSet set = new DataSet();
+
+            //Start of connection
+            connect.Open();
+            MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "student_information");
+            connect.Close();
+            DataTable table = set.Tables["student_information"];
+
+            return table;
+        }
+
+        internal static DataSet GetCourseTable(string studentID = "")
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
             string cmdTxt = "select courseID, courseName, startDate, endDate, venue, period, capacity from course_information";
@@ -277,7 +295,7 @@ namespace GradutionProject.Models
             return set;
         }
 
-        public static DataSet GetCourseInfo(string courseID)
+        internal static DataSet GetCourseInfo(string courseID)
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
             string cmdTxt = "select * from course_information where courseID='" + courseID + "'";
@@ -308,7 +326,7 @@ namespace GradutionProject.Models
             return splits[1];
         }
 
-        public static DataTable GetBuildingList()
+        internal static DataTable GetBuildingList()
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
             string cmdTxt = "select * from build_information";
@@ -323,7 +341,7 @@ namespace GradutionProject.Models
             return set.Tables["BuildingList"];
         }
 
-        public static DataTable GetRoomList()
+        internal static DataTable GetRoomList()
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
             string cmdTxt = "select roomID,roomName,roomCapacity from room_information";
@@ -338,7 +356,7 @@ namespace GradutionProject.Models
             return set.Tables["RoomList"];
         }
 
-        public static DataTable GetSubjectList()
+        internal static DataTable GetSubjectList()
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
             string cmdTxt = "select * from subject_category where code like 'C%'";
@@ -353,7 +371,7 @@ namespace GradutionProject.Models
             return set.Tables["SubjectList"];
         }
 
-        public static string GetUser(string uid)
+        internal static string GetUser(string uid)
         {
             string cmdTxt;
             if (uid[1] == 'T')
@@ -377,7 +395,7 @@ namespace GradutionProject.Models
             return uname;
         }
 
-        public static void SelectCourse(string who, string which, char type = 'A')
+        internal static void SelectCourse(string who, string which, char type = 'A')
         {
             //who:   suid
             //which: cuid
@@ -409,7 +427,7 @@ namespace GradutionProject.Models
             connect.Close();
         }
 
-        public static DataSet GetCourseOfTeacher(string courseTeacherID)
+        internal static DataSet GetCourseOfTeacher(string courseTeacherID)
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
             //Get all the courses of a specific teacher
@@ -466,7 +484,7 @@ namespace GradutionProject.Models
             return set;
         }
 
-        public static DataSet GetCourseOfStudent(string uniqueClientID)
+        internal static DataSet GetCourseOfStudent(string uniqueClientID)
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
             //Get the courses selected by student

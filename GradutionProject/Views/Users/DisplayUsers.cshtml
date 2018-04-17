@@ -3,8 +3,8 @@
     ViewBag.Title = "Display Users";
 }
 @*<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="~/Content/htmleaf-demo.css" />
-<link rel="stylesheet" type="text/css" href="~/Content/samples-styles.css" />*@
+    <link rel="stylesheet" type="text/css" href="~/Content/htmleaf-demo.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/samples-styles.css" />*@
 <style type="text/css">
     td.alt {
         background-color: #ffc;
@@ -26,7 +26,7 @@
                     {
                         <td>@col</td>
                     }*@
-                <th>编号 </th>
+                <th>姓名 </th>
                 <th>电子邮箱</th>
                 <th>注册日期</th>
                 <th>用户类型</th>
@@ -37,12 +37,10 @@
             @foreach (System.Data.DataRow rows in Model.Rows)
             {
                 <tr>
-                    @foreach (var row in rows.ItemArray)
-                    {
-
-                        <td>@row</td>
-
-                    }
+                    <td><a style="color:blue" href="SpecificUser?id=@rows[0]">@rows[1]</a></td>
+                    <td><a onclick="sendEmail()">@rows[2]</a> </td>
+                    <td>@rows[3]</td>
+                    <td>@rows[4]</td>
                     <td><label><a href="#" style="color:lightblue">管理</a></label></td>
                 </tr>
 
@@ -52,37 +50,37 @@
 </div>
 
 @*<div class="htmleaf-content container">
-    <div class="input-group">
-        <div class="input-group-addon">过滤条件</div>
-        <input class="form-control" type="search" id="input-filter" size="15" placeholder="输入过滤条件" />
-    </div>
-    <br>
-    <table class="">
-        <thead>
-            <tr>
-                @foreach (var col in Model.Columns)
-                {
-                    <td>@col</td>
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (System.Data.DataRow rows in Model.Rows)
-            {
+        <div class="input-group">
+            <div class="input-group-addon">过滤条件</div>
+            <input class="form-control" type="search" id="input-filter" size="15" placeholder="输入过滤条件" />
+        </div>
+        <br>
+        <table class="">
+            <thead>
                 <tr>
-                    @foreach (var row in rows.ItemArray)
+                    @foreach (var col in Model.Columns)
                     {
-
-                        <td>@row</td>
-
+                        <td>@col</td>
                     }
-                    <td><label><a href="#">删除</a></label></td>
                 </tr>
+            </thead>
+            <tbody>
+                @foreach (System.Data.DataRow rows in Model.Rows)
+                {
+                    <tr>
+                        @foreach (var row in rows.ItemArray)
+                        {
 
-            }
-        </tbody>
-    </table>
-</div>*@
+                            <td>@row</td>
+
+                        }
+                        <td><label><a href="#">删除</a></label></td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>*@
 
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
 <script src="~/Scripts/jquery.filtertable.min.js"></script>
@@ -93,4 +91,8 @@
             inputSelector: '#input-filter' // use the existing input instead of creating a new one
         });
     });
+
+    function sendEmail() {
+        alert("Email Sent!")
+    }
 </script>

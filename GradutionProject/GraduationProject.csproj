@@ -243,6 +243,8 @@
     <Content Include="Views\Users\AddTeacher.cshtml" />
     <Content Include="Views\Courses\SpecificCourse.cshtml" />
     <Content Include="Views\Users\DisplayTeachers.cshtml" />
+    <Content Include="Views\Users\DisplayStudents.cshtml" />
+    <Content Include="Views\Users\SpecificUser.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
