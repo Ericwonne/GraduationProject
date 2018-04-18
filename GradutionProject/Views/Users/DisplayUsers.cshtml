@@ -11,44 +11,44 @@
         background-color: rgba(230, 127, 34, 0.2);
     }
 </style>
-
-<h2>用户注册表</h2>
-<br />
-<div class="container">
-    <div class="input-group">
-        <div class="input-group-addon">搜索</div>
-        <input class="form-control" type="search" id="input-filter" size="15" placeholder="搜索表格中的条目" />
-    </div>
-    <table class="table">
-        <thead>
-            <tr>
-                @*@foreach (var col in Model.Columns)
-                    {
-                        <td>@col</td>
-                    }*@
-                <th>姓名 </th>
-                <th>电子邮箱</th>
-                <th>注册日期</th>
-                <th>用户类型</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (System.Data.DataRow rows in Model.Rows)
-            {
+<body onload="loadPinyin();">
+    <h2>教务管理系统的所有用户</h2>
+    <br />
+    <div class="container">
+        <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-search fa-lg"></i>&nbsp;</div>
+            <input class="form-control" type="search" id="input-filter" size="15" placeholder="搜索表格中的条目" />
+        </div>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td><a style="color:blue" href="SpecificUser?id=@rows[0]">@rows[1]</a></td>
-                    <td><a onclick="sendEmail()">@rows[2]</a> </td>
-                    <td>@rows[3]</td>
-                    <td>@rows[4]</td>
-                    <td><label><a href="#" style="color:lightblue">管理</a></label></td>
+                    @*@foreach (var col in Model.Columns)
+                        {
+                            <td>@col</td>
+                        }*@
+                    <th>姓名 </th>
+                    <th>电子邮箱</th>
+                    <th>注册日期</th>
+                    <th>用户类型</th>
+                    <th>操作</th>
                 </tr>
-
-            }
-        </tbody>
-    </table>
-</div>
-
+            </thead>
+            <tbody>
+                @foreach (System.Data.DataRow rows in Model.Rows)
+                {
+                    <tr>
+                        <td><a name="hiddena" style="color:blue" href="SpecificUser?id=@rows[0]">@rows[1]</a></td>
+                        <td><a href="mailto:@rows[2]">@rows[2]</a></td>
+                        <td>@rows[3]</td>
+                        <td>@rows[4]</td>
+                        <td><label><a href="#" style="color:lightblue">管理</a></label></td>
+                        <td class="hidden"></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
 @*<div class="htmleaf-content container">
         <div class="input-group">
             <div class="input-group-addon">过滤条件</div>
@@ -83,6 +83,7 @@
     </div>*@
 
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.filtertable.min.js"></script>
 
 <script>
@@ -92,7 +93,14 @@
         });
     });
 
-    function sendEmail() {
-        alert("Email Sent!")
+    function loadPinyin() {
+        var aList = document.getElementsByName("hiddena");
+        var hiddenList = document.getElementsByClassName("hidden");
+
+        for (var index = 0; index < aList.length; index++) {
+            hiddenList[index].innerText = ConvertPinyin(aList[index].innerText);
+        }
     }
+
+
 </script>

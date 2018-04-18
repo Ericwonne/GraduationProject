@@ -55,15 +55,15 @@
                 </thead>
                 <tbody>
                     @foreach (System.Data.DataRow row in selectedCourseInfo.Rows)
-                {
-                    <tr>
-                        <td>@row[1] </td>
-                        <td>@row[4].ToString().Substring(0, 10)</td>
-                        <td>@row[5].ToString().Substring(0, 10)</td>
-                        <td>@row[6]</td>
-                        <td>@row[7]</td>
-                    </tr>
-            }
+                    {
+                        <tr>
+                            <td>@row[1] </td>
+                            <td>@row[4].ToString().Substring(0, 10)</td>
+                            <td>@row[5].ToString().Substring(0, 10)</td>
+                            <td>@row[6]</td>
+                            <td>@row[7]</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

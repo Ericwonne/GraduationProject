@@ -25,6 +25,7 @@ namespace GradutionProject
                       "~/Scripts/jquery.min.js",
                       "~/Scripts/jquery.datetimepicker.full.min.js",
                       "~/Scripts/jquery.filtertable.min.js",
+                      "~/Scripts/zMy_Copied_Js.js",
                       "~/Scripts/zMy_Created_Js.js"                     //Here the file is gonna include codes from other .js files
                       ));
 
@@ -32,6 +33,7 @@ namespace GradutionProject
                       "~/Content/bootstrap.css",
                       "~/Content/Site.css",
                       "~/Content/jquery.datetimepicker.css",
+                      "~/Content/font-awesome.min.css",
                       "~/Content/zMy_Created_Css.css"             //Here the file is gonna include codes from other .css files
                       ));
         }

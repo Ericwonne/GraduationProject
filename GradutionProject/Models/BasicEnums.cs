@@ -36,6 +36,19 @@ namespace GradutionProject.Models
     {
         CA, CB, CC, CD, CE, CF, CG, CH, CI, CJ, CK, CL, CM
         //Detail meaning see AddCourses.cshtml
+              //"CA">     哲学
+              //"CB">     经济学
+              //"CC">     法学
+              //"CD">     教育学
+              //"CE">     文学
+              //"CF">      历史学
+              //"CG">     理学
+              //"CH">     工学
+              //"CI">      农学
+              //"CJ">      医学
+              //"CK">     军事学
+              //"CL">      管理学
+              //"CM">     艺术学
     }
     public enum Build
     {

@@ -3,20 +3,31 @@
     ViewBag.Title = "DisplayCourses";
     System.Data.DataTable AllCourses = Model.Tables["courses"];
 }
+<style type="text/css">
+    td.alt {
+        background-color: #ffc;
+        background-color: rgba(230, 127, 34, 0.2);
+    }
+</style>
 <body onload="loadTooltip()">
-    <h2>课程展示</h2>
+    <h2>本学期所有课程</h2>
     <br />
+
     <div class="container">
-        <table class="table table-striped">
+        <div class="input-group">
+            <div class="input-group-addon">搜索</div>
+            <input class="form-control" type="search" id="input-filter" size="15" placeholder="搜索表格中的条目" />
+        </div>
+        <table class="table">
             <thead>
                 <tr>
-                    <th>课程名称</th>
-                    <th>开始日期</th>
-                    <th>结束日期</th>
-                    <th>上课地点</th>
-                    <th>上课时间</th>
-                    <th>课程容量</th>
-                    <th>当前人数</th>
+                    <th><i class="fa fa-hashtag"></i>&nbsp;课程名称</th>
+                    <th><i class="fa fa-hashtag"></i>&nbsp;开始日期</th>
+                    <th><i class="fa fa-hashtag"></i>&nbsp;结束日期</th>
+                    <th><i class="fa fa-hashtag"></i>&nbsp;上课地点</th>
+                    <th><i class="fa fa-hashtag"></i>&nbsp;上课时间</th>
+                    <th><i class="fa fa-hashtag"></i>&nbsp;课程容量</th>
+                    <th><i class="fa fa-male"></i>&nbsp;当前人数</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,6 +65,7 @@
                         <td>@row[5]</td>
                         <td>@row[6]</td>
                         <td>@row[8]</td>
+                        <td class="hidden"></td>
                     </tr>
                 }
             </tbody>
@@ -61,13 +73,48 @@
     </div>
 </body>
 
+<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.filtertable.min.js"></script>
 <script>
     function loadTooltip() {
         var a_list = document.getElementsByTagName("a");
         for (var index = 0; index < a_list.length; index++) {
-            var tdval = a_list[index].getAttribute("href");
-            tdval = tdval.toString().substr(18, 2);
+            var tdval = a_list[index].getAttribute("href").toString().substr(19, 1);
+            switch (tdval) {
+                case "A": tdval = "哲学门类"; break;
+                case "B": tdval = "经济学门类"; break;
+                case "C": tdval = "法学门类"; break;
+                case "D": tdval = "教育学门类"; break;
+                case "E": tdval = "文学门类"; break;
+                case "F": tdval = "历史学门类"; break;
+                case "G": tdval = "理学门类"; break;
+                case "H": tdval = "工学门类"; break;
+                case "I": tdval = "农学门类"; break;
+                case "J": tdval = "医学门类"; break;
+                case "K": tdval = "军事学门类"; break;
+                case "L": tdval = "管理学门类"; break;
+                case "M": tdval = "艺术学门类"; break;
+            }
             a_list[index].setAttribute("title", tdval);
         }
     }
+
+    $(document).ready(function () {
+        $('table').filterTable({ // apply filterTable to all tables on this page
+            inputSelector: '#input-filter' // use the existing input instead of creating a new one
+        });
+    });
+
 </script>
+
+
+
+
+
+
+
+
+
+
+
+

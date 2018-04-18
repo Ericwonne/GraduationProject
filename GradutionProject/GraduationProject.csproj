@@ -167,6 +167,8 @@
     <Content Include="App_Data\gpdb1.sql" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\bg_3d.png" />
     <Content Include="Content\images\header-img-comment_03.png" />
     <Content Include="Content\images\icon-all_01.png" />
@@ -180,9 +182,12 @@
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\zMy_Created_Css.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\usst.png" />
+    <Content Include="Images\usst_frontdoor.jpg" />
     <Content Include="Images\上海理工大学.PNG" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -201,6 +206,11 @@
     <Content Include="App_Data\Required Documents\中期检查表.doc" />
     <Content Include="App_Data\Required Documents\任务书-王启帆-by刘亚.doc" />
     <Content Include="App_Data\Required Documents\王启帆-立题卡.docx" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -213,6 +223,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\zMy_Copied_Js.js" />
     <Content Include="Scripts\zMy_Created_Js.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -245,6 +256,7 @@
     <Content Include="Views\Users\DisplayTeachers.cshtml" />
     <Content Include="Views\Users\DisplayStudents.cshtml" />
     <Content Include="Views\Users\SpecificUser.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
