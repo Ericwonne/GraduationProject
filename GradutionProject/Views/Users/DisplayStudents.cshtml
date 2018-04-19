@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "DisplayStudents";
 }
 
@@ -20,16 +19,16 @@
     <table class="table">
         <thead>
             <tr>
-                <th>姓名 </th>
-                <th>性别</th>
+                <th><i class="fa fa-hashtag"></i>&nbsp;姓名 </th>
+                <th><i class="fa fa-female"></i></th>
                 <th>年龄</th>
-                <th>邮箱</th>
-                <th>手机</th>
-                <th>QQ</th>
-                <th>毕业院校</th>
-                <th>专业</th>
-                <th>未获学位</th>
-                <th>年级</th>
+                <th><i class="fa fa-address-book-o"></i>&nbsp;邮箱</th>
+                <th><i class="fa fa-mobile-phone fa-lg"></i>&nbsp;手机</th>
+                <th><i class="fa fa-qq"></i>&nbsp;QQ</th>
+                <th><i class="fa fa-graduation-cap"></i>&nbsp;毕业院校</th>
+                <th><i class="fa fa-hashtag"></i>&nbsp;专业</th>
+                <th><i class="fa fa-hashtag"></i>&nbsp;未获学位</th>
+                <th><i class="fa fa-hashtag"></i>&nbsp;年级</th>
             </tr>
         </thead>
         <tbody>
@@ -52,14 +51,16 @@
     </table>
 </div>
 
-<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.filtertable.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.js" type="text/javascript"></script>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.filtertable.js"></script>*@
+
 <script>
     $(document).ready(function () {
         $('table').filterTable({ // apply filterTable to all tables on this page
             inputSelector: '#input-filter' // use the existing input instead of creating a new one
         });
     });
+
 </script>
 

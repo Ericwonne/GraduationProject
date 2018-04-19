@@ -183,7 +183,7 @@
                 minChars: 1,
 
                 // don't show the filter on tables with at least this number of rows
-                minRows: 8,
+                minRows: 1,
 
                 // HTML5 placeholder text for the filter field
                 placeholder: 'search this table',

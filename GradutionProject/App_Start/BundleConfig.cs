@@ -22,9 +22,9 @@ namespace GradutionProject
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
-                      "~/Scripts/jquery.min.js",
+                      //"~/Scripts/jquery-1.10.2.min.js",
                       "~/Scripts/jquery.datetimepicker.full.min.js",
-                      "~/Scripts/jquery.filtertable.min.js",
+                      "~/Scripts/jquery.filtertable.js",
                       "~/Scripts/zMy_Copied_Js.js",
                       "~/Scripts/zMy_Created_Js.js"                     //Here the file is gonna include codes from other .js files
                       ));

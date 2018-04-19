@@ -22,40 +22,41 @@ namespace GradutionProject.Controllers
 
         public object LoginTypeCheck(FormCollection fc)
         {
-            User student = new User
+            User user = new User
             {
+                //unknown which type
                 Username = fc["inputEmail"],
-                Password = fc["inputPassword"],
-                RegistryType = 'S'
+                Password = fc["inputPassword"]
             };
-            User teacher = new User
-            {
-                Username = fc["inputEmail"],
-                Password = fc["inputPassword"],
-                RegistryType = 'T'
-            };
-            bool TExistence = DBManip.CheckUserExistence(ref teacher);
-            bool SExistence = DBManip.CheckUserExistence(ref student);
-            if (TExistence == false && SExistence == false)
+
+
+            //if (fc["remember"].ToString() == "checked")
+            //{
+            //    HttpCookie cookie = new HttpCookie("User")
+            //    {
+            //        Expires = DateTime.Now.AddMonths(1)
+            //    };
+            //    cookie["uid"] = fc["inputEmail"];
+            //    Response.Cookies.Add(cookie);
+            //}
+
+            bool Existence = DBManip.CheckUserExistence(ref user, true);
+            if (Existence == false)
             {
                 return "User doesn't exist";                                // This means user not exist
             }
-            if (TExistence == true && SExistence == true)
+            else if (Existence == true && user.RegistryType == 'S')
             {
-                return "We are sorry to provide you with System Error 2100";
-            }
-            if (SExistence == true)
-            {
-                Session["S_student"] = student;
+                Session["S_student"] = user;
                 return Redirect("StudentMainPage");
             }
-            else if (TExistence == true)
+            else if (Existence == true && user.RegistryType == 'T')
             {
-                Session["S_teacher"] = teacher;
+                Session["S_teacher"] = user;
                 return Redirect("TeacherMainPage");
             }
             else
-                return null;
+                return "We are sorry to provide you with System Error 2100";
         }
 
         public ActionResult Register()

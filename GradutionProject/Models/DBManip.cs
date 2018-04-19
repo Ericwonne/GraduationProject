@@ -12,10 +12,14 @@ namespace GradutionProject.Models
         private static string connectionString = "Server=localhost;Database=gpdb;User id = root; password=;";
 
         //Check if user already exist in the DB table gpdb.login_examine
-        internal static bool CheckUserExistence(ref User user)
+        internal static bool CheckUserExistence(ref User user, bool ifCheckboth = false)
         {
+            string cmdTxt = "select uniqueClientID,registryType from login_examine where username='" + user.Username + "' and password='" + user.Password + "' and registryType='" + user.RegistryType.ToString() + "'";
+            if (ifCheckboth == true)
+            {
+                cmdTxt = "select uniqueClientID,registryType from login_examine where username='" + user.Username + "' and password='" + user.Password + "'";
+            }
             MySqlConnection connect = new MySqlConnection(connectionString);
-            string cmdTxt = "select uniqueClientID from login_examine where username='" + user.Username + "' and password='" + user.Password + "' and registryType='" + user.RegistryType.ToString() + "'";
             DataSet set = new DataSet();
 
             //Start of connection
@@ -32,6 +36,7 @@ namespace GradutionProject.Models
             }
             //User exists
             user.UniqueClientID = set.Tables["ID"].Rows[0][0].ToString();
+            user.RegistryType = Convert.ToChar(set.Tables["ID"].Rows[0][1].ToString());
             return true;
         }
 
