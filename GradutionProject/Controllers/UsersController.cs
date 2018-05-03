@@ -29,7 +29,6 @@ namespace GradutionProject.Controllers
                 Password = fc["inputPassword"]
             };
 
-
             //if (fc["remember"].ToString() == "checked")
             //{
             //    HttpCookie cookie = new HttpCookie("User")
@@ -182,6 +181,22 @@ namespace GradutionProject.Controllers
         public ActionResult SpecificUser(string id)
         {
             return View();
+        }
+        public object MainPage()
+        {
+            if (Session["S_teacher"].ToString() != "")
+            {
+                return RedirectToAction("TeacherMainPage");
+            }
+            else if (Session["S_student"].ToString() != "")
+            {
+                return RedirectToAction("StudentMainPage");
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+
         }
     }
 }

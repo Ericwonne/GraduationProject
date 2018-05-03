@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-static-top" style="background-color:dodgerblue">
+    <div class="navbar navbar-inverse navbar-static-top" style="background-color:black">
         <div class="container">
             <div class="navbar-header" style=";color:papayawhip">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -20,10 +20,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li style="color:papayawhip">@Html.ActionLink("主页", "Index", "Home")</li>
+                    <li style="color:papayawhip">@Html.ActionLink("主页", "MainPage", "Users")</li>
                     <li style="color:papayawhip">@Html.ActionLink("关于", "About", "Home")</li>
                     <li style="color:papayawhip">@Html.ActionLink("每日一句", "Contact", "Home")</li>
-                    <li style="float:right">@Html.ActionLink("退出登陆", "Logout", "Home")</li>
+                    <li style="float:right" onclick="logoutConfirm()">@Html.ActionLink("退出登陆", "Logout", "Home")</li>
                 </ul>
             </div>
         </div>
@@ -40,5 +40,13 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script>
+        function logoutConfirm() {
+            if (confirm("确定退出吗?") == true) {
+
+            }
+        }
+    </script>
 </body>
 </html>
