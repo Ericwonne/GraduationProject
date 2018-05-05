@@ -6,8 +6,27 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @*<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>*@
+    <script type="text/javascript" language="javascript">
+        //$(document).ready(function () {
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Home/IfLogged",
+        //        data: "",
+        //        success: function (response) {
+        //            if (response == "N") {
+        //                document.getElementById("logout").innerHTML = "请登录";
+        //                document.getElementById("logout").removeAttribute("onclick");
+        //                document.getElementById("logout").setAttribute("href", "../Users/Login");
+        //                //document.getElementById("logout").removeAttribute("href");
+        //                //document.getElementById("logout").setAttribute("style", "visibility:hidden");
+        //            }
+        //        }
+        //    });
+        //});
+    </script>
 </head>
-<body>
+<body onunload="iflogged()">
     <div class="navbar navbar-inverse navbar-static-top" style="background-color:black">
         <div class="container">
             <div class="navbar-header" style=";color:papayawhip">
@@ -23,7 +42,13 @@
                     <li style="color:papayawhip">@Html.ActionLink("主页", "MainPage", "Users")</li>
                     <li style="color:papayawhip">@Html.ActionLink("关于", "About", "Home")</li>
                     <li style="color:papayawhip">@Html.ActionLink("每日一句", "Contact", "Home")</li>
-                    <li style="float:right" onclick="logoutConfirm()">@Html.ActionLink("退出登陆", "Logout", "Home")</li>
+                    @{
+                        if (Session["S_teacher"] != null || Session["S_student"] != null)
+                        {
+                            <li style="float:right"><a id="logout" href="../Home/Logout" onclick="logoutConfirm()">退出登陆</a></li>
+                        }
+                    }
+
                 </ul>
             </div>
         </div>
@@ -40,8 +65,9 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-
     <script>
+        function iflogged() {
+        }
         function logoutConfirm() {
             if (confirm("确定退出吗?") == true) {
 

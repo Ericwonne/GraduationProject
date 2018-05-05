@@ -184,11 +184,11 @@ namespace GradutionProject.Controllers
         }
         public object MainPage()
         {
-            if (Session["S_teacher"].ToString() != "")
+            if (Session["S_teacher"] != null && Session["S_teacher"].ToString() != "")
             {
                 return RedirectToAction("TeacherMainPage");
             }
-            else if (Session["S_student"].ToString() != "")
+            else if (Session["S_student"] != null && Session["S_student"].ToString() != "")
             {
                 return RedirectToAction("StudentMainPage");
             }

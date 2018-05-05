@@ -1,11 +1,25 @@
-﻿@{
+﻿@model System.Boolean
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron" style="background-color:lightyellow;">
-    <h1><i class="fa fa-university"></i>学生选课管理信息系统</h1>
-    <p class="lead">学生选课管理信息系统是为了方便学生选课和老师排课设置的教务管理系统。.</p>
-    <p><a href="Users/Login" class="btn btn-primary btn-lg">点击登录 &raquo;</a></p>
+    @*<h2><img src="~/Images/jwc.jpg"></h2>*@
+    <h2><i class="fa fa-university"></i>&nbsp;&nbsp;学生选课管理信息系统</h2>
+    <br />
+    <div class="form-inline">
+        @*<h2><img src="http://jwc1.usst.edu.cn/logo/logo_school.png"></h2>
+            <h3><img src="http://jwc1.usst.edu.cn/logo/logo_jw.png"></h3>*@
+    </div>
+
+    <p class="lead" style="font-size:smaller">学生选课管理信息系统是为了方便学生选课和老师排课设置的教务管理系统。.</p>
+    <br />
+    @{ if (Model == false)
+        {
+            <p><a href="../Users/Login" class="btn btn-success">点击登录 &raquo;</a></p>
+        }
+    }
+
 </div>
 <br />
 <div class="row">
@@ -35,3 +49,6 @@
     </div>
 </div>
 
+<script>
+
+</script>

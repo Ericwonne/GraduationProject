@@ -170,6 +170,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\images\a1.png" />
+    <Content Include="Content\images\a4.png" />
     <Content Include="Content\images\bg_3d.png" />
     <Content Include="Content\images\header-img-comment_03.png" />
     <Content Include="Content\images\icon-all_01.png" />
@@ -187,6 +189,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\jwc.jpg" />
     <Content Include="Images\usst.png" />
     <Content Include="Images\usst_frontdoor.jpg" />
     <Content Include="Images\上海理工大学.PNG" />
@@ -228,6 +231,7 @@
     <Content Include="Scripts\zMy_Created_Js.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\zturn.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -258,6 +262,7 @@
     <Content Include="Views\Users\DisplayStudents.cshtml" />
     <Content Include="Views\Users\SpecificUser.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Home\Logout.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

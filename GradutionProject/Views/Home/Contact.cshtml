@@ -3,15 +3,129 @@
 }
 
 <body>
+    <style>
+        /*轮播*/
+        .lb_gl {
+            margin-bottom: 30px;
+            background: url(/Content/images/bg_3d.png);
+            background-size: 100% 100%;
+            height: 725px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%
+        }
+
+        .container {
+            width: 1024px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .pictureSlider {
+            height: 518px;
+            margin-bottom: 24px;
+        }
+
+        .poster-item {
+            background: #fff;
+            height: 453px;
+            width: 336px;
+            border-radius: 10px;
+            padding: 45px 23px 20px 23px;
+            transition: all 0.5s;
+            cursor: default;
+            -moz-transition: all 0.5s;
+            cursor: default;
+            -webkit-transition: all 0.5s;
+            cursor: default;
+            -o-transition: all 0.5s;
+            cursor: default;
+        }
+
+        .turn_3d {
+            text-align: center;
+            color: #fff;
+            font-weight: 400;
+            font-size: 36px;
+            padding: 28px 0;
+        }
+
+        .xxgy {
+            font-size: 30px;
+            font-weight: 900;
+            padding-left: 10px;
+        }
+
+        .poster-item .say {
+            font-size: 18px;
+            margin-bottom: 5px;
+            padding-left: 10px;
+        }
+
+        .students_star {
+            padding: 10px 10px 0 10px;
+        }
+
+        .cell_list {
+            margin-bottom: 20px;
+            color: #999;
+            font-size: 18px;
+            overflow: hidden;
+        }
+
+        .darks {
+            color: #000;
+            padding-left: 10px;
+        }
+
+        .zwjs {
+            border-top: 1px solid #d0cddb;
+            line-height: 26px;
+            padding-top: 5px;
+            color: #999;
+            font-size: 12px;
+            max-height: 84px;
+            overflow: hidden;
+        }
+
+        .for_btn {
+            position: relative;
+            height: 214px;
+            overflow: hidden
+        }
+
+        .in_page {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: -20px;
+            margin-top: -20px;
+        }
+
+            .in_page > img {
+                width: 40px;
+                height: 40px;
+            }
+
+        .check_more {
+            width: 180px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            color: #fff;
+            background: #bc241d;
+            margin: 0 auto;
+            display: block;
+        }
+    </style>
     <link rel="stylesheet" href="~/Content/zMy_Created_Css.css" />
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/zturn.js"></script>
 
-    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/zMy_Created_Js.js"></script>
-
-    <h2>每日一句</h2>
-    <br />
-    <h3>欣赏每日一句</h3>
-    <!--<script src="/demos/googlegg.js"></script>-->
     <!--轮播-->
     <div class="lb_gl">
         <div class="container">
@@ -23,8 +137,7 @@
                         <p class="xxgy">学员感言1</p>
                         <p class="say">明月几时有</p>
                         <div class="for_btn">
-                            <img src="~/Content/img/a1.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
+                            <img src="~/Content/images/a1.png" width="100%">
                         </div>
 
                         <div class="students_star">
@@ -44,8 +157,9 @@
                         <p class="xxgy">学员感言2</p>
                         <p class="say">明月几时有</p>
                         <div class="for_btn">
-                            <img src="~/Content/img/a2.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
+                            <img src="a2.png" width="100%"> <a href="#" class="in_page">
+                                <img src="images/iconin.png" />
+                            </a>
                         </div>
                         <div class="students_star">
                             <p class="cell_list">
@@ -64,8 +178,8 @@
                         <p class="xxgy">学员感言3</p>
                         <p class="say">明月几时有</p>
                         <div class="for_btn">
-                            <img src="~/Content/img/a3.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
+                            <img src="img/a3.png" width="100%"> <a href="#"
+                                                                   class="in_page"><img src="images/iconin.png" /></a>
                         </div>
                         <div class="students_star">
                             <p class="cell_list">
@@ -84,8 +198,8 @@
                         <p class="xxgy">学员感言4</p>
                         <p class="say">明月几时有</p>
                         <div class="for_btn">
-                            <img src="~/Content/img/a4.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
+                            <img src="img/a4.png" width="100%"> <a href="#"
+                                                                   class="in_page"><img src="images/iconin.png" /></a>
                         </div>
                         <div class="students_star">
                             <p class="cell_list">
@@ -104,8 +218,8 @@
                         <p class="xxgy">学员感言</p>
                         <p class="say">明月几时有</p>
                         <div class="for_btn">
-                            <img src="~/Content/img/a5.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
+                            <img src="img/a5.png" width="100%"> <a href="#"
+                                                                   class="in_page"><img src="images/iconin.png" /></a>
                         </div>
                         <div class="students_star">
                             <p class="cell_list">
@@ -123,8 +237,8 @@
                         <p class="xxgy">学员感言</p>
                         <p class="say">明月几时有</p>
                         <div class="for_btn">
-                            <img src="~/Content/img/a1.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
+                            <img src="img/a1.png" width="100%"> <a href="#"
+                                                                   class="in_page"><img src="images/iconin.png" /></a>
                         </div>
                         <div class="students_star">
                             <p class="cell_list">
@@ -143,8 +257,8 @@
                         <p class="xxgy">学员感言</p>
                         <p class="say">明月几时有</p>
                         <div class="for_btn">
-                            <img src="~/Content/img/a2.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
+                            <img src="img/a2.png" width="100%"> <a href="#"
+                                                                   class="in_page"><img src="images/iconin.png" /></a>
                         </div>
                         <div class="students_star">
                             <p class="cell_list">
@@ -163,8 +277,8 @@
                         <p class="xxgy">学员感言</p>
                         <p class="say">明月几时有</p>
                         <div class="for_btn">
-                            <img src="~/Content/img/a3.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
+                            <img src="img/a3.png" width="100%"> <a href="#"
+                                                                   class="in_page"><img src="images/iconin.png" /></a>
                         </div>
                         <div class="students_star">
                             <p class="cell_list">
@@ -183,8 +297,8 @@
                         <p class="xxgy">学员感言</p>
                         <p class="say">明月几时有</p>
                         <div class="for_btn">
-                            <img src="~/Content/img/a4.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
+                            <img src="img/a4.png" width="100%"> <a href="#"
+                                                                   class="in_page"><img src="images/iconin.png" /></a>
                         </div>
                         <div class="students_star">
                             <p class="cell_list">
@@ -203,8 +317,8 @@
                         <p class="xxgy">学员感言</p>
                         <p class="say">明月几时有</p>
                         <div class="for_btn">
-                            <img src="~/Content/img/xueyuan.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
+                            <img src="img/xueyuan.png" width="100%"> <a href="#"
+                                                                        class="in_page"><img src="images/iconin.png" /></a>
                         </div>
                         <div class="students_star">
                             <p class="cell_list">
@@ -223,8 +337,8 @@
                         <p class="xxgy">学员感言</p>
                         <p class="say">明月几时有</p>
                         <div class="for_btn">
-                            <img src="~/Content/img/a5.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
+                            <img src="img/a5.png" width="100%"> <a href="#"
+                                                                   class="in_page"><img src="images/iconin.png" /></a>
                         </div>
                         <div class="students_star">
                             <p class="cell_list">
@@ -246,257 +360,6 @@
 
     </div>
     <!--轮播-->
-    <div class="lb_gl">
-        <div class="container">
-            <h1 class="turn_3d">听听这些老前辈的分享，你会获得信心</h1>
-            <div class="pictureSlider poster-main">
-                <div class="poster-btn poster-prev-btn"></div>
-                <ul id="zturn2" class="poster-list">
-                    <li class="poster-item  zturn-item">
-                        <p class="xxgy">学员感言1</p>
-                        <p class="say">明月几时有</p>
-                        <div class="for_btn">
-                            <img src="~/Content/img/xueyuan.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
-                        </div>
-
-                        <div class="students_star">
-                            <p class="cell_list">
-                                <span class="lf">姓名：<span class="darks">小明</span></span> <span class="rt">薪资 ：<span class="darks">15k</span></span>
-                            </p>
-                            <p class="cell_list">
-                                <span>入职：<span class="darks">把酒问青天</span></span>
-                            </p>
-                            <div class="zwjs">
-                                自我介绍是向别人展示你自我介绍好不好,甚至直接关系到你给别人的第一印象的好坏及以后自我介绍是向别人展示你自我介绍好不好
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="poster-item zturn-item">
-                        <p class="xxgy">学员感言2</p>
-                        <p class="say">明月几时有</p>
-                        <div class="for_btn">
-                            <img src="~/Content/img/xueyuan.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
-                        </div>
-                        <div class="students_star">
-                            <p class="cell_list">
-                                <span class="lf">姓名：<span class="darks">小明</span></span> <span class="rt">薪资 ：<span class="darks">15k</span></span>
-                            </p>
-                            <p class="cell_list">
-                                <span>入职：<span class="darks">把酒问青天</span></span>
-                            </p>
-                            <div class="zwjs">
-                                自我介绍是向别人展示你自我介绍好不好,甚至直接关系到你给别人的第一印象的好坏及以后自我介绍是向别人展示你自我介绍好不好
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="poster-item zturn-item">
-                        <p class="xxgy">学员感言3</p>
-                        <p class="say">明月几时有</p>
-                        <div class="for_btn">
-                            <img src="~/Content/img/xueyuan.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
-                        </div>
-                        <div class="students_star">
-                            <p class="cell_list">
-                                <span class="lf">姓名：<span class="darks">小明</span></span> <span class="rt">薪资 ：<span class="darks">15k</span></span>
-                            </p>
-                            <p class="cell_list">
-                                <span>入职：<span class="darks">把酒问青天</span></span>
-                            </p>
-                            <div class="zwjs">
-                                自我介绍是向别人展示你自我介绍好不好,甚至直接关系到你给别人的第一印象的好坏及以后自我介绍是向别人展示你自我介绍好不好
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="poster-item zturn-item">
-                        <p class="xxgy">学员感言4</p>
-                        <p class="say">明月几时有</p>
-                        <div class="for_btn">
-                            <img src="~/Content/img/xueyuan.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
-                        </div>
-                        <div class="students_star">
-                            <p class="cell_list">
-                                <span class="lf">姓名：<span class="darks">小明</span></span> <span class="rt">薪资 ：<span class="darks">15k</span></span>
-                            </p>
-                            <p class="cell_list">
-                                <span>入职：<span class="darks">把酒问青天</span></span>
-                            </p>
-                            <div class="zwjs">
-                                自我介绍是向别人展示你自我介绍好不好,甚至直接关系到你给别人的第一印象的好坏及以后自我介绍是向别人展示你自我介绍好不好
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="poster-item zturn-item">
-                        <p class="xxgy">学员感言</p>
-                        <p class="say">明月几时有</p>
-                        <div class="for_btn">
-                            <img src="~/Content/img/xueyuan.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
-                        </div>
-                        <div class="students_star">
-                            <p class="cell_list">
-                                <span class="lf">姓名：<span class="darks">小明</span></span> <span class="rt">薪资 ：<span class="darks">15k</span></span>
-                            </p>
-                            <p class="cell_list">
-                                <span>入职：<span class="darks">把酒问青天</span></span>
-                            </p>
-                            <div class="zwjs">
-                                自我介绍是向别人展示你自我介绍好不好,甚至直接关系到你给别人的第一印象的好坏及以后自我介绍是向别人展示你自我介绍好不好
-                            </div>
-                        </div>
-                    </li>
-                    <li class="poster-item  zturn-item">
-                        <p class="xxgy">学员感言</p>
-                        <p class="say">明月几时有</p>
-                        <div class="for_btn">
-                            <img src="~/Content/img/xueyuan.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
-                        </div>
-                        <div class="students_star">
-                            <p class="cell_list">
-                                <span class="lf">姓名：<span class="darks">小明</span></span> <span class="rt">薪资 ：<span class="darks">15k</span></span>
-                            </p>
-                            <p class="cell_list">
-                                <span>入职：<span class="darks">把酒问青天</span></span>
-                            </p>
-                            <div class="zwjs">
-                                自我介绍是向别人展示你自我介绍好不好,甚至直接关系到你给别人的第一印象的好坏及以后自我介绍是向别人展示你自我介绍好不好
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="poster-item zturn-item">
-                        <p class="xxgy">学员感言</p>
-                        <p class="say">明月几时有</p>
-                        <div class="for_btn">
-                            <img src="~/Content/img/xueyuan.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
-                        </div>
-                        <div class="students_star">
-                            <p class="cell_list">
-                                <span class="lf">姓名：<span class="darks">小明</span></span> <span class="rt">薪资 ：<span class="darks">15k</span></span>
-                            </p>
-                            <p class="cell_list">
-                                <span>入职：<span class="darks">把酒问青天</span></span>
-                            </p>
-                            <div class="zwjs">
-                                自我介绍是向别人展示你自我介绍好不好,甚至直接关系到你给别人的第一印象的好坏及以后自我介绍是向别人展示你自我介绍好不好
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="poster-item zturn-item">
-                        <p class="xxgy">学员感言</p>
-                        <p class="say">明月几时有</p>
-                        <div class="for_btn">
-                            <img src="~/Content/img/xueyuan.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
-                        </div>
-                        <div class="students_star">
-                            <p class="cell_list">
-                                <span class="lf">姓名：<span class="darks">小明</span></span> <span class="rt">薪资 ：<span class="darks">15k</span></span>
-                            </p>
-                            <p class="cell_list">
-                                <span>入职：<span class="darks">把酒问青天</span></span>
-                            </p>
-                            <div class="zwjs">
-                                自我介绍是向别人展示你自我介绍好不好,甚至直接关系到你给别人的第一印象的好坏及以后自我介绍是向别人展示你自我介绍好不好
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="poster-item zturn-item">
-                        <p class="xxgy">学员感言</p>
-                        <p class="say">明月几时有</p>
-                        <div class="for_btn">
-                            <img src="~/Content/img/xueyuan.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
-                        </div>
-                        <div class="students_star">
-                            <p class="cell_list">
-                                <span class="lf">姓名：<span class="darks">小明</span></span> <span class="rt">薪资 ：<span class="darks">15k</span></span>
-                            </p>
-                            <p class="cell_list">
-                                <span>入职：<span class="darks">把酒问青天</span></span>
-                            </p>
-                            <div class="zwjs">
-                                自我介绍是向别人展示你自我介绍好不好,甚至直接关系到你给别人的第一印象的好坏及以后自我介绍是向别人展示你自我介绍好不好
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="poster-item zturn-item">
-                        <p class="xxgy">学员感言</p>
-                        <p class="say">明月几时有</p>
-                        <div class="for_btn">
-                            <img src="~/Content/img/xueyuan.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
-                        </div>
-                        <div class="students_star">
-                            <p class="cell_list">
-                                <span class="lf">姓名：<span class="darks">小明</span></span> <span class="rt">薪资 ：<span class="darks">15k</span></span>
-                            </p>
-                            <p class="cell_list">
-                                <span>入职：<span class="darks">把酒问青天</span></span>
-                            </p>
-                            <div class="zwjs">
-                                自我介绍是向别人展示你自我介绍好不好,甚至直接关系到你给别人的第一印象的好坏及以后自我介绍是向别人展示你自我介绍好不好
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="poster-item zturn-item">
-                        <p class="xxgy">学员感言</p>
-                        <p class="say">明月几时有</p>
-                        <div class="for_btn">
-                            <img src="~/Content/img/xueyuan.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
-                        </div>
-                        <div class="students_star">
-                            <p class="cell_list">
-                                <span class="lf">姓名：<span class="darks">小明</span></span> <span class="rt">薪资 ：<span class="darks">15k</span></span>
-                            </p>
-                            <p class="cell_list">
-                                <span>入职：<span class="darks">把酒问青天</span></span>
-                            </p>
-                            <div class="zwjs">
-                                自我介绍是向别人展示你自我介绍好不好,甚至直接关系到你给别人的第一印象的好坏及以后自我介绍是向别人展示你自我介绍好不好
-                            </div>
-                        </div>
-                    </li>
-                    <li class="poster-item zturn-item">
-                        <p class="xxgy">学员感言</p>
-                        <p class="say">明月几时有</p>
-                        <div class="for_btn">
-                            <img src="~/Content/img/xueyuan.png" width="100%">
-                            <a href="#" class="in_page"><img src="~/Content/images/iconin.png" /></a>
-                        </div>
-                        <div class="students_star">
-                            <p class="cell_list">
-                                <span class="lf">姓名：<span class="darks">小明</span></span> <span class="rt">薪资 ：<span class="darks">15k</span></span>
-                            </p>
-                            <p class="cell_list">
-                                <span>入职：<span class="darks">把酒问青天</span></span>
-                            </p>
-                            <div class="zwjs">
-                                自我介绍是向别人展示你自我介绍好不好,甚至直接关系到你给别人的第一印象的好坏及以后自我介绍是向别人展示你自我介绍好不好
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
-
-
 
     <script type="text/javascript">
         var aa = new zturn({
@@ -504,16 +367,20 @@
             opacity: 0.9,
             width: 382,
             Awidth: 1024,
-            scale: 0.9
+            scale: 0.9,
+            auto: true,//是否轮播 默认5000
+            turning: 1000
+            //轮播时长
         })
         var ab = new zturn({
             id: "zturn2",
             opacity: 0.8,
             width: 382,
             Awidth: 1024,
-            scale: 0.6
+            scale: 0.6,
+            auto: true
         })
     </script>
 
-
 </body>
+

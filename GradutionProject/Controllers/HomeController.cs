@@ -10,9 +10,22 @@ namespace GradutionProject.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            bool iflogged = false;
+            if (Session["S_teacher"] != null || Session["S_student"] != null)
+            {
+                iflogged = true;
+            }
+            return View(iflogged);
         }
 
+        public object IfLogged()
+        {
+            if (Session["S_teacher"] != null || Session["S_student"] != null)
+            {
+                return null;
+            }
+            return Content("N");
+        }
         public object Logout()
         {
             //HttpCookie CookieMessage;
@@ -26,7 +39,8 @@ namespace GradutionProject.Controllers
             //    };
             //    Response.Cookies.Add(CookieMessage);
             //}
-            return "You have logged out of system!";
+            Session.Clear();
+            return View();
         }
 
         public ActionResult About()
