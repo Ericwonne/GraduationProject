@@ -17,7 +17,17 @@ namespace GradutionProject.Controllers
         }
         public ActionResult Login()
         {
-            return View();
+            //【未解决】该页面存在一个问题：使用浏览器的回退（Back）则会清除Session。
+            if (Session["S_teacher"] != null && Session["S_teacher"].ToString() != "")
+            {
+                return RedirectToAction("TeacherMainPage");
+            }
+            else if (Session["S_student"] != null && Session["S_student"].ToString() != "")
+            {
+                return RedirectToAction("StudentMainPage");
+            }
+            else
+                return View();
         }
 
         public object LoginTypeCheck(FormCollection fc)
@@ -196,7 +206,20 @@ namespace GradutionProject.Controllers
             {
                 return RedirectToAction("Login");
             }
+        }
+        public object CheckExist(FormCollection fc)
+        {
+            //User user = new User
+            //{
+            //    //unknown which type
+            //    Username = fc["inputEmail"].ToString(),
+            //    Password = fc["inputPassword"].ToString()
+            //};
 
+
+            //bool Existence = DBManip.CheckUserExistence(ref user, true);
+
+            return Content(fc["a"]);
         }
     }
 }

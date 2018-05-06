@@ -2,7 +2,7 @@
     ViewBag.Title = "每日一句-学生选课管理信息系统";
 }
 
-<body>
+<body onload="DisableOne()">
     <style>
         /*轮播*/
         .lb_gl {
@@ -380,7 +380,12 @@
             scale: 0.6,
             auto: true
         })
+
+        function DisableOne() {
+            //document.getElementById("a_footer").setAttribute("hidden", "hidden");
+        }
     </script>
+
 
 </body>
 

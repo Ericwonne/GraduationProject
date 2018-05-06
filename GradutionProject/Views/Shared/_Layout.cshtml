@@ -45,7 +45,7 @@
                     @{
                         if (Session["S_teacher"] != null || Session["S_student"] != null)
                         {
-                            <li style="float:right"><a id="logout" href="../Home/Logout" onclick="logoutConfirm()">退出登陆</a></li>
+                            <li style="float:right"><a id="logout" href="../Home/Logout" onclick="logoutConfirm()">注销</a></li>
                         }
                     }
 
@@ -57,7 +57,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - 学生选课管理信息系统</p>
+            <p id="a_footer">&copy; @DateTime.Now.Year - 学生选课管理信息系统</p>
         </footer>
         <br />
     </div>

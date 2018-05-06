@@ -412,7 +412,7 @@ namespace GradutionProject.Models
         {
             //who:   suid
             //which: cuid
-            //type:  A/B/AB
+            //type:  A/B/C
             who = who.Substring(0, 10);
             which = which.Substring(0, 10);
 
