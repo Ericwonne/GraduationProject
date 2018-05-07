@@ -48,7 +48,6 @@
                             <li style="float:right"><a id="logout" href="../Home/Logout" onclick="logoutConfirm()">注销</a></li>
                         }
                     }
-
                 </ul>
             </div>
         </div>
@@ -61,7 +60,6 @@
         </footer>
         <br />
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
@@ -69,9 +67,6 @@
         function iflogged() {
         }
         function logoutConfirm() {
-            if (confirm("确定退出吗?") == true) {
-
-            }
         }
     </script>
 </body>

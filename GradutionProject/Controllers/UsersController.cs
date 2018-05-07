@@ -207,19 +207,23 @@ namespace GradutionProject.Controllers
                 return RedirectToAction("Login");
             }
         }
-        public object CheckExist(FormCollection fc)
+        public object CheckExist(string email, string passwd)
         {
-            //User user = new User
-            //{
-            //    //unknown which type
-            //    Username = fc["inputEmail"].ToString(),
-            //    Password = fc["inputPassword"].ToString()
-            //};
+            User user = new User
+            {
+                //unknown which type
+                Username = email,
+                Password = passwd
+            };
 
 
-            //bool Existence = DBManip.CheckUserExistence(ref user, true);
-
-            return Content(fc["a"]);
+            bool Existence = DBManip.CheckUserExistence(ref user, true);
+            if (Existence == false)
+            {
+                return Content("N");
+            }
+            else
+                return Content("Y");
         }
     }
 }
