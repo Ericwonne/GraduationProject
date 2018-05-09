@@ -1,0 +1,32 @@
+﻿<link href="https://cdn.bootcss.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+<div class="container">
+    <form class="form-horizontal">
+        <div class="form-group has-feedback">
+            <input id="txt1" type="text" class="form-control hasclear" placeholder="Textbox 1">
+            <span class="clearer glyphicon glyphicon-remove-circle form-control-feedback" onclick="clearText()"></span>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+<script>
+    //$(".hasclear").keyup(function () {
+    //    var t = $(this);
+    //    t.next('span').toggle(Boolean(t.val()));
+    //});
+
+    //$(".clearer").hide($(this).prev('input').val());
+
+    //$(".clearer").click(function () {
+    //    $(this).prev('input').val('').focus();
+    //    $(this).hide();
+    //});
+
+    function clearText() {
+        document.getElementById("txt1").value = "";
+    }
+</script>
+
