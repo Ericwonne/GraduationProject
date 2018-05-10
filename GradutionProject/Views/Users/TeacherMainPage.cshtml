@@ -64,268 +64,352 @@
 }
 
 
-
-<div class="form-inline">
-    <h2>欢迎你！@ViewData["V_uname"].ToString()老师</h2>
-    <div>
-        <p style="padding-top:1%;color:midnightblue">当前教学周：第<span>X</span>周（本学期起止时间：<apan>XXXX-XX</apan>到<apan>XXXX-XX</apan>））</p>
-    </div>
-</div>
-<br />
-<ul id="myTab" class="nav nav-tabs">
-    <li class="active">
-        <a href="#home" data-toggle="tab">
-            首页
-        </a>
-    </li>
-    <li><a href="#ios" data-toggle="tab">个人中心</a></li>
-    <li class="dropdown">
-        <a href="#" id="myTabDrop1" class="dropdown-toggle"
-           data-toggle="dropdown">
-            我的消息
-            <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
-            <li><a href="#jmeter" tabindex="-1" data-toggle="tab">课程相关</a></li>
-            <li><a href="#ejb" tabindex="-1" data-toggle="tab">学生相关</a></li>
-        </ul>
-    </li>
-</ul>
-
-<div id="myTabContent" class="tab-content">
-
-    <div class="tab-pane fade in active" id="home" style="padding-top:20px">
-        <div style="color:black;font-size:20px;font-weight:200;">
-            我本周的课表：
-            <span style="font-size:smaller">一共有<span>八</span>门课</span>&nbsp;&nbsp; （ @Html.ActionLink("发布新课程", "AddCourses", "Courses") ）@*, new { @class = "color:blue" }*@
+<body onload="loadTip()">
+    <div class="form-inline">
+        <h2>欢迎你！@ViewData["V_uname"].ToString()老师</h2>
+        <div>
+            <p id="showDate" style="padding-top:1%;color:midnightblue"></p>
         </div>
-        <br>
-        <ul id="myTab1" class="nav nav-tabs">
-            <li class="active"><a href="#home1" data-toggle="tab">星期日-@wholeweek[0].Date.ToString("yyyy-MM-dd")</a></li>
-            <li><a href="#home2" data-toggle="tab">星期一-@wholeweek[1].Date.ToString("yyyy-MM-dd")</a></li>
-            <li><a href="#home3" data-toggle="tab">星期二-@wholeweek[2].Date.ToString("yyyy-MM-dd")</a></li>
-            <li><a href="#home4" data-toggle="tab">星期三-@wholeweek[3].Date.ToString("yyyy-MM-dd")</a></li>
-            <li><a href="#home5" data-toggle="tab">星期四-@wholeweek[4].Date.ToString("yyyy-MM-dd")</a></li>
-            <li><a href="#home6" data-toggle="tab">星期五-@wholeweek[5].Date.ToString("yyyy-MM-dd")</a></li>
-            <li><a href="#home7" data-toggle="tab">星期六-@wholeweek[6].Date.ToString("yyyy-MM-dd")</a></li>
-        </ul>
+    </div>
+    <br />
+    <ul id="myTab" class="nav nav-tabs">
+        <li id="home_tab" class="active">
+            <a href="#home" role="tab" data-toggle="tab" onclick="checkPane(this.getAttribute('href'))">
+                首页
+            </a>
+        </li>
+        <li id="ios_tab"><a href="#ios" role="tab" data-toggle="tab" onclick="checkPane(this.getAttribute('href'))">个人中心</a></li>
+        <li class="dropdown">
+            <a href="#" id="myTabDrop1" class="dropdown-toggle"
+               data-toggle="dropdown">
+                我的消息
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+                <li id="jmeter_tab"><a href="#jmeter" tabindex="-1" role="tab" data-toggle="tab" onclick="checkPane(this.getAttribute('href'))">课程相关</a></li>
+                <li id="ejb_tab"><a href="#ejb" tabindex="-1" role="tab" data-toggle="tab" onclick="checkPane(this.getAttribute('href'))">学生相关</a></li>
+            </ul>
+        </li>
+    </ul>
 
-        <div id="myTab1Content" class="tab-content active">
-            <div class="tab-pane" id="home1">
-                @{
-                    if (home1.Length == 0)
-                    {
-                        <p>周日您没有课程</p>
-                    }
-                    else
-                    {
-                        <p>周日您有课程</p>
-                    }
-                }
+    <div id="myTabContent" class="tab-content">
+
+        <div id="home" class="tab-pane fade in active" style="padding-top:20px">
+
+            <div style="margin-bottom:5%">
+                <div class="page-header" style="margin-top:5px">
+                    <h3>
+                        <small><i class="glyphicon glyphicon-tags"></i></small>
+                        本周课表
+                        <small><span style="font-size:smaller">一共有<span>8</span>节课</span></small>
+                    </h3>
+                </div>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">课时/日期</th>
+                            <th id="星期日" scope="col">星期日（@wholeweek[0].Date.ToString("MM-dd")）</th>
+                            <th id="星期一" scope="col">星期一（@wholeweek[1].Date.ToString("MM-dd")）</th>
+                            <th id="tue" scope="col">星期二（@wholeweek[2].Date.ToString("MM-dd")）</th>
+                            <th id="wed" scope="col">星期三（@wholeweek[3].Date.ToString("MM-dd")）</th>
+                            <th id="星期四" scope="col">星期四（@wholeweek[4].Date.ToString("MM-dd")）</th>
+                            <th id="fri" scope="col">星期五（@wholeweek[5].Date.ToString("MM-dd")）</th>
+                            <th id="sat" scope="col">星期六（@wholeweek[6].Date.ToString("MM-dd")）</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1,2</th>
+                            <td name="GA"></td>
+                            <td name="AA"></td>
+                            <td name="BA"></td>
+                            <td name="CA"></td>
+                            <td name="DA"></td>
+                            <td name="EA"></td>
+                            <td name="FA"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3,4</th>
+                            <td name="GB"></td>
+                            <td name="AB"></td>
+                            <td name="BB"></td>
+                            <td name="CB"></td>
+                            <td name="DB"></td>
+                            <td name="EB"></td>
+                            <td name="FB"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3,4,5</th>
+                            <td name="GC"></td>
+                            <td name="AC"></td>
+                            <td name="BC"></td>
+                            <td name="CC"></td>
+                            <td name="DC"></td>
+                            <td name="EC"></td>
+                            <td name="FC"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">6,7</th>
+                            <td name="GD"></td>
+                            <td name="AD"></td>
+                            <td name="BD"></td>
+                            <td name="CD"></td>
+                            <td name="DD"></td>
+                            <td name="ED"></td>
+                            <td name="FD"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">8,9</th>
+                            <td name="GE"></td>
+                            <td name="AE"></td>
+                            <td name="BE"></td>
+                            <td name="CE"></td>
+                            <td name="DE"></td>
+                            <td name="EE"></td>
+                            <td name="FE"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">10,11,12</th>
+                            <td name="GF"></td>
+                            <td name="AF"></td>
+                            <td name="BF"></td>
+                            <td name="CF"></td>
+                            <td name="DF"></td>
+                            <td name="EF"></td>
+                            <td name="FF"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="tab-pane" id="home2">
-                @{
-                    if (home1.Length == 0)
-                    {
-                        <p>周一您没有课程</p>
-                    }
-                    else
-                    {
 
-                    }
-                }
+            <div style="margin-bottom:5%">
+                <div class="page-header" style="margin-top:5px">
+                    <h3>
+                        <small><i class="glyphicon glyphicon-tags"></i></small>
+                        本学期开设课程
+                        <small><span style="font-size:smaller">一共有<span>@CoursesOfTeacher.Rows.Count</span>门课</span></small>
+                    </h3>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>课程名称</th>
+                            <th>开始日期</th>
+                            <th>结束日期</th>
+                            <th>上课地点</th>
+                            <th>上课时间</th>
+                            <th>选课人数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (System.Data.DataRow row in CoursesOfTeacher.Rows)
+                        {
+                            <tr>
+                                <td><a href="../Courses/MyCourse?id=@row[0]"> @row[1] </a> </td>
+                                <td>@row[4]</td>
+                                <td>@row[5]</td>
+                                <td>@row[6]</td>
+                                <td>@row[7]</td>
+                                <td>@Count_All[CoursesOfTeacher.Rows.IndexOf(row)]</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
-            <div class="tab-pane" id="home3">
-                @{
-                    if (home1.Length == 0)
-                    {
-                        <p>周二您没有课程</p>
-                    }
-                    else
-                    {
 
-                    }
-                }
-            </div>
-            <div class="tab-pane" id="home4">
-                @{
-                    if (home1.Length == 0)
-                    {
-                        <p>周三您没有课程</p>
-                    }
-                    else
-                    {
+            <div style="margin-bottom:5%">
+                <div class="page-header" style="margin-top:5px">
+                    <h3>
+                        <small><i class="glyphicon glyphicon-tags"></i></small>
+                        本学期学生
+                        <small><span style="font-size:smaller">一共有<span>@counts.ToString()</span>人</span></small>
+                    </h3>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>学生姓名</th>
+                            <th>性别</th>
+                            <th>来自课程</th>
+                            <th>成绩</th>
+                            <th>是否已结束</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (System.Data.DataRow row in AllMyStudent.Rows)
+                        {
+                            var x = row[2].ToString() == "M" ? "男" : "女";
+                            <tr>
+                                <td><a href="SpecificUser?id=@row[0]"> @row[1] </a> </td>
+                                <td>@x</td>
+                                <td>Placeholder</td>
+                                <td>Placeholder</td>
+                                <td>Placeholder</td>
+                            </tr>
 
-                    }
-                }
-            </div>
-            <div class="tab-pane" id="home5">
-                @{
-                    if (home1.Length == 0)
-                    {
-                        <p>周四您没有课程</p>
-                    }
-                    else
-                    {
-
-                    }
-                }
-            </div>
-            <div class="tab-pane" id="home6">
-                @{
-                    if (home1.Length == 0)
-                    {
-                        <p>周五您没有课程</p>
-                    }
-                    else
-                    {
-
-                    }
-                }
-            </div>
-            <div class="tab-pane" id="home7">
-                @{
-                    if (home1.Length == 0)
-                    {
-                        <p>周六您没有课程</p>
-                    }
-                    else
-                    {
-
-                    }
-                }
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
-        <hr />
-        <div style="color:black;font-size:20px;font-weight:200;margin-top:2%">
-            我开设的所有课程：
-            <span style="font-size:smaller">一共有<span>@CoursesOfTeacher.Rows.Count</span>门课</span>
+
+        <div id="ios" class="tab-pane fade" style="padding-top:20px">
+
+            <div style="margin-bottom:5%">
+                <div class="page-header" style="margin-top:5px">
+                    <h3>
+                        <small><i class="glyphicon glyphicon-tags"></i></small>
+                        课程计划
+                        <small><span style="font-size:smaller"></span></small>
+                    </h3>
+                </div>
+
+                <a id="newCourse" href="../Courses/AddCourses" class="btn btn-primary">发布新课程</a>
+            </div>
+
+            <div style="margin-bottom:5%">
+                <div class="page-header" style="margin-top:5px">
+                    <h3>
+                        <small><i class="glyphicon glyphicon-tags"></i></small>
+                        我开设的课程
+                        <small><span style="font-size:smaller">一共有<span>8</span>门课</span></small>
+                    </h3>
+                </div>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>课程名称</th>
+                            <th>是否结束</th>
+                            <th>开课周期</th>
+                            <th>上课信息</th>
+                            <th>其他</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (System.Data.DataRow row in CoursesOfTeacher.Rows)
+                        {
+                            <tr>
+                                <td><a href="../Courses/MyCourse?id=@row[0]"> @row[1] </a> </td>
+                                <td>@row[4]</td>
+                                <td>@row[5]</td>
+                                <td>@row[6]</td>
+                                <td>@row[7]</td>
+                                <td>@Count_All[CoursesOfTeacher.Rows.IndexOf(row)]</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-bottom:5%">
+                <div class="page-header" style="margin-top:5px">
+                    <h3>
+                        <small><i class="glyphicon glyphicon-tags"></i></small>
+                        我教过的学生
+                        <small><span style="font-size:smaller">一共有<span>8</span>人</span></small>
+                    </h3>
+                </div><table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>学生姓名</th>
+                            <th>性别</th>
+                            <th>来自课程</th>
+                            <th>成绩</th>
+                            <th>是否已结束</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (System.Data.DataRow row in AllMyStudent.Rows)
+                        {
+                            var x = row[2].ToString() == "M" ? "男" : "女";
+                            <tr>
+                                <td><a href="SpecificUser?id=@row[0]"> @row[1] </a> </td>
+                                <td>@x</td>
+                                <td>Placeholder</td>
+                                <td>Placeholder</td>
+                                <td>Placeholder</td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+
         </div>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>课程名称</th>
-                    <th>开始日期</th>
-                    <th>结束日期</th>
-                    <th>上课地点</th>
-                    <th>上课时间</th>
-                    <th>选课人数</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (System.Data.DataRow row in CoursesOfTeacher.Rows)
-                {
-                    <tr>
-                        <td><a href="SpecificCourse?id=@row[0]"> @row[1] </a> </td>
-                        <td>@row[4]</td>
-                        <td>@row[5]</td>
-                        <td>@row[6]</td>
-                        <td>@row[7]</td>
-                        <td>@Count_All[CoursesOfTeacher.Rows.IndexOf(row)]</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
 
+        <div class="tab-pane fade" id="jmeter" style="padding-top:20px">
 
-        <hr />
-        <div style="color:black;font-size:20px;font-weight:200;margin-top:2%">
-            我所有的学生：
-            <span style="font-size:smaller">一共有<span>@counts.ToString()</span>人</span>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.3
+
         </div>
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>学生姓名</th>
-                    <th>性别</th>
-                    <th>来自课程</th>
-                    <th>成绩</th>
-                    <th>是否已结束</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (System.Data.DataRow row in AllMyStudent.Rows)
-                {
-                    var x = row[2].ToString() == "M" ? "男" : "女";
-                    <tr>
-                        <td><a href="SpecificCourse?id=@row[0]"> @row[1] </a> </td>
-                        <td>@x</td>
-                        <td>Placeholder</td>
-                        <td>Placeholder</td>
-                        <td>Placeholder</td>
-                    </tr>
+        <div class="tab-pane fade" id="ejb" style="padding-top:20px">
 
-                }
-            </tbody>
-        </table>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.4
+
+        </div>
 
     </div>
 
-    <div class="tab-pane fade" id="ios" style="padding-top:20px">
+    <script>
+        // 由此上一行开始的script至其结束之间代码的功能是获得当前教学周并显示（来源：网络）。
+        function getSt(year, month, day) {
+            var curDate = new Date();
+            curDate.getTime();
+            var beginDate = new Date(year, month, day, 0, 0, 0);
+            return Math.ceil((curDate - beginDate) / (1000 * 60 * 60 * 24 * 7));
+        }
+        function show1() {
+            var xn = "2017-2018";
+            var xq = 2;
+            var StartWeek = 1;
+            var result = xn + "学年 第" + xq + "学期 第" + getSt(2018, 2, 5) + "教学周";
+            return result;
+        }
+        calendar = new Date();
+        day = calendar.getDay();
+        month = calendar.getMonth();
+        date = calendar.getDate();
+        year = calendar.getYear();
+        if (year < 200) year = 1900 + year;
+        cent = parseInt(year / 100);
+        g = year % 19;
+        k = parseInt((cent - 17) / 25);
+        i = (cent - parseInt(cent / 4) - parseInt((cent - k) / 3) + 19 * g + 15) % 30;
+        i = i - parseInt(i / 28) * (1 - parseInt(i / 28) * parseInt(29 / (i + 1)) * parseInt((21 - g) / 11));
+        j = (year + parseInt(year / 4) + i + 2 - cent + parseInt(cent / 4)) % 7;
+        l = i - j;
+        emonth = 3 + parseInt((l + 40) / 44);
+        edate = l + 28 - 31 * parseInt((emonth / 4));
+        emonth--;
 
-        <div style="color:black;font-size:20px;font-weight:200;">
-            我本学期的课程：
-            <span style="font-size:smaller">一共有<span>八</span>门课</span>
-        </div>
-        <hr />
+        var dayname = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+        var monthname =
+            new Array("1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月");
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>课程名称</th>
-                    <th>开始日期</th>
-                    <th>结束日期</th>
-                    <th>上课地点</th>
-                    <th>上课时间</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td><label><a href="#">详细信息</a></label></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td><label><a href="#">详细信息</a></label></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td><label><a href="#">详细信息</a></label></td>
-                </tr>
+        var a = year + "年" + monthname[month] + date + "日" + dayname[day] + " " + " （" + show1() + " ）";
+        document.getElementById("showDate").innerHTML = a;
+        document.getElementById(dayname[day]).setAttribute("style", "background-color:lightblue");
+    </script>
 
+    <script>
+        function loadTip() {
+            //!!!不知道为什么后台传过来的值如果第一个字符是“#”，前端就无法接收到这个值。
+            //var item = "ViewData["tab"].ToString()";
+            var href = window.location.href.toString().split('#')[window.location.href.toString().split('#').length - 1];
+            var tagid = "#" + href;
+            //var tagpane = document.getElementsByClassName("tab-pane fade in active")[0].getAttribute("id");
+            document.getElementById(tagid).setAttribute("class", "tab-pane fade in active");
+            alert(tagid);
+        }
+        function checkPane(param) {
+            window.location.href = window.location.href.toString().split('#')[0] + param;
+            //window.location.href = window.location.href.toString().split('?')[0] + "?tab=" + param.toString().substring(1, param.length);
+            //alert(window.location.href);
 
-            </tbody>
-        </table>
-
-    </div>
-
-    <div class="tab-pane fade" id="jmeter" style="padding-top:20px">
-
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.3
-
-    </div>
-
-    <div class="tab-pane fade" id="ejb" style="padding-top:20px">
-
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.4
-
-    </div>
-</div>
-
-<script>
-
-</script>
+        }
+    </script>
+</body>

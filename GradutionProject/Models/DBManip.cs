@@ -311,7 +311,7 @@ namespace GradutionProject.Models
         internal static DataSet GetCourseInfo(string courseID)
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
-            string cmdTxt = "select * from course_information where courseID='" + courseID + "'";
+            string cmdTxt = "select * from course_information where courseID='" + courseID + "'";  //Select exact info of a course
             DataSet set = new DataSet();
 
             //Start of connection
@@ -319,7 +319,7 @@ namespace GradutionProject.Models
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
             adapter.Fill(set, "courseInfo");
 
-            cmdTxt = "select * from teacher_information where uniqueClientID='" + set.Tables["courseInfo"].Rows[0][2].ToString() + "'";
+            cmdTxt = "select * from teacher_information where uniqueClientID='" + set.Tables["courseInfo"].Rows[0][2].ToString() + "'";  //Select teacher info of that course
             adapter = new MySqlDataAdapter(cmdTxt, connect);
             adapter.Fill(set, "teacherInfo");
 

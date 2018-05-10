@@ -232,6 +232,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\zturn.js" />
+    <Content Include="Views\Courses\MyCourse.cshtml" />
     <None Include="Views\Home\Test1.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

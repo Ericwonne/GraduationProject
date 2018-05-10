@@ -90,6 +90,12 @@ namespace GradutionProject.Controllers
             return View(tc);
         }
 
+        public ActionResult MyCourse(string id)  // id = courseID
+        {
+            DataSet tc = DBManip.GetCourseInfo(id);
+            return View(tc);
+        }
+
         public object ChooseCourse()
         {
             //Session["S_courseid"] selected course id : String()
