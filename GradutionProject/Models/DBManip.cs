@@ -467,58 +467,60 @@ namespace GradutionProject.Models
                     courseTable.Columns.Add(week[j] + period[i]);
                 }
             }
-            DataRow trow = null;
-            trow = courseTable.NewRow();
+            DataRow timerow = null, idrow = null;
+            timerow = courseTable.NewRow();
+            idrow = courseTable.NewRow();
             for (int i = 0; i < set.Tables["CoursesOfTeacher"].Rows.Count; i++)
             {
                 DataRow row = set.Tables["CoursesOfTeacher"].Rows[i];
                 switch (row[7].ToString())
                 {
-                    case "AA": trow["AA"] = row[1]; break;
-                    case "BA": trow["BA"] = row[1]; break;
-                    case "CA": trow["CA"] = row[1]; break;
-                    case "DA": trow["DA"] = row[1]; break;
-                    case "EA": trow["EA"] = row[1]; break;
-                    case "FA": trow["FA"] = row[1]; break;
-                    case "GA": trow["GA"] = row[1]; break;
-                    case "AB": trow["AB"] = row[1]; break;
-                    case "BB": trow["BB"] = row[1]; break;
-                    case "CB": trow["CB"] = row[1]; break;
-                    case "DB": trow["DB"] = row[1]; break;
-                    case "EB": trow["EB"] = row[1]; break;
-                    case "FB": trow["FB"] = row[1]; break;
-                    case "GB": trow["GB"] = row[1]; break;
-                    case "AC": trow["AC"] = row[1]; break;
-                    case "BC": trow["BC"] = row[1]; break;
-                    case "CC": trow["CC"] = row[1]; break;
-                    case "DC": trow["DC"] = row[1]; break;
-                    case "EC": trow["EC"] = row[1]; break;
-                    case "FC": trow["FC"] = row[1]; break;
-                    case "GC": trow["GC"] = row[1]; break;
-                    case "AD": trow["AD"] = row[1]; break;
-                    case "BD": trow["BD"] = row[1]; break;
-                    case "CD": trow["CD"] = row[1]; break;
-                    case "DD": trow["DD"] = row[1]; break;
-                    case "ED": trow["ED"] = row[1]; break;
-                    case "FD": trow["FD"] = row[1]; break;
-                    case "GD": trow["GD"] = row[1]; break;
-                    case "AE": trow["AE"] = row[1]; break;
-                    case "BE": trow["BE"] = row[1]; break;
-                    case "CE": trow["CE"] = row[1]; break;
-                    case "DE": trow["DE"] = row[1]; break;
-                    case "EE": trow["EE"] = row[1]; break;
-                    case "FE": trow["FE"] = row[1]; break;
-                    case "GE": trow["GE"] = row[1]; break;
-                    case "AF": trow["AF"] = row[1]; break;
-                    case "BF": trow["BF"] = row[1]; break;
-                    case "CF": trow["CF"] = row[1]; break;
-                    case "DF": trow["DF"] = row[1]; break;
-                    case "EF": trow["EF"] = row[1]; break;
-                    case "FF": trow["FF"] = row[1]; break;
-                    case "GF": trow["GF"] = row[1]; break;
+                    case "AA": timerow["AA"] = row[0].ToString(); idrow["AA"] = row[1].ToString(); break;
+                    case "BA": timerow["BA"] = row[0].ToString(); idrow["BA"] = row[1].ToString(); break;
+                    case "CA": timerow["CA"] = row[0].ToString(); idrow["CA"] = row[1].ToString(); break;
+                    case "DA": timerow["DA"] = row[0].ToString(); idrow["DA"] = row[1].ToString(); break;
+                    case "EA": timerow["EA"] = row[0].ToString(); idrow["EA"] = row[1].ToString(); break;
+                    case "FA": timerow["FA"] = row[0].ToString(); idrow["FA"] = row[1].ToString(); break;
+                    case "GA": timerow["GA"] = row[0].ToString(); idrow["GA"] = row[1].ToString(); break;
+                    case "AB": timerow["AB"] = row[0].ToString(); idrow["AB"] = row[1].ToString(); break;
+                    case "BB": timerow["BB"] = row[0].ToString(); idrow["BB"] = row[1].ToString(); break;
+                    case "CB": timerow["CB"] = row[0].ToString(); idrow["CB"] = row[1].ToString(); break;
+                    case "DB": timerow["DB"] = row[0].ToString(); idrow["DB"] = row[1].ToString(); break;
+                    case "EB": timerow["EB"] = row[0].ToString(); idrow["EB"] = row[1].ToString(); break;
+                    case "FB": timerow["FB"] = row[0].ToString(); idrow["FB"] = row[1].ToString(); break;
+                    case "GB": timerow["GB"] = row[0].ToString(); idrow["GB"] = row[1].ToString(); break;
+                    case "AC": timerow["AC"] = row[0].ToString(); idrow["AC"] = row[1].ToString(); break;
+                    case "BC": timerow["BC"] = row[0].ToString(); idrow["BC"] = row[1].ToString(); break;
+                    case "CC": timerow["CC"] = row[0].ToString(); idrow["CC"] = row[1].ToString(); break;
+                    case "DC": timerow["DC"] = row[0].ToString(); idrow["DC"] = row[1].ToString(); break;
+                    case "EC": timerow["EC"] = row[0].ToString(); idrow["EC"] = row[1].ToString(); break;
+                    case "FC": timerow["FC"] = row[0].ToString(); idrow["FC"] = row[1].ToString(); break;
+                    case "GC": timerow["GC"] = row[0].ToString(); idrow["GC"] = row[1].ToString(); break;
+                    case "AD": timerow["AD"] = row[0].ToString(); idrow["AD"] = row[1].ToString(); break;
+                    case "BD": timerow["BD"] = row[0].ToString(); idrow["BD"] = row[1].ToString(); break;
+                    case "CD": timerow["CD"] = row[0].ToString(); idrow["CD"] = row[1].ToString(); break;
+                    case "DD": timerow["DD"] = row[0].ToString(); idrow["DD"] = row[1].ToString(); break;
+                    case "ED": timerow["ED"] = row[0].ToString(); idrow["ED"] = row[1].ToString(); break;
+                    case "FD": timerow["FD"] = row[0].ToString(); idrow["FD"] = row[1].ToString(); break;
+                    case "GD": timerow["GD"] = row[0].ToString(); idrow["GD"] = row[1].ToString(); break;
+                    case "AE": timerow["AE"] = row[0].ToString(); idrow["AE"] = row[1].ToString(); break;
+                    case "BE": timerow["BE"] = row[0].ToString(); idrow["BE"] = row[1].ToString(); break;
+                    case "CE": timerow["CE"] = row[0].ToString(); idrow["CE"] = row[1].ToString(); break;
+                    case "DE": timerow["DE"] = row[0].ToString(); idrow["DE"] = row[1].ToString(); break;
+                    case "EE": timerow["EE"] = row[0].ToString(); idrow["EE"] = row[1].ToString(); break;
+                    case "FE": timerow["FE"] = row[0].ToString(); idrow["FE"] = row[1].ToString(); break;
+                    case "GE": timerow["GE"] = row[0].ToString(); idrow["GE"] = row[1].ToString(); break;
+                    case "AF": timerow["AF"] = row[0].ToString(); idrow["AF"] = row[1].ToString(); break;
+                    case "BF": timerow["BF"] = row[0].ToString(); idrow["BF"] = row[1].ToString(); break;
+                    case "CF": timerow["CF"] = row[0].ToString(); idrow["CF"] = row[1].ToString(); break;
+                    case "DF": timerow["DF"] = row[0].ToString(); idrow["DF"] = row[1].ToString(); break;
+                    case "EF": timerow["EF"] = row[0].ToString(); idrow["EF"] = row[1].ToString(); break;
+                    case "FF": timerow["FF"] = row[0].ToString(); idrow["FF"] = row[1].ToString(); break;
+                    case "GF": timerow["GF"] = row[0].ToString(); idrow["GF"] = row[1].ToString(); break;
                 }
             }
-            courseTable.Rows.Add(trow);
+            courseTable.Rows.Add(idrow);
+            courseTable.Rows.Add(timerow);
             set.Tables.Add(courseTable);
             #endregion
 
