@@ -452,6 +452,77 @@ namespace GradutionProject.Models
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
             adapter.Fill(set, "CoursesOfTeacher");
 
+            #region Compute the exact course table of specified teacher
+            DataTable courseTable = new DataTable("courseTable");
+            string[] week =
+                //{ "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日" };
+                { "A", "B", "C", "D", "E", "F", "G" };
+            string[] period = 
+                //{ "一二节", "三四节", "三四五节", "六七节", "八九节", "十十一十二节" };
+                { "A", "B", "C", "D", "E", "F" };
+            for (int i = 0; i < period.Length; i++)
+            {
+                for (int j = 0; j < week.Length; j++)
+                {
+                    courseTable.Columns.Add(week[j] + period[i]);
+                }
+            }
+            DataRow trow = null;
+            trow = courseTable.NewRow();
+            for (int i = 0; i < set.Tables["CoursesOfTeacher"].Rows.Count; i++)
+            {
+                DataRow row = set.Tables["CoursesOfTeacher"].Rows[i];
+                switch (row[7].ToString())
+                {
+                    case "AA": trow["AA"] = row[1]; break;
+                    case "BA": trow["BA"] = row[1]; break;
+                    case "CA": trow["CA"] = row[1]; break;
+                    case "DA": trow["DA"] = row[1]; break;
+                    case "EA": trow["EA"] = row[1]; break;
+                    case "FA": trow["FA"] = row[1]; break;
+                    case "GA": trow["GA"] = row[1]; break;
+                    case "AB": trow["AB"] = row[1]; break;
+                    case "BB": trow["BB"] = row[1]; break;
+                    case "CB": trow["CB"] = row[1]; break;
+                    case "DB": trow["DB"] = row[1]; break;
+                    case "EB": trow["EB"] = row[1]; break;
+                    case "FB": trow["FB"] = row[1]; break;
+                    case "GB": trow["GB"] = row[1]; break;
+                    case "AC": trow["AC"] = row[1]; break;
+                    case "BC": trow["BC"] = row[1]; break;
+                    case "CC": trow["CC"] = row[1]; break;
+                    case "DC": trow["DC"] = row[1]; break;
+                    case "EC": trow["EC"] = row[1]; break;
+                    case "FC": trow["FC"] = row[1]; break;
+                    case "GC": trow["GC"] = row[1]; break;
+                    case "AD": trow["AD"] = row[1]; break;
+                    case "BD": trow["BD"] = row[1]; break;
+                    case "CD": trow["CD"] = row[1]; break;
+                    case "DD": trow["DD"] = row[1]; break;
+                    case "ED": trow["ED"] = row[1]; break;
+                    case "FD": trow["FD"] = row[1]; break;
+                    case "GD": trow["GD"] = row[1]; break;
+                    case "AE": trow["AE"] = row[1]; break;
+                    case "BE": trow["BE"] = row[1]; break;
+                    case "CE": trow["CE"] = row[1]; break;
+                    case "DE": trow["DE"] = row[1]; break;
+                    case "EE": trow["EE"] = row[1]; break;
+                    case "FE": trow["FE"] = row[1]; break;
+                    case "GE": trow["GE"] = row[1]; break;
+                    case "AF": trow["AF"] = row[1]; break;
+                    case "BF": trow["BF"] = row[1]; break;
+                    case "CF": trow["CF"] = row[1]; break;
+                    case "DF": trow["DF"] = row[1]; break;
+                    case "EF": trow["EF"] = row[1]; break;
+                    case "FF": trow["FF"] = row[1]; break;
+                    case "GF": trow["GF"] = row[1]; break;
+                }
+            }
+            courseTable.Rows.Add(trow);
+            set.Tables.Add(courseTable);
+            #endregion
+
+
             //Get the count of heads attending each of the course of the teacher 
             for (int index = 0; index < set.Tables["CoursesOfTeacher"].Rows.Count; index++)
             {
