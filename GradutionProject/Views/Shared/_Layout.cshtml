@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @*<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>*@
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
     <script type="text/javascript" language="javascript">
         //$(document).ready(function () {
         //    $.ajax({
@@ -26,7 +26,7 @@
         //});
     </script>
 </head>
-<body onunload="iflogged()">
+<body>
     <div class="navbar navbar-inverse navbar-static-top" style="background-color:black">
         <div class="container">
             <div class="navbar-header" style=";color:papayawhip">
@@ -63,11 +63,5 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script>
-        function iflogged() {
-        }
-        function logoutConfirm() {
-        }
-    </script>
 </body>
 </html>

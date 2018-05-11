@@ -440,10 +440,10 @@ namespace GradutionProject.Models
             connect.Close();
         }
 
-        internal static DataSet GetCourseOfTeacher(string courseTeacherID)
+        internal static DataSet GetCourseOfTeacher(string courseTeacherID)  //courseTeacherID = uniqueClientID of Teacher
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
-            //Get all the courses of a specific teacher
+            //Get all the courses of a specified teacher
             string cmdTxt = "select * from course_information where courseTeacher='" + courseTeacherID + "'";
             DataSet set = new DataSet();
 
@@ -452,11 +452,10 @@ namespace GradutionProject.Models
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
             adapter.Fill(set, "CoursesOfTeacher");
 
-            //
+            //Get the count of heads attending each of the course of the teacher 
             for (int index = 0; index < set.Tables["CoursesOfTeacher"].Rows.Count; index++)
             {
                 cmdTxt = "select count(*) from course_records where cuid='" + set.Tables["CoursesOfTeacher"].Rows[index][0] + "'";
-
                 adapter = new MySqlDataAdapter(cmdTxt, connect);
                 adapter.Fill(set, "count" + set.Tables["CoursesOfTeacher"].Rows[index][0].ToString());
             }
