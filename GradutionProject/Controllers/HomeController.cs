@@ -60,6 +60,10 @@ namespace GradutionProject.Controllers
         {
             return View();
         }
+        public ActionResult Test1()
+        {
+            return View();
+        }
         public JsonResult AjaxTest()
         {
             bool result = true;

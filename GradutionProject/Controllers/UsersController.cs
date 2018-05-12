@@ -74,10 +74,16 @@ namespace GradutionProject.Controllers
         }
 
         [HttpGet]
-        public ActionResult TeacherMainPage()
+        public ActionResult TeacherMainPage(string tab)
         {
             ViewData["V_uname"] = DBManip.GetUser(((User)Session["S_teacher"]).UniqueClientID);
             ViewData["V_courseChosen"] = "";
+            if (tab == null)
+            {
+                ViewData["tab"] = "home";
+            }
+            else
+                ViewData["tab"] = tab;
             DataSet set = DBManip.GetCourseOfTeacher(((User)Session["S_teacher"]).UniqueClientID);
             return View(set);
         }

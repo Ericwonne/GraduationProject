@@ -1,0 +1,80 @@
+﻿<link href="https://cdn.bootcss.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+<div class="container">
+    <form class="form-horizontal">
+        <div class="form-group has-feedback">
+            <input id="txt1" type="text" class="form-control hasclear" placeholder="Textbox 1">
+            <span class="clearer glyphicon glyphicon-remove-circle form-control-feedback" onclick="clearText()"></span>
+        </div>
+    </form>
+</div>
+
+<div>
+    Here:
+    <p id="showDate"></p>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+
+<script>
+    //$(".hasclear").keyup(function () {
+    //    var t = $(this);
+    //    t.next('span').toggle(Boolean(t.val()));
+    //});
+
+    //$(".clearer").hide($(this).prev('input').val());
+
+    //$(".clearer").click(function () {
+    //    $(this).prev('input').val('').focus();
+    //    $(this).hide();
+    //});
+
+    function clearText() {
+        document.getElementById("txt1").value = "";
+    }
+</script>
+
+<script>
+    function getSt(year, month, day) {
+
+        var curDate = new Date();
+        curDate.getTime();
+        var beginDate = new Date(year, month, day, 0, 0, 0);
+        return Math.ceil((curDate - beginDate) / (1000 * 60 * 60 * 24 * 7));
+
+    }
+    function show1() {
+        var xn = "2017-2018";
+        var xq = 2;
+        var StartWeek = 1;
+        var result = xn + "学年 第" + xq + "学期 本科教学第" + getSt(2018, 2, 5) + "周";
+        return result;
+    }
+
+    calendar = new Date();
+    day = calendar.getDay();
+    month = calendar.getMonth();
+    date = calendar.getDate();
+    year = calendar.getYear();
+    if (year < 200) year = 1900 + year;
+    cent = parseInt(year / 100);
+    g = year % 19;
+    k = parseInt((cent - 17) / 25);
+    i = (cent - parseInt(cent / 4) - parseInt((cent - k) / 3) + 19 * g + 15) % 30;
+    i = i - parseInt(i / 28) * (1 - parseInt(i / 28) * parseInt(29 / (i + 1)) * parseInt((21 - g) / 11));
+    j = (year + parseInt(year / 4) + i + 2 - cent + parseInt(cent / 4)) % 7;
+    l = i - j;
+    emonth = 3 + parseInt((l + 40) / 44);
+    edate = l + 28 - 31 * parseInt((emonth / 4));
+    emonth--;
+
+    var dayname = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+    var monthname =
+        new Array("1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月");
+
+    var a = year + "年" + monthname[month] + date + "日" + dayname[day] + " " + " （" + show1() + " ）";
+    document.getElementById("showDate").innerHTML = a;
+//    document.write(a);
+</script>
