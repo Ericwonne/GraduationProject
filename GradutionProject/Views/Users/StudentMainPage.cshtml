@@ -3,7 +3,46 @@
     ViewBag.Title = "StudentMainPage";
     System.Data.DataTable selectedCourseInfo = Model.Tables["selectedCourseInfo"];
     System.Data.DataTable courseCollected = Model.Tables["courseCollected"];
+    System.Data.DataTable courseTable = Model.Tables["courseTable"];
 
+    DateTime date = DateTime.Now.Date;
+    //Get the current workday
+    DayOfWeek dayOfweek = date.DayOfWeek;
+    DateTime[] wholeweek = new DateTime[7];
+    TimeSpan timespan = new TimeSpan(1, 0, 0, 0);
+    if (dayOfweek == DayOfWeek.Sunday)
+    {
+        wholeweek[(int)dayOfweek] = date;
+        while (dayOfweek < DayOfWeek.Saturday)
+        {
+            wholeweek[(int)dayOfweek + 1] = wholeweek[(int)dayOfweek] + timespan;
+            dayOfweek++;
+        }
+    }
+    else if (dayOfweek == DayOfWeek.Saturday)
+    {
+        wholeweek[(int)dayOfweek] = date;
+        while (dayOfweek > DayOfWeek.Sunday)
+        {
+            wholeweek[(int)dayOfweek - 1] = wholeweek[(int)dayOfweek] - timespan;
+            dayOfweek--;
+        }
+    }
+    else
+    {
+        int sunday = 0, saturday = 6;
+        wholeweek[(int)dayOfweek] = date;
+        while (sunday < (int)dayOfweek)
+        {
+            wholeweek[sunday] = wholeweek[(int)dayOfweek] - new TimeSpan((int)dayOfweek - sunday, 0, 0, 0);
+            sunday++;
+        }
+        while ((int)dayOfweek < saturday)
+        {
+            wholeweek[saturday] = wholeweek[(int)dayOfweek] + new TimeSpan(saturday - (int)dayOfweek, 0, 0, 0);
+            saturday--;
+        }
+    }
 }
 
 <h2>欢迎你！@ViewData["V_uname"].ToString()同学</h2>
@@ -32,16 +71,107 @@
 <div id="myTabContent" class="tab-content">
 
     <div class="tab-pane fade in active" id="home" style="padding-top:20px">
-        <div style="color:saddlebrown;padding-bottom:10px">
-            @Html.ActionLink("查看本学期选课列表？", "DisplayCourses", "Courses")
-        </div>
+        @*<div style="color:saddlebrown;padding-bottom:10px">
+                @Html.ActionLink("查看本学期选课列表？", "DisplayCourses", "Courses")
+            </div>
 
-        <div style="color:saddlebrown;padding-bottom:10px">
-            @Html.ActionLink("查看教师列表？", "DisplayTeachers")
-        </div>
+            <div style="color:saddlebrown;padding-bottom:10px">
+                @Html.ActionLink("查看教师列表？", "DisplayTeachers")
+            </div>*@
 
-        <div>
-            <p>本周课程</p>
+        <div style="margin-bottom:5%">
+            <div class="page-header" style="margin-top:5px">
+                <h3>
+                    <small><i class="glyphicon glyphicon-tags"></i></small>
+                    本周课表
+                    <small></small>
+                </h3>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">课时/日期</th>
+                        <th id="星期日" scope="col">星期日（@wholeweek[0].Date.ToString("MM-dd")）</th>
+                        <th id="星期一" scope="col">星期一（@wholeweek[1].Date.ToString("MM-dd")）</th>
+                        <th id="星期二" scope="col">星期二（@wholeweek[2].Date.ToString("MM-dd")）</th>
+                        <th id="星期三" scope="col">星期三（@wholeweek[3].Date.ToString("MM-dd")）</th>
+                        <th id="星期四" scope="col">星期四（@wholeweek[4].Date.ToString("MM-dd")）</th>
+                        <th id="星期五" scope="col">星期五（@wholeweek[5].Date.ToString("MM-dd")）</th>
+                        <th id="星期六" scope="col">星期六（@wholeweek[6].Date.ToString("MM-dd")）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1,2</th>
+                        <td name="GA"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][6]">@courseTable.Rows[0][6]</a></td>
+                        <td name="AA"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][0]">@courseTable.Rows[0][0]</a></td>
+                        <td name="BA"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][1]">@courseTable.Rows[0][1]</a></td>
+                        <td name="CA"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][2]">@courseTable.Rows[0][2]</a></td>
+                        <td name="DA"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][3]">@courseTable.Rows[0][3]</a></td>
+                        <td name="EA"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][4]">@courseTable.Rows[0][4]</a></td>
+                        <td name="FA"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][5]">@courseTable.Rows[0][5]</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3,4</th>
+                        <td name="GB"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][13]">@courseTable.Rows[0][13]</a></td>
+                        <td name="AB"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][7]">@courseTable.Rows[0][7]</a></td>
+                        <td name="BB"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][8]">@courseTable.Rows[0][8]</a></td>
+                        <td name="CB"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][9]">@courseTable.Rows[0][9]</a></td>
+                        <td name="DB"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][10]">@courseTable.Rows[0][10]</a></td>
+                        <td name="EB"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][11]">@courseTable.Rows[0][11]</a></td>
+                        <td name="FB"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][12]">@courseTable.Rows[0][12]</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3,4,5</th>
+                        <td name="GC"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][20]">@courseTable.Rows[0][20]</a></td>
+                        <td name="AC"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][14]">@courseTable.Rows[0][14]</a></td>
+                        <td name="BC"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][15]">@courseTable.Rows[0][15]</a></td>
+                        <td name="CC"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][16]">@courseTable.Rows[0][16]</a></td>
+                        <td name="DC"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][17]">@courseTable.Rows[0][17]</a></td>
+                        <td name="EC"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][18]">@courseTable.Rows[0][18]</a></td>
+                        <td name="FC"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][19]">@courseTable.Rows[0][19]</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6,7</th>
+                        <td name="GD"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][27]">@courseTable.Rows[0][27]</a></td>
+                        <td name="AD"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][21]">@courseTable.Rows[0][21]</a></td>
+                        <td name="BD"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][22]">@courseTable.Rows[0][22]</a></td>
+                        <td name="CD"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][23]">@courseTable.Rows[0][23]</a></td>
+                        <td name="DD"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][24]">@courseTable.Rows[0][24]</a></td>
+                        <td name="ED"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][25]">@courseTable.Rows[0][25]</a></td>
+                        <td name="FD"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][26]">@courseTable.Rows[0][26]</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">8,9</th>
+                        <td name="GE"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][34]">@courseTable.Rows[0][34]</a></td>
+                        <td name="AE"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][28]">@courseTable.Rows[0][28]</a></td>
+                        <td name="BE"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][29]">@courseTable.Rows[0][29]</a></td>
+                        <td name="CE"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][30]">@courseTable.Rows[0][30]</a></td>
+                        <td name="DE"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][31]">@courseTable.Rows[0][31]</a></td>
+                        <td name="EE"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][32]">@courseTable.Rows[0][32]</a></td>
+                        <td name="FE"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][33]">@courseTable.Rows[0][33]</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">10,11,12</th>
+                        <td name="GF"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][41]">@courseTable.Rows[0][41]</a></td>
+                        <td name="AF"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][35]">@courseTable.Rows[0][35]</a></td>
+                        <td name="BF"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][36]">@courseTable.Rows[0][36]</a></td>
+                        <td name="CF"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][37]">@courseTable.Rows[0][37]</a></td>
+                        <td name="DF"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][38]">@courseTable.Rows[0][38]</a></td>
+                        <td name="EF"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][39]">@courseTable.Rows[0][39]</a></td>
+                        <td name="FF"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][40]">@courseTable.Rows[0][40]</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-bottom:5%">
+            <div class="page-header" style="margin-top:5px">
+                <h3>
+                    <small><i class="glyphicon glyphicon-tags"></i></small>
+                    本学期所有课程
+                    <small><span style="font-size:smaller"></span></small>
+                </h3>
+            </div>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -61,11 +191,13 @@
                             <td>@row[5].ToString().Substring(0, 10)</td>
                             <td>@row[6]</td>
                             <td>@row[7]</td>
+                            @*GradutionProject.Models.Miscellaneous.P.Period[row[7].ToString()]*@
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
+
 
     </div>
 
@@ -109,7 +241,7 @@
 
         <div class="page-header">
             <h3>
-                <small><i class="glyphicon glyphicon-fullscreen"></i></small>
+                <small><i class="glyphicon glyphicon-tags"></i></small>
                 页面标题实例
                 <small>子标题</small>
             </h3>

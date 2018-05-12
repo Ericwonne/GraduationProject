@@ -119,7 +119,7 @@
                         <th id="星期六" scope="col">星期六（@wholeweek[6].Date.ToString("MM-dd")）</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style="text-align:center">
                     <tr>
                         <th scope="row">1,2</th>
                         <td name="GA"><a href="../Courses/MyCourse?id=@courseTable.Rows[1][6]">@courseTable.Rows[0][6]</a></td>
@@ -196,8 +196,7 @@
                 <thead>
                     <tr>
                         <th>课程名称</th>
-                        <th>开始日期</th>
-                        <th>结束日期</th>
+                        <th>上课周期</th>
                         <th>上课地点</th>
                         <th>上课时间</th>
                         <th>选课人数</th>
@@ -208,10 +207,10 @@
                     {
                         <tr>
                             <td><a href="../Courses/MyCourse?id=@row[0]"> @row[1] </a> </td>
-                            <td>@row[4]</td>
-                            <td>@row[5]</td>
+                            <td>@Convert.ToDateTime(row[4]).ToString("yy年MM月dd日") 至 @Convert.ToDateTime(row[5]).ToString("MM月dd日")</td>
                             <td>@row[6]</td>
                             <td>@row[7]</td>
+                            @*GradutionProject.Models.Miscellaneous.P.Period[row[7].ToString()]*@
                             <td>@Count_All[CoursesOfTeacher.Rows.IndexOf(row)]</td>
                         </tr>
                     }
@@ -266,7 +265,7 @@
                 </h3>
             </div>
 
-            <a id="newCourse" href="../Courses/AddCourses" class="btn btn-primary">发布新课程</a>
+            <a id="newCourse" href="../Courses/AddCourses" class="btn btn-success">发布新课程</a>
         </div>
 
         <div style="margin-bottom:5%">
@@ -393,12 +392,15 @@
 
     var a = year + "年" + monthname[month] + date + "日" + dayname[day] + " " + " （" + show1() + " ）";
     document.getElementById("showDate").innerHTML = a;
-    document.getElementById(dayname[day]).setAttribute("style", "background-color:lightblue");
+    document.getElementById(dayname[day]).setAttribute("style", "background-color:lawngreen");
 </script>
 
 <script>
     //该函数在页面加载完成时调用（相当于body onload="loadTip()"），用来保持页面刷新后仍在当前panel。
     window.onload = function loadTip() {
+        RenderTable();
+
+        //-------------------------------------Begin 处理tab pane显示问题-----------------------------------------//
         //!!!不知道为什么后台传过来的值如果第一个字符是“#”，前端就无法接收到这个值。
         //var item = "ViewData["tab"].ToString()";
         var href = window.location.href.toString().split('#')[window.location.href.toString().split('#').length - 1];
@@ -415,12 +417,21 @@
             tagid = "home_tab";
             href = "home";
         }
-
         //var tagpane = document.getElementsByClassName("tab-pane fade in active")[0].getAttribute("id");
         document.getElementById(href).setAttribute("class", "tab-pane fade in active");
         document.getElementById(tagid).setAttribute("class", "active");
+        //-------------------------------------End    处理tab pane显示问题-----------------------------------------//
     }
-
+    function RenderTable() {
+        //-------------------------------------Begin 渲染课表颜色-----------------------------------------//
+        //此处犯下的错误: 命名TDs的原因是之前为：var TDs = document.getElementsByTagName("table")[0].getElementsByTagName("td");，
+        //一直无法渲染出颜色，原因是td中只有a元素的前景色（color）这个属性能够被使用到，td中没有其他文字。
+        var TDs = document.getElementsByTagName("table")[0].getElementsByTagName("a");
+        for (var i = 0; i < TDs.length; i++) {
+            TDs[i].setAttribute("style", "color:green");
+        }
+        //-------------------------------------Begin 渲染课表颜色-----------------------------------------//
+    }
     //该函数在点击panel的header时调用，用来切换当前活动状态的panel。
     function checkPane(param) {
         window.location.href = window.location.href.toString().split('#')[0] + param;

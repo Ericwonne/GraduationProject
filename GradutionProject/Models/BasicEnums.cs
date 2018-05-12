@@ -36,19 +36,19 @@ namespace GradutionProject.Models
     {
         CA, CB, CC, CD, CE, CF, CG, CH, CI, CJ, CK, CL, CM
         //Detail meaning see AddCourses.cshtml
-              //"CA">     哲学
-              //"CB">     经济学
-              //"CC">     法学
-              //"CD">     教育学
-              //"CE">     文学
-              //"CF">      历史学
-              //"CG">     理学
-              //"CH">     工学
-              //"CI">      农学
-              //"CJ">      医学
-              //"CK">     军事学
-              //"CL">      管理学
-              //"CM">     艺术学
+        //"CA">     哲学
+        //"CB">     经济学
+        //"CC">     法学
+        //"CD">     教育学
+        //"CE">     文学
+        //"CF">      历史学
+        //"CG">     理学
+        //"CH">     工学
+        //"CI">      农学
+        //"CJ">      医学
+        //"CK">     军事学
+        //"CL">      管理学
+        //"CM">     艺术学
     }
     public enum Build
     {
@@ -67,5 +67,27 @@ namespace GradutionProject.Models
         MH,         // 音乐堂                                    
         SH,         // 小礼堂                                    
         SW,         // 游泳池                   
+    }
+
+    public class PeriodGetter
+    {
+        public PeriodGetter()
+        {
+            Period.Add("AC", "星期一3,4,5节");
+            Period.Add("EF", "星期一3,4,5节");
+            Period.Add("ED", "星期一3,4,5节");
+            Period.Add("DE", "星期一3,4,5节");
+            Period.Add("GF", "星期一3,4,5节");
+            Period.Add("DF", "星期一3,4,5节");
+            Period.Add("AA", "星期一3,4,5节");
+            Period.Add("DC", "星期一3,4,5节");
+            Period.Add("EE", "星期一3,4,5节");
+        }
+        public Dictionary<string, string> Period = new Dictionary<string, string>();
+    }
+
+    public static class Miscellaneous
+    {
+        public static PeriodGetter P = new PeriodGetter();
     }
 }

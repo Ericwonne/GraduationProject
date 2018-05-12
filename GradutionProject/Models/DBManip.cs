@@ -453,6 +453,58 @@ namespace GradutionProject.Models
             adapter.Fill(set, "CoursesOfTeacher");
 
             #region Compute the exact course table of specified teacher
+            //Has been moved to a method called ComputeCourseTable(ref DataSet set)
+            set = ComputeCourseTable(ref set, "CoursesOfTeacher");
+            #endregion
+
+
+            //Get the count of heads attending each of the course of the teacher 
+            for (int index = 0; index < set.Tables["CoursesOfTeacher"].Rows.Count; index++)
+            {
+                cmdTxt = "select count(*) from course_records where cuid='" + set.Tables["CoursesOfTeacher"].Rows[index][0] + "'";
+                adapter = new MySqlDataAdapter(cmdTxt, connect);
+                adapter.Fill(set, "count" + set.Tables["CoursesOfTeacher"].Rows[index][0].ToString());
+            }
+
+            //Get the semester info
+            cmdTxt = "select * from semester where start<'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' and end>'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'";
+            adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "StartEndDate");
+
+            //Get all the student entitled to this teacher's courses
+            cmdTxt = "select * from student_information where uniqueClientID in (select suid from course_records where cuid in (select courseID from course_information where courseTeacher='" + courseTeacherID + "'))";
+            adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "AllMyStudent");
+
+
+            //End of connection
+            connect.Close();
+
+            DataRow startendDate = set.Tables["StartEndDate"].Rows[0];
+            DataRow[] this_semester_course = set.Tables["CoursesOfTeacher"].Select("startDate >='" + startendDate[2].ToString() + "' and endDate<='" + startendDate[3].ToString() + "'");
+
+            //Get the exactly the currently semester included courses 
+            if (this_semester_course.Length != 0)
+            {
+                //必须先克隆表的结构才能使用
+                DataTable new_table = set.Tables["CoursesOfTeacher"].Clone();
+                new_table.TableName = "this_semester_course";
+                set.Tables.Add(new_table);
+
+                foreach (DataRow row in this_semester_course)
+                    set.Tables["this_semester_course"].Rows.Add(row.ItemArray);
+            }
+            else
+            {
+                return null;
+            }
+            //returns the whole set of courses of that teacher
+            return set;
+        }
+
+        //Compute the exact course table of specified teacher
+        private static DataSet ComputeCourseTable(ref DataSet set, string tablename)
+        {
             DataTable courseTable = new DataTable("courseTable");
             string[] week =
                 //{ "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日" };
@@ -470,9 +522,9 @@ namespace GradutionProject.Models
             DataRow timerow = null, idrow = null;
             timerow = courseTable.NewRow();
             idrow = courseTable.NewRow();
-            for (int i = 0; i < set.Tables["CoursesOfTeacher"].Rows.Count; i++)
+            for (int i = 0; i < set.Tables[tablename].Rows.Count; i++)
             {
-                DataRow row = set.Tables["CoursesOfTeacher"].Rows[i];
+                DataRow row = set.Tables[tablename].Rows[i];
                 switch (row[7].ToString())
                 {
                     case "AA": timerow["AA"] = row[0].ToString(); idrow["AA"] = row[1].ToString(); break;
@@ -522,50 +574,6 @@ namespace GradutionProject.Models
             courseTable.Rows.Add(idrow);
             courseTable.Rows.Add(timerow);
             set.Tables.Add(courseTable);
-            #endregion
-
-
-            //Get the count of heads attending each of the course of the teacher 
-            for (int index = 0; index < set.Tables["CoursesOfTeacher"].Rows.Count; index++)
-            {
-                cmdTxt = "select count(*) from course_records where cuid='" + set.Tables["CoursesOfTeacher"].Rows[index][0] + "'";
-                adapter = new MySqlDataAdapter(cmdTxt, connect);
-                adapter.Fill(set, "count" + set.Tables["CoursesOfTeacher"].Rows[index][0].ToString());
-            }
-
-            //Get the semester info
-            cmdTxt = "select * from semester where start<'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' and end>'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'";
-            adapter = new MySqlDataAdapter(cmdTxt, connect);
-            adapter.Fill(set, "StartEndDate");
-
-            //Get all the student entitled to this teacher's courses
-            cmdTxt = "select * from student_information where uniqueClientID in (select suid from course_records where cuid in (select courseID from course_information where courseTeacher='" + courseTeacherID + "'))";
-            adapter = new MySqlDataAdapter(cmdTxt, connect);
-            adapter.Fill(set, "AllMyStudent");
-
-
-            //End of connection
-            connect.Close();
-
-            DataRow startendDate = set.Tables["StartEndDate"].Rows[0];
-            DataRow[] this_semester_course = set.Tables["CoursesOfTeacher"].Select("startDate >='" + startendDate[2].ToString() + "' and endDate<='" + startendDate[3].ToString() + "'");
-
-            //Get the exactly the currently semester included courses 
-            if (this_semester_course.Length != 0)
-            {
-                //必须先克隆表的结构才能使用
-                DataTable new_table = set.Tables["CoursesOfTeacher"].Clone();
-                new_table.TableName = "this_semester_course";
-                set.Tables.Add(new_table);
-
-                foreach (DataRow row in this_semester_course)
-                    set.Tables["this_semester_course"].Rows.Add(row.ItemArray);
-            }
-            else
-            {
-                return null;
-            }
-            //returns the whole set of courses of that teacher
             return set;
         }
 
@@ -599,8 +607,8 @@ namespace GradutionProject.Models
             cmdTxt = "select * from course_information where courseID in " + coursesAsTuple;
             adapter = new MySqlDataAdapter(cmdTxt, connect);
             adapter.Fill(set, "selectedCourseInfo");
-
             connect.Close();
+            set = ComputeCourseTable(ref set, "selectedCourseInfo");
 
             return set;
         }

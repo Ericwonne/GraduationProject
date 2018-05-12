@@ -15,7 +15,7 @@ namespace GradutionProject.Models
 
         public User()
         {
-
+            
         }
         public User(string username, string password, char registryType, string uniqueClientID = "", string registryDate = "")
         {
