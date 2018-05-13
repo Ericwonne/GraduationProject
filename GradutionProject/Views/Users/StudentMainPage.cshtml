@@ -185,19 +185,18 @@
                 <tbody>
                     @foreach (System.Data.DataRow row in selectedCourseInfo.Rows)
                     {
-                        <tr>
-                            <td>@row[1] </td>
-                            <td>@row[4].ToString().Substring(0, 10)</td>
-                            <td>@row[5].ToString().Substring(0, 10)</td>
-                            <td>@row[6]</td>
-                            <td>@row[7]</td>
-                            @*GradutionProject.Models.Miscellaneous.P.Period[row[7].ToString()]*@
-                        </tr>
+                    <tr>
+                        <td>@row[1] </td>
+                        <td>@row[4].ToString().Substring(0, 10)</td>
+                        <td>@row[5].ToString().Substring(0, 10)</td>
+                        <td>@row[6]</td>
+                        <td>@row[7]</td>
+                        @*GradutionProject.Models.Miscellaneous.P.Period[row[7].ToString()]*@
+                    </tr>
                     }
                 </tbody>
             </table>
         </div>
-
 
     </div>
 
@@ -212,15 +211,20 @@
         </div>
         <p>这是一个示例文本。当你有新的内容填充进来时，请替换掉它。</p>
 
-        <div class="page-header">
-            <h3>
-                <small><i class="glyphicon glyphicon-tags"></i></small>
-                下学期选课
-                <small>您应该在上课前的一个月内决定新学期应该修读哪些课程</small>
-            </h3>
-        </div>
-        <p>这是一个示例文本。当你有新的内容填充进来时，请替换掉它。</p>
+        <div style="margin-bottom:5%">
+            <div class="page-header">
+                <h3>
+                    <small><i class="glyphicon glyphicon-tags"></i></small>
+                    下学期选课
+                    <small>您应该在上课前的一个月内决定新学期应该修读哪些课程</small>
+                </h3>
+            </div>
+            <div class="form-inline">
+                <a href="../Courses/DisplayCourses" class="btn btn-info">查看下学期课程</a>
+                <a href="../Courses/DisplayCourses" class="btn btn-info">查看下学期开课教师</a>
+            </div>
 
+        </div>
         <div class="page-header">
             <h3>
                 <small><i class="glyphicon glyphicon-tags"></i></small>
