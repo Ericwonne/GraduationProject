@@ -183,6 +183,8 @@
     <Content Include="Content\img\a5.png" />
     <Content Include="Content\img\xueyuan.png" />
     <Content Include="Content\jquery.datetimepicker.css" />
+    <Content Include="Content\Scripts\bootstrap-hover-dropdown.js" />
+    <Content Include="Content\Scripts\bootstrap-hover-dropdown.min.js" />
     <Content Include="Content\zMy_Created_Css.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />

@@ -444,3 +444,67 @@ function ucfirst(l1) {
         // return first;
     }
 }
+
+//创建字典类
+let Dictionary = (function () {
+    const items = {};
+    class Dictionary {
+        constructor() {
+        }
+        set(key, value) {//向字典中添加新的元素
+            items[key] = value;
+        }
+        delete(key) {//删除字典中某个指定元素
+            if (this.has(key)) {
+                delete items[key];
+                return true;
+            }
+            return false;
+        }
+        has(key) {//如果某个键值存在于这个字典中，则返回true，否则返回false
+            return items.hasOwnProperty(key);
+        }
+        get(key) {//通过键值查找特定的数值并返回。
+            return this.has(key) ? items[key] : undefined;
+        };
+        clear() {//将这个字典中的所有元素全部删除。
+            items = {};
+        }
+        size() {//返回字典所包含元素的数量。
+            return Object.keys(items).length;
+        }
+        keys() {//将字典所包含的所有键名以数组形式返回。
+            return Object.keys(items);
+        }
+        values() {//将字典所包含的所有数值以数组形式返回。
+            var values = [];
+            for (var k in items) {
+                if (this.has(k)) {
+                    values.push(items[k]);
+                }
+            }
+            return values;
+        }
+        each(fn) {//遍历每个元素并且执行方法
+            for (var k in items) {
+                if (this.has(k)) {
+                    fn(k, items[k]);
+                }
+            }
+        }
+        getItems() {//返回字典
+            return items;
+        }
+    }
+    return Dictionary;
+})();
+var Period = new Dictionary();
+var weekc = new Array("周一", "周二", "周三", "周四", "周五", "周六", "周日");    //week chinese version
+var week = new Array("A", "B", "C", "D", "E", "F", "G");
+var periodc = new Array("1,2节", "3,4节", "3,4,5节", "6,7节", "8,9节", "10~12节");    //period chinese version
+var period = new Array("A", "B", "C", "D", "E", "F");
+for (var i = 0; i < period.length; i++) {
+    for (var j = 0; j < week.length; j++) {
+        Period.set(week[j] + period[i], weekc[j] + periodc[i]);
+    }
+}

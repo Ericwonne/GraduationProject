@@ -587,7 +587,7 @@ namespace GradutionProject.Models
             //Start of connection
             connect.Open();
 
-            #region Select All The Courses of Specific Student
+            #region In order to Select All The Courses's info of Specific Student
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
             adapter.Fill(set, "courseSelected");
             string coursesAsTuple = "", coursesAsTupleBegin = "(", coursesAsTupleEnd = ")";
@@ -604,6 +604,7 @@ namespace GradutionProject.Models
             adapter = new MySqlDataAdapter(cmdTxt, connect);
             adapter.Fill(set, "courseCollected");
 
+            //Select the entire information correspond to the specific course
             cmdTxt = "select * from course_information where courseID in " + coursesAsTuple;
             adapter = new MySqlDataAdapter(cmdTxt, connect);
             adapter.Fill(set, "selectedCourseInfo");

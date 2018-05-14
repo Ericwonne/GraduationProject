@@ -69,25 +69,30 @@ namespace GradutionProject.Models
         SW,         // 游泳池                   
     }
 
+    //该类是用来在前端页面中转换【上课时间】字段；
+    //该类可以在客户端使用Javascript实现；
+    //客户端JavaScript代码已经完成，位于 zMy_Copied_Js.js 文件中。
     public class PeriodGetter
     {
         public PeriodGetter()
         {
-            Period.Add("AC", "星期一3,4,5节");
-            Period.Add("EF", "星期一3,4,5节");
-            Period.Add("ED", "星期一3,4,5节");
-            Period.Add("DE", "星期一3,4,5节");
-            Period.Add("GF", "星期一3,4,5节");
-            Period.Add("DF", "星期一3,4,5节");
-            Period.Add("AA", "星期一3,4,5节");
-            Period.Add("DC", "星期一3,4,5节");
-            Period.Add("EE", "星期一3,4,5节");
+            string[] weekc = { "周一", "周二", "周三", "周四", "周五", "周六", "周日" };  //week chinese version
+            string[] week = { "A", "B", "C", "D", "E", "F", "G" };
+            string[] periodc = { "1,2节", "3,4节", "3,4,5节", "6,7节", "8,9节", "10~12节" }; //period chinese version
+            string[] period = { "A", "B", "C", "D", "E", "F" };
+            for (int i = 0; i < period.Length; i++)
+            {
+                for (int j = 0; j < week.Length; j++)
+                {
+                    Period.Add(week[j] + period[i], weekc[j] + periodc[i]);
+                }
+            }
         }
         public Dictionary<string, string> Period = new Dictionary<string, string>();
     }
 
-    public static class Miscellaneous
+    public class Miscellaneous
     {
-        public static PeriodGetter P = new PeriodGetter();
+        public static string a = "a";
     }
 }

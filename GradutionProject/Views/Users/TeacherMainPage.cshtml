@@ -1,7 +1,7 @@
 ﻿@model System.Data.DataSet
 @{
     ViewBag.Title = "TeacherMainPage";
-
+    GradutionProject.Models.PeriodGetter P = new GradutionProject.Models.PeriodGetter();
     System.Data.DataTable CoursesOfTeacher = Model.Tables["CoursesOfTeacher"];
     System.Data.DataTable this_semester_course = Model.Tables["this_semester_course"];
     System.Data.DataTable AllMyStudent = Model.Tables["AllMyStudent"];
@@ -88,6 +88,7 @@
         </a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
             <li id="jmeter_tab"><a href="#jmeter" tabindex="-1" role="tab" data-toggle="tab" onclick="checkPane(this.getAttribute('href'))">课程相关</a></li>
+            <li class="divider"></li>
             <li id="ejb_tab"><a href="#ejb" tabindex="-1" role="tab" data-toggle="tab" onclick="checkPane(this.getAttribute('href'))">学生相关</a></li>
         </ul>
     </li>
@@ -209,8 +210,7 @@
                             <td><a href="../Courses/MyCourse?id=@row[0]"> @row[1] </a> </td>
                             <td>@Convert.ToDateTime(row[4]).ToString("yy年MM月dd日") 至 @Convert.ToDateTime(row[5]).ToString("MM月dd日")</td>
                             <td>@row[6]</td>
-                            <td>@row[7]</td>
-                            @*GradutionProject.Models.Miscellaneous.P.Period[row[7].ToString()]*@
+                            <td>@P.Period[row[7].ToString()]</td>
                             <td>@Count_All[CoursesOfTeacher.Rows.IndexOf(row)]</td>
                         </tr>
                     }
@@ -273,7 +273,7 @@
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
                     我开设的课程
-                    <small><span style="font-size:smaller">一共有<span>8</span>门课</span></small>
+                    <small><span style="font-size:smaller">一共有<span>@CoursesOfTeacher.Rows.Count</span>门课</span></small>
                 </h3>
             </div>
 
@@ -293,11 +293,11 @@
                     {
                         <tr>
                             <td><a href="../Courses/MyCourse?id=@row[0]"> @row[1] </a> </td>
-                            <td>@row[4]</td>
-                            <td>@row[5]</td>
-                            <td>@row[6]</td>
-                            <td>@row[7]</td>
-                            <td>@Count_All[CoursesOfTeacher.Rows.IndexOf(row)]</td>
+                            <td>Placeholder</td>
+                            <td>@Convert.ToDateTime(row[4]).ToString("yy年MM月dd日") 至 @Convert.ToDateTime(row[5]).ToString("MM月dd日")</td>
+                            <td>@P.Period[row[7].ToString()], @row[6], 共 @Count_All[CoursesOfTeacher.Rows.IndexOf(row)]人</td>
+                            <td>Placeholder</td>
+                            <td>Placeholder</td>
                         </tr>
                     }
                 </tbody>
@@ -369,59 +369,33 @@
         var result = xn + "学年 第" + xq + "学期 第" + getSt(2018, 2, 5) + "教学周";
         return result;
     }
-    calendar = new Date();
-    day = calendar.getDay();
-    month = calendar.getMonth();
-    date = calendar.getDate();
-    year = calendar.getYear();
-    if (year < 200) year = 1900 + year;
-    cent = parseInt(year / 100);
-    g = year % 19;
-    k = parseInt((cent - 17) / 25);
-    i = (cent - parseInt(cent / 4) - parseInt((cent - k) / 3) + 19 * g + 15) % 30;
-    i = i - parseInt(i / 28) * (1 - parseInt(i / 28) * parseInt(29 / (i + 1)) * parseInt((21 - g) / 11));
-    j = (year + parseInt(year / 4) + i + 2 - cent + parseInt(cent / 4)) % 7;
-    l = i - j;
-    emonth = 3 + parseInt((l + 40) / 44);
-    edate = l + 28 - 31 * parseInt((emonth / 4));
-    emonth--;
+    function showTeachWeek() {
+        calendar = new Date();
+        day = calendar.getDay();
+        month = calendar.getMonth();
+        date = calendar.getDate();
+        year = calendar.getYear();
+        if (year < 200) year = 1900 + year;
+        cent = parseInt(year / 100);
+        g = year % 19;
+        k = parseInt((cent - 17) / 25);
+        i = (cent - parseInt(cent / 4) - parseInt((cent - k) / 3) + 19 * g + 15) % 30;
+        i = i - parseInt(i / 28) * (1 - parseInt(i / 28) * parseInt(29 / (i + 1)) * parseInt((21 - g) / 11));
+        j = (year + parseInt(year / 4) + i + 2 - cent + parseInt(cent / 4)) % 7;
+        l = i - j;
+        emonth = 3 + parseInt((l + 40) / 44);
+        edate = l + 28 - 31 * parseInt((emonth / 4));
+        emonth--;
 
-    var dayname = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
-    var monthname =
-        new Array("1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月");
+        var dayname = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+        var monthname =
+            new Array("1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月");
 
-    var a = year + "年" + monthname[month] + date + "日" + dayname[day] + " " + " （" + show1() + " ）";
-    document.getElementById("showDate").innerHTML = a;
-    document.getElementById(dayname[day]).setAttribute("style", "background-color:lawngreen");
-</script>
-
-<script>
-    //该函数在页面加载完成时调用（相当于body onload="loadTip()"），用来保持页面刷新后仍在当前panel。
-    window.onload = function loadTip() {
-        RenderTable();
-
-        //-------------------------------------Begin 处理tab pane显示问题-----------------------------------------//
-        //!!!不知道为什么后台传过来的值如果第一个字符是“#”，前端就无法接收到这个值。
-        //var item = "ViewData["tab"].ToString()";
-        var href = window.location.href.toString().split('#')[window.location.href.toString().split('#').length - 1];
-        var tagid = "";
-        if (href == "ios") {
-            tagid = href + "_tab";
-        }
-        else if (href == "ejb" || href == "jmeter") {
-            document.getElementById(href).setAttribute("class", "tab-pane fade in active");
-            document.getElementById("jmeter_ejb_tab").setAttribute("class", "active");
-            return;
-        }
-        else {
-            tagid = "home_tab";
-            href = "home";
-        }
-        //var tagpane = document.getElementsByClassName("tab-pane fade in active")[0].getAttribute("id");
-        document.getElementById(href).setAttribute("class", "tab-pane fade in active");
-        document.getElementById(tagid).setAttribute("class", "active");
-        //-------------------------------------End    处理tab pane显示问题-----------------------------------------//
+        var a = year + "年" + monthname[month] + date + "日" + dayname[day] + " " + " （" + show1() + " ）";
+        document.getElementById("showDate").innerHTML = a;
+        document.getElementById(dayname[day]).setAttribute("style", "background-color:lawngreen");
     }
+
     function RenderTable() {
         //-------------------------------------Begin 渲染课表颜色-----------------------------------------//
         //此处犯下的错误: 命名TDs的原因是之前为：var TDs = document.getElementsByTagName("table")[0].getElementsByTagName("td");，
@@ -451,4 +425,138 @@
         //window.location.href = window.location.href.toString().split('?')[0] + "?tab=" + param.toString().substring(1, param.length);
         //alert(window.location.href);
     }
+</script>
+
+<script>
+    //该函数在页面加载完成时调用（相当于body onload="loadTip()"），用来保持页面刷新后仍在当前panel。
+    window.onload = function loadTip() {
+        showTeachWeek();
+        RenderTable();
+
+        //-------------------------------------Begin 处理tab pane显示问题-----------------------------------------//
+        //!!!不知道为什么后台传过来的值如果第一个字符是“#”，前端就无法接收到这个值。
+        //var item = "ViewData["tab"].ToString()";
+        var href = window.location.href.toString().split('#')[window.location.href.toString().split('#').length - 1];
+        var tagid = "";
+        if (href == "ios") {
+            tagid = href + "_tab";
+        }
+        else if (href == "ejb" || href == "jmeter") {
+            document.getElementById(href).setAttribute("class", "tab-pane fade in active");
+            document.getElementById("jmeter_ejb_tab").setAttribute("class", "active");
+            return;
+        }
+        else {
+            tagid = "home_tab";
+            href = "home";
+        }
+        //var tagpane = document.getElementsByClassName("tab-pane fade in active")[0].getAttribute("id");
+        document.getElementById(href).setAttribute("class", "tab-pane fade in active");
+        document.getElementById(tagid).setAttribute("class", "active");
+        //-------------------------------------End    处理tab pane显示问题-----------------------------------------//
+    }
+</script>
+
+<script>
+    //class PeriodGetter {
+
+    //}
+
+    ////在Javascript中创建一个对象 -来自网络（https://blog.csdn.net/xi_2130/article/details/50276025）
+    //var Person = function (name, age) {
+    //    //共有属性
+    //    this.name = name;
+    //    //共有方法
+    //    this.sayName = function () {
+    //        console.log(this.name);
+    //    };
+    //    //静态私有属性(只能用于内部调用)
+    //    var home = "China";
+    //    //静态私有方法(只能用于内部调用)
+    //    function sayHome() {
+    //        console.log(home);
+    //    }
+    //    //构造器
+    //    this.setAge = function (age) {
+    //        console.log(age + 12);
+    //    };
+    //    this.setAge(age);
+    //}
+    ////静态方法（只能被类来访问）
+    //Person.sayAge = function () {
+    //    console.log("your age is 12");
+    //}
+    ////静态属性（只能被类来访问）
+    //Person.drink = "water";
+    ////静态共有方法（类和实例都可以访问）
+    //Person.prototype.sayWord = function () {
+    //    console.log("ys is a boy");
+    //}
+
+
+
+    ////在Javascript中创建封装类的方法（类似Python）-来自网络
+    //var Person = (function () {
+    //    //静态私有属性方法
+    //    var home = "China";
+    //    function sayHome(name) {
+    //        console.log(name + "'s home in " + home);
+    //    }
+    //    //构造函数
+    //    function _person(name, age) {
+    //        var _this = this;
+    //        //构造函数安全模式，避免创建时候丢掉new关键字
+    //        if (_this instanceof _person) {
+    //            //共有属性, 方法
+    //            _this.name = name;
+    //            _this.getHome = function () {
+    //                //内部访问私有属性，方法
+    //                sayHome(_this.name);
+    //            };
+    //            _this.test = sayHome; //用于测试
+    //            //构造器
+    //            _this.setAge = function (age) {
+    //                _this.age = age + 12;
+    //            }(age);
+    //        } else {
+    //            return new _person(name, age);
+    //        }
+    //    }
+    //    //静态共有属性方法
+    //    _person.prototype = {
+    //        constructor: _person,
+    //        drink: "water",
+    //        sayWord: function () {
+    //            console.log("ys is a boy");
+    //        }
+    //    }
+    //    return _person;
+    //})();
+
+    ////调用如下：
+    //var p1 = new Person("ys", 12);
+    //p1.getHome();                   //ys's home in China
+    //console.log(p1.age);            //24
+
+    //var p2 = Person("ys", 12);
+    //p2.getHome();                   //ys's home in China
+    //console.log(p2.age);            //24
+
+    //console.log(p2.test == p1.test);  //true, 证明静态私有变量共享性
+
+
+    //这个网址讲解了Javascript创建类的几种方式和存在的问题： https://blog.csdn.net/Cool_Wayen/article/details/53220007
+    //function Car() {
+    //    this.color = "b";
+    //    this.length = 1;
+    //    this.data1 = new Array();
+    //}
+
+    //Car.prototype.run = function () {
+    //    alert("dddd");
+    //}
+
+
+    //Javascript中的Dictionary
+    //见zMy_Copied_Js.js文件。
 </script>

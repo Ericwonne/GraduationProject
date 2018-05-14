@@ -63,6 +63,7 @@
         </a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
             <li><a href="#jmeter" tabindex="-1" data-toggle="tab">课程相关</a></li>
+            <li class="divider" style="margin-top:2px;margin-bottom:2px"></li>
             <li><a href="#ejb" tabindex="-1" data-toggle="tab">社交相关</a></li>
         </ul>
     </li>
@@ -185,14 +186,14 @@
                 <tbody>
                     @foreach (System.Data.DataRow row in selectedCourseInfo.Rows)
                     {
-                    <tr>
-                        <td>@row[1] </td>
-                        <td>@row[4].ToString().Substring(0, 10)</td>
-                        <td>@row[5].ToString().Substring(0, 10)</td>
-                        <td>@row[6]</td>
-                        <td>@row[7]</td>
-                        @*GradutionProject.Models.Miscellaneous.P.Period[row[7].ToString()]*@
-                    </tr>
+                        <tr>
+                            <td>@row[1] </td>
+                            <td>@row[4].ToString().Substring(0, 10)</td>
+                            <td>@row[5].ToString().Substring(0, 10)</td>
+                            <td>@row[6]</td>
+                            <td>@row[7]</td>
+                            @*GradutionProject.Models.Miscellaneous.P.Period[row[7].ToString()]*@
+                        </tr>
                     }
                 </tbody>
             </table>

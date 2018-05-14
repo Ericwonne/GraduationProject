@@ -2,7 +2,10 @@
 @{
     ViewBag.Title = "DisplayCourses";
     System.Data.DataTable AllCourses = Model.Tables["courses"];
+    GradutionProject.Models.PeriodGetter P = new GradutionProject.Models.PeriodGetter();
 }
+<script src="~/Content/Scripts/bootstrap-hover-dropdown.js"></script>
+<script src="~/Content/Scripts/bootstrap-hover-dropdown.min.js"></script>
 <style type="text/css">
     td.alt {
         background-color: #ffc;
@@ -16,55 +19,72 @@
     <div class="container">
         <div class="input-group">
             <div class="input-group-addon">搜索</div>
-            <input class="form-control" type="search" id="input-filter" size="15" placeholder="搜索表格中的条目" />
+            <input class="form-control" type="search" id="input-filter" placeholder="搜索表格中的条目" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <small><i class="glyphicon glyphicon-asterisk" style="color:forestgreen"></i></small> 已选
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <small><i class="glyphicon glyphicon-asterisk" style="color:blue"></i></small> 已收藏
         </div>
+        <br />
         <table class="table">
             <thead>
                 <tr>
+                    <th><i class="fa fa-hashtag"></i>&nbsp;课程类别</th>
                     <th><i class="fa fa-hashtag"></i>&nbsp;课程名称</th>
-                    <th><i class="fa fa-hashtag"></i>&nbsp;开始日期</th>
-                    <th><i class="fa fa-hashtag"></i>&nbsp;结束日期</th>
+                    <th><i class="fa fa-hashtag"></i>&nbsp;上课周期</th>
                     <th><i class="fa fa-hashtag"></i>&nbsp;上课地点</th>
                     <th><i class="fa fa-hashtag"></i>&nbsp;上课时间</th>
-                    <th><i class="fa fa-hashtag"></i>&nbsp;课程容量</th>
-                    <th><i class="fa fa-male"></i>&nbsp;当前人数</th>
+                    <th><i class="fa fa-male"></i>&nbsp;容量(已选)</th>
+                    <th><i class="fa fa-male"></i>&nbsp;操作</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (System.Data.DataRow row in AllCourses.Rows)
                 {
                     <tr>
+                        <td class="category"></td>
                         <td>
-                            <a title="" href="SpecificCourse?id=@row[0]&state=@row[7]">
+                            <a title="" href="SpecificCourse?id=@row[0]&state=@row[7]" onclick="transferSession("@row[6]" + "@row[6]")">
                                 @row[1]
                             </a>
                             @{
                                 if (row[7].ToString() == GradutionProject.Models.ManipCourseType.C.ToString())
                                 {
-                                    <span class="label label-info">已选</span>
-                                    <span class="label label-info">已收藏</span>
+                                    <small><i class="glyphicon glyphicon-asterisk" style="color:forestgreen;font-size:x-small"></i></small>
+                                    <small><i class="glyphicon glyphicon-asterisk" style="color:blue;font-size:x-small"></i></small>
                                 }
                                 else if (row[7].ToString() == GradutionProject.Models.ManipCourseType.A.ToString())
                                 {
-                                    <span class="label label-info">已选</span>
+                                    <small><i class="glyphicon glyphicon-asterisk" style="color:forestgreen;font-size:x-small"></i></small>
                                 }
                                 else if (row[7].ToString() == GradutionProject.Models.ManipCourseType.B.ToString())
                                 {
-                                    <span class="label label-info">已收藏</span>
+                                    <small><i class="glyphicon glyphicon-asterisk" style="color:blue;font-size:x-small"></i></small>
                                 }
                                 else
                                 {
 
                                 }
                             }
-
                         </td>
-                        <td>@row[2].ToString().Substring(0, 10)</td>
-                        <td>@row[3].ToString().Substring(0, 10)</td>
+                        <td>@Convert.ToDateTime(row[2]).ToString("yy年MM月dd日")至 @Convert.ToDateTime(row[3]).ToString("MM月dd日")</td>
                         <td>@row[4]</td>
-                        <td>@row[5]</td>
-                        <td>@row[6]</td>
-                        <td>@row[8]</td>
+                        <td>@P.Period[row[5].ToString()]</td>
+                        <td>@row[6] &nbsp;(<span style="color:darkslategray">@row[8]</span>)</td>
+                        <td>
+                            <ul>
+                                <li class="dropdown">
+                                    <span class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#">
+                                        收藏/选择 <span class="caret"></span>
+                                    </span>
+                                    <ul class="dropdown-menu">
+                                        <li>选择该课程</li>
+                                        <li class="divider" style="margin-top:2px;margin-bottom:2px"></li>
+                                        <li>收藏该课程</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </td>
                         <td class="hidden"></td>
                     </tr>
                 }
@@ -77,7 +97,8 @@
 <script src="~/Scripts/jquery.filtertable.min.js"></script>
 <script>
     function loadTooltip() {
-        var a_list = document.getElementsByTagName("a");
+        var a_list = document.getElementsByTagName("table")[0].getElementsByTagName("a");
+        var td_list = document.getElementsByTagName("table")[0].getElementsByClassName("category");
         for (var index = 0; index < a_list.length; index++) {
             var tdval = a_list[index].getAttribute("href").toString().substr(19, 1);
             switch (tdval) {
@@ -96,6 +117,7 @@
                 case "M": tdval = "艺术学门类"; break;
             }
             a_list[index].setAttribute("title", tdval);
+            td_list[index].innerHTML = tdval.toString().split("门")[0];
         }
     }
 
@@ -105,6 +127,10 @@
         });
     });
 
+    function transferSession(para) {
+        console.log(para);
+        document.cookie = "c_amt" + para;   //c_amt: cookie amount of total and selected amount of course;
+    }
 </script>
 
 

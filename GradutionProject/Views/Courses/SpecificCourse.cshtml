@@ -7,7 +7,9 @@
     System.Data.DataRow trow = t.Rows[0];
 
     ViewBag.Title = crow[1] + "-学生选课管理信息系统";
+    GradutionProject.Models.PeriodGetter P = new GradutionProject.Models.PeriodGetter();
 }
+
 <body onload="onButtonLoad()">
     <h2 style="display:inline-block">
         @crow[1]
@@ -35,98 +37,92 @@
     </h4>
     <br /><br />
 
-
-    <div>
-        <label>任课教师：</label>&nbsp;&nbsp;&nbsp;&nbsp;<label> @trow[1] </label><br />
-        <label>发布时间：</label>&nbsp;&nbsp;&nbsp;&nbsp;<label> @crow[3] </label><br />
-        <label>结束选课时间：</label>&nbsp;&nbsp;&nbsp;&nbsp;<label> @crow[4] </label><br />
-        <label>课程结束时间：</label>&nbsp;&nbsp;&nbsp;&nbsp;<label> @crow[5] </label><br />
-        <label>考试时间：</label>&nbsp;&nbsp;&nbsp;&nbsp;<label> @crow[8] </label><br />
-        <label>上课地点：</label>&nbsp;&nbsp;&nbsp;&nbsp;<label> @crow[6] </label><br />
-        <label>上课时间：</label>&nbsp;&nbsp;&nbsp;&nbsp;<label> @crow[7] </label><br />
-    </div>
-
-    <br /><br /><br />
-
-    <div>
-        <input id="choose" type="button" value="加入我的课表" onclick="choose()" />
-        <input id="collect" type="button" value="收藏该课程" onclick="collect()" />
-        <input id="back" type="button" value="返回课程列表" onclick="returnToList()" />
-    </div>
-
-
+    <ul class="btn-group btn-group-justified">
+        <li id="choose" class="btn btn-default" style="background-color:#CCFF99" onclick="choose()"> <i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;加入我的课表</li>
+        <li id="collect" class="btn btn-default" style="background-color:#CCFF99" onclick="collect()"> <i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;收藏该课程</li>
+        <li id="back" class="btn btn-default" style="background-color: #FFCA5F" onclick="returnToList()"> <i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;返回课程列表</li>
+    </ul>
 
     <div class="container-fluid">
         <div class="row-fluid">
-            <div class="span6">
-                <img class="img-rounded" alt="140x140" src="img/a.jpg" />
-                <div class="progress">
-                    <div class="bar">
+            <div class="span6" style="margin-top:3%;margin-bottom:3%">
+                <div>
+                    <div class="progress" style="margin-bottom:1px">
+                        <progress value="50" max="100" style="width:100%"></progress>
                     </div>
+                    <p class="text-warning">
+                        <i class="glyphicon glyphicon-asterisk" style="font-size:x-small"></i>
+                        课程容量一共xxx人，现在该门课已经有<strong>XXX</strong>个人选择。
+                    </p>
                 </div>
+                <br />
                 <p>
                     <em>Git</em>是一个分布式的版本控制系统，最初由<strong>Linus Torvalds</strong>编写，用作Linux内核代码的管理。在推出后，Git在其它项目中也取得了很大成功，尤其是在Ruby社区中。
-                </p> <button class="btn btn-primary btn-large btn-block" type="button">按钮</button>
+                </p>
+
             </div>
+
             <div class="span6">
                 <dl>
-                    <dt>
-                        Rolex
+                    <dt class="form-control" style="width:35%;background-color:darkgrey">
+                        任课教师
                     </dt>
-                    <dd>
-                        劳力士创始人为汉斯.威尔斯多夫，1908年他在瑞士将劳力士注册为商标。
+                    <dd style="margin-top:5px;margin-bottom:5px;font-size:larger">
+                        @trow[1]
                     </dd>
-                    <dt>
-                        Vacheron Constantin
+                    <dt class="form-control" style="width:35%;background-color:darkgrey">
+                        发布时间
                     </dt>
-                    <dd>
-                        始创于1775年的江诗丹顿已有250年历史，
+                    <dd style="margin-top:5px;margin-bottom:5px;font-size:larger">
+                        @crow[3]
                     </dd>
-                    <dd>
-                        是世界上历史最悠久、延续时间最长的名表之一。
-                    </dd>
-                    <dt>
-                        IWC
+                    <dt class="form-control" style="width:35%;background-color:darkgrey">
+                        结束选课时间
                     </dt>
-                    <dd>
-                        创立于1868年的万国表有“机械表专家”之称。
+                    <dd style="margin-top:5px;margin-bottom:5px;font-size:larger">
+                        @crow[4]
                     </dd>
-                    <dt>
-                        Cartier
+                    <dt class="form-control" style="width:35%;background-color:darkgrey">
+                        课程结束时间
                     </dt>
-                    <dd>
-                        卡地亚拥有150多年历史，是法国珠宝金银首饰的制造名家。
+                    <dd style="margin-top:5px;margin-bottom:5px;font-size:larger">
+                        @crow[5]
+                    </dd>
+                    <dt class="form-control" style="width:35%;background-color:darkgrey">
+                        考试时间
+                    </dt>
+                    <dd style="margin-top:5px;margin-bottom:5px;font-size:larger">
+                        @crow[8]
+                    </dd>
+                    <dt class="form-control" style="width:35%;background-color:darkgrey">
+                        上课地点
+                    </dt>
+                    <dd style="margin-top:5px;margin-bottom:5px;font-size:larger">
+                        @crow[6]
+                    </dd>
+                    <dt class="form-control" style="width:35%;background-color:darkgrey">
+                        上课时间
+                    </dt>
+                    <dd style="margin-top:5px;margin-bottom:5px;font-size:larger">
+                        @P.Period[crow[7].ToString()]
                     </dd>
                 </dl>
-                <dl>
-                    <dt>
-                        Rolex
-                    </dt>
-                    <dd>
-                        劳力士创始人为汉斯.威尔斯多夫，1908年他在瑞士将劳力士注册为商标。
-                    </dd>
-                    <dt>
-                        Vacheron Constantin
-                    </dt>
-                    <dd>
-                        始创于1775年的江诗丹顿已有250年历史，
-                    </dd>
-                    <dd>
-                        是世界上历史最悠久、延续时间最长的名表之一。
-                    </dd>
-                    <dt>
-                        IWC
-                    </dt>
-                    <dd>
-                        创立于1868年的万国表有“机械表专家”之称。
-                    </dd>
-                    <dt>
-                        Cartier
-                    </dt>
-                    <dd>
-                        卡地亚拥有150多年历史，是法国珠宝金银首饰的制造名家。
-                    </dd>
-                </dl>
+            </div>
+        </div>
+    </div>
+
+    <br /><br />
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span6">
+                <p>
+                    <em>Git</em>是一个分布式的版本控制系统，最初由<strong>Linus Torvalds</strong>编写，用作Linux内核代码的管理。在推出后，Git在其它项目中也取得了很大成功，尤其是在Ruby社区中。
+                </p>
+            </div>
+            <div class="span6">
+                <p>
+                    <em>Git</em>是一个分布式的版本控制系统，最初由<strong>Linus Torvalds</strong>编写，用作Linux内核代码的管理。在推出后，Git在其它项目中也取得了很大成功，尤其是在Ruby社区中。
+                </p>
             </div>
         </div>
     </div>
@@ -168,27 +164,63 @@
 
     function onButtonLoad() {
         var ifselected = "@ViewData["V_state"].ToString()";
+        var button1, button2;
+        button1 = document.getElementById("choose");
+        button2 = document.getElementById("collect");
         if (ifselected == "A") {
-            var button = document.getElementById("choose");
-            button.setAttribute("value", "移出我的课表");
-            button.setAttribute("onclick", "unchoose()");
+            button1.setAttribute("onclick", "unchoose()");
+            button1.setAttribute("style", "background-color:#FE7368");
+            button1.innerHTML = "移出我的课表";
         }
         else if (ifselected == "B") {
-            var button = document.getElementById("collect");
-            button.setAttribute("value", "取消收藏");
-            button.setAttribute("onclick", "uncollect()");
+            button2.setAttribute("onclick", "uncollect()");
+            button2.setAttribute("style", "background-color:#FE7368");
+            button2.innerHTML = "取消收藏";
         }
         else if (ifselected == "C") {
-            var button1 = document.getElementById("choose");
-            button1.setAttribute("value", "移出我的课表");
             button1.setAttribute("onclick", "unchoose()");
+            button1.setAttribute("style", "background-color:#FE7368");
+            button1.innerHTML = "移出我的课表";
 
-            var button2 = document.getElementById("collect");
-            button2.setAttribute("value", "取消收藏");
             button2.setAttribute("onclick", "uncollect()");
+            button2.setAttribute("style", "background-color:#FE7368");
+            button2.innerHTML = "取消收藏";
         }
         else {
 
         }
     }
+
+    //设置按钮可用性
+    //document.getElementById("collect").setAttribute("disabled","disabled")
+
+    function getCookie() {
+        var name = document.cookie.split(';')[0].split('=')[0];
+        var value = document.cookie.split(';')[0].split('=')[1];
+        var amount, selected;
+        amount = value.split('_')[0];
+        selected = value.split('_')[1];
+        document.write(value);
+        setCookie(name, "", -1);
+    }
+
 </script>
+
+
+
+
+
+
+
+@*<link href="https://cdn.bootcss.com/bootstrap/3.0.0/css/bootstrap.css" rel="stylesheet">*@
+@*<div class="btn-group btn-group-justified">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default">Left</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default">Middle</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default">Right</button>
+        </div>
+    </div>*@

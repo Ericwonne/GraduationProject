@@ -154,7 +154,7 @@
     /*jshint browser: true, strict: true, undef: true */
     /*global define: false */
 
-    (function (window) {
+(function (window) {
 
         'use strict';
 
@@ -233,7 +233,7 @@
 
     要改变textarea初始化时的高度，只需改变pre的padding值即可，页面加载时pre里面添加<br />标签是为了让pre标签初始时有个高度
  */
-; (function ($) {
+(function ($) {
 
     // Constructor
     function FT(elem) {
@@ -294,13 +294,8 @@
 
 
 
-
-
-
-
-
-
-/*
+try {
+    /*
 var zturn=function(turn){
 						var self=this
 						this.x=1
@@ -377,3 +372,7 @@ var zturn=function(turn){
 					
 				}
 				*/
+
+} catch (e) {
+
+}
