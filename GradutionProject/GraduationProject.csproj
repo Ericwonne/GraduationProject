@@ -191,6 +191,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\img\btn.png" />
+    <Content Include="Images\img\face.gif" />
+    <Content Include="Images\img\face1.gif" />
+    <Content Include="Images\img\face2.gif" />
+    <Content Include="Images\img\face3.gif" />
+    <Content Include="Images\img\face4.gif" />
+    <Content Include="Images\img\face5.gif" />
+    <Content Include="Images\img\face6.gif" />
+    <Content Include="Images\img\face7.gif" />
+    <Content Include="Images\img\face8.gif" />
     <Content Include="Images\jwc.jpg" />
     <Content Include="Images\usst.png" />
     <Content Include="Images\usst_frontdoor.jpg" />
