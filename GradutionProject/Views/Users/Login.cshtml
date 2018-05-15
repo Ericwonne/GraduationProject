@@ -18,7 +18,7 @@
     </div>
     <div class="checkbox">
         <label>
-            <input name="remember" type="checkbox"> 记住我
+            <input id="remember" type="checkbox"> 记住我
         </label>
     </div>
     <button type="submit" class="btn btn-default" onclick="checkExist()">登录</button>
@@ -26,7 +26,61 @@
 <br />
 <p class="alert-link">没有账号？点击<a href="Register"><strong>注册</strong></a></p>
 <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+
 <script>
+    //----------------Below are copied from online: https://www.cnblogs.com/lideqiang/p/5667576.html ----------------------//
+    /*
+        *功能： JS跳转页面，并已POST方式提交数据
+        *参数： URL 跳转地址 PARAMTERS 参数
+        *返回值：
+        *创建时间：20160713
+        *创建人：
+        */
+    function ShowReport_Click(uid, pwd) {
+
+        var parames = new Array();
+        parames.push({ name: "inputEmail", value: uid });
+        parames.push({ name: "inputPassword", value: pwd });
+
+        Post("LoginTypeCheck", parames);
+        return false;
+    }
+
+    /*
+    *功能： 模拟form表单的提交
+    *参数： URL 跳转地址 PARAMTERS 参数
+    *返回值：
+    *创建时间：20160713
+    *创建人：
+    */
+    function Post(URL, PARAMTERS) {
+        //创建form表单
+        var temp_form = document.createElement("form");
+        temp_form.action = URL;
+        //如需打开新窗口，form的target属性要设置为'_blank'
+        temp_form.target = "_self";
+        temp_form.method = "post";
+        temp_form.style.display = "none";
+        //添加参数
+        for (var item in PARAMTERS) {
+            var opt = document.createElement("textarea");
+            opt.name = PARAMTERS[item].name;
+            opt.value = PARAMTERS[item].value;
+            temp_form.appendChild(opt);
+        }
+        document.body.appendChild(temp_form);
+        //提交数据
+        temp_form.submit();
+    }
+    //--------------------------------------------------------------------------------------------------------------------------//
+</script>
+<script>
+    //自动登录
+    window.onload = function LoadPass() {
+        if (localStorage.storageid != null && localStorage.storagepass != null) {
+            ShowReport_Click(localStorage.storageid, localStorage.storagepass);
+        }
+    }
     function checkExist() {
         //var formData = new FormData();
         //formData.append("inputEmail", document.getElementById("inputEmail"));
@@ -41,10 +95,18 @@
                 if (response == "N") {
                     document.getElementById("span_email").innerText = "用户名不存在！";
                 }
+                else {
+                    if (document.getElementById("remember").checked == true) {
+                        var storageid = document.getElementById("inputEmail").value, storagepass = document.getElementById("inputPassword").value;
+                        localStorage.storageid = storageid;
+                        localStorage.storagepass = storagepass;
+                    }
+                }
             },
             error: function (response) {
                 console.log(response);
             }
         });
     }
+    document.getElementById("s").hasAttribute
 </script>

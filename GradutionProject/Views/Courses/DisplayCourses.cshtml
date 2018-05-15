@@ -44,7 +44,7 @@
                     <tr>
                         <td class="category"></td>
                         <td>
-                            <a title="" href="SpecificCourse?id=@row[0]&state=@row[7]" onclick="transferSession("@row[6]" + "@row[6]")">
+                            <a title="" href="SpecificCourse?id=@row[0]&state=@row[7]" onclick="transferSession('@row[6]' +'_'+ '@row[8]')">
                                 @row[1]
                             </a>
                             @{
@@ -128,8 +128,7 @@
     });
 
     function transferSession(para) {
-        console.log(para);
-        document.cookie = "c_amt" + para;   //c_amt: cookie amount of total and selected amount of course;
+        sessionStorage.c_amt = para;        //c_amt: cookie storing amount of total and selected heads of course;
     }
 </script>
 

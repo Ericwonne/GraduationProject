@@ -52,7 +52,7 @@
                     </div>
                     <p class="text-warning">
                         <i class="glyphicon glyphicon-asterisk" style="font-size:x-small"></i>
-                        课程容量一共xxx人，现在该门课已经有<strong>XXX</strong>个人选择。
+                        课程容量一共<span id="total_amount"></span>人，现在该门课已经有<span id="selected_amount"></span>个人选择。
                     </p>
                 </div>
                 <br />
@@ -189,20 +189,14 @@
         else {
 
         }
+        //function getCookie()
+        document.getElementById('total_amount').innerHTML = (sessionStorage.c_amt).split('_')[0];
+        document.getElementById('selected_amount').innerHTML = (sessionStorage.c_amt).split('_')[1];
     }
 
     //设置按钮可用性
     //document.getElementById("collect").setAttribute("disabled","disabled")
 
-    function getCookie() {
-        var name = document.cookie.split(';')[0].split('=')[0];
-        var value = document.cookie.split(';')[0].split('=')[1];
-        var amount, selected;
-        amount = value.split('_')[0];
-        selected = value.split('_')[1];
-        document.write(value);
-        setCookie(name, "", -1);
-    }
 
 </script>
 

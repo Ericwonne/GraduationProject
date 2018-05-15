@@ -30,6 +30,13 @@ namespace GradutionProject.Controllers
                 return View();
         }
 
+        [HttpGet]
+        public object LoginTypeCheck()
+        {
+            return RedirectToAction("Login");
+        }
+
+        [HttpPost]
         public object LoginTypeCheck(FormCollection fc)
         {
             User user = new User
@@ -38,16 +45,6 @@ namespace GradutionProject.Controllers
                 Username = fc["inputEmail"],
                 Password = fc["inputPassword"]
             };
-
-            //if (fc["remember"].ToString() == "checked")
-            //{
-            //    HttpCookie cookie = new HttpCookie("User")
-            //    {
-            //        Expires = DateTime.Now.AddMonths(1)
-            //    };
-            //    cookie["uid"] = fc["inputEmail"];
-            //    Response.Cookies.Add(cookie);
-            //}
 
             bool Existence = DBManip.CheckUserExistence(ref user, true);
             if (Existence == false)
