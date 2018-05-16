@@ -15,7 +15,7 @@ namespace GradutionProject.Models
 
         public User()
         {
-            
+
         }
         public User(string username, string password, char registryType, string uniqueClientID = "", string registryDate = "")
         {
@@ -146,7 +146,7 @@ namespace GradutionProject.Models
             CourseTeacher = courseTeacher;
             PublishDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             StartDate = Convert.ToDateTime(startDate).ToString("yyyy-MM-dd HH:mm:ss");
-            EndDate = Convert.ToDateTime(endDate).ToString("yyyy-MM-dd HH:mm:ss"); 
+            EndDate = Convert.ToDateTime(endDate).ToString("yyyy-MM-dd HH:mm:ss");
             Venue = venue;
             Period = period;
             ExamID = examID;
