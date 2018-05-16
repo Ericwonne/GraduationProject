@@ -86,7 +86,11 @@ namespace GradutionProject.Controllers
             //tc = teacher_course_information
             DataSet tc = DBManip.GetCourseInfo(id);
             Session["S_courseid"] = id;
-            ViewData["V_state"] = state;
+
+            //本来使用的是ViewData["V_state"] = state; 但现在似乎两者没什么区别：因为这里TempData并不能跨Action传值。
+            //Session["S_state"] = state;
+            TempData["T_state"] = state; //Original: Session["S_state"];
+
             return View(tc);
         }
 
@@ -103,10 +107,11 @@ namespace GradutionProject.Controllers
 
             string selectedCourseId = Session["S_courseid"].ToString();
             string selectedBy = ((User)Session["S_student"]).UniqueClientID;
+            char selectType = 'A';//which means Choose course
 
             DBManip.SelectCourse(selectedBy, selectedCourseId);
 
-            return "添加到课表成功！";
+            return selectType;         // Chosen
         }
 
         public object CollectCourse()
@@ -117,15 +122,49 @@ namespace GradutionProject.Controllers
 
             DBManip.SelectCourse(selectedBy, selectedCourseId, selectType);
 
-            return "您已收藏该课程";
+            return selectType;         //Collected
         }
+
         public object UnchooseCourse()
         {
-            return "您已从课表移除该课程";
+            //if (Session["S_state"].ToString() == "C")
+            //{
+            //    //TempData["T_state"] = "B";
+            //    Session["S_state"] = "B";
+            //}
+            //else
+            //{
+            //    Session["S_state"] = "";
+            //}
+
+            string selectedCourseId = Session["S_courseid"].ToString();
+            string selectedBy = ((User)Session["S_student"]).UniqueClientID;
+            char selectType = 'a';//which means Choose course
+
+            DBManip.DeselectCourse(selectedBy, selectedCourseId);
+
+            return selectType;         //Unchosen
         }
+
         public object UncollectCourse()
         {
-            return "您已取消收藏该课程";
+            //if (Session["S_state"].ToString() == "C")
+            //{
+            //    //TempData["T_state"] = "A";
+            //    Session["S_state"] = "A";
+            //}
+            //else
+            //{
+            //    Session["S_state"] = "";
+            //}
+            string selectedCourseId = Session["S_courseid"].ToString();
+            string selectedBy = ((User)Session["S_student"]).UniqueClientID;
+            char selectType = 'b';//which means Choose course
+
+            DBManip.DeselectCourse(selectedBy, selectedCourseId, selectType);
+
+
+            return selectType;         //Uncollected
         }
     }
 }

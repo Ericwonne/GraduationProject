@@ -12,7 +12,7 @@
         background-color: rgba(230, 127, 34, 0.2);
     }
 </style>
-<body onload="loadTooltip()">
+<body>
     <h2>本学期所有课程</h2>
     <br />
 
@@ -32,6 +32,7 @@
                     <th><i class="fa fa-hashtag"></i>&nbsp;课程类别</th>
                     <th><i class="fa fa-hashtag"></i>&nbsp;课程名称</th>
                     <th><i class="fa fa-hashtag"></i>&nbsp;上课周期</th>
+                    <th><i class="fa fa-hashtag"></i>&nbsp;任课教师</th>
                     <th><i class="fa fa-hashtag"></i>&nbsp;上课地点</th>
                     <th><i class="fa fa-hashtag"></i>&nbsp;上课时间</th>
                     <th><i class="fa fa-male"></i>&nbsp;容量(已选)</th>
@@ -68,8 +69,9 @@
                             }
                         </td>
                         <td>@Convert.ToDateTime(row[2]).ToString("yy年MM月dd日")至 @Convert.ToDateTime(row[3]).ToString("MM月dd日")</td>
+                        <td>Placeholder</td>
                         <td>@row[4]</td>
-                        <td>@P.Period[row[5].ToString()]</td>
+                        <td name="@row[5]">@P.Period[row[5].ToString()]</td>
                         <td>@row[6] &nbsp;(<span style="color:darkslategray">@row[8]</span>)</td>
                         <td>
                             <ul>
@@ -96,6 +98,7 @@
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
 <script src="~/Scripts/jquery.filtertable.min.js"></script>
 <script>
+    //加载hover项
     function loadTooltip() {
         var a_list = document.getElementsByTagName("table")[0].getElementsByTagName("a");
         var td_list = document.getElementsByTagName("table")[0].getElementsByClassName("category");
@@ -121,10 +124,22 @@
         }
     }
 
+    //
+    function loadSolve() {
+        var stamps = sessionStorage.stamps;
+        for (var i = 0; i < stamps.length; i += 2) {
+            document.getElementsByName(stamps.substr(i, 2))[0].setAttribute("style", "color:red");
+        }
+
+    }
+
     $(document).ready(function () {
         $('table').filterTable({ // apply filterTable to all tables on this page
             inputSelector: '#input-filter' // use the existing input instead of creating a new one
         });
+
+        loadTooltip();
+        loadSolve()
     });
 
     function transferSession(para) {

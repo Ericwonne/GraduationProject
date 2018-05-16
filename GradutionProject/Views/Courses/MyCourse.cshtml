@@ -25,7 +25,7 @@
         }
 
             a:hover {
-                /*text-decoration: underline;*/
+                text-decoration: underline;
             }
 
         ul {
@@ -36,7 +36,7 @@
         }
 
         #msgBox {
-            width: auto;
+            width: 100%;
             background: #fff;
             border-radius: 5px;
             margin: 10px auto;
@@ -67,14 +67,14 @@
             }
 
         #userName {
-            /*height: 20px;*/
         }
 
         #conBox {
-            width: 448px;
+            width: 100%;
             resize: none;
             height: 65px;
             overflow: auto;
+            margin-top: 10px;
         }
 
         #msgBox form div {
@@ -91,7 +91,7 @@
             position: absolute;
             top: 0;
             left: 172px;
-            padding-left: 20px;
+            margin-left: 5%;
         }
 
             #face img {
@@ -112,16 +112,16 @@
                 }
 
         #sendBtn {
-            /*border: 0;*/
+            border: 0;
             width: 112px;
             height: 30px;
             cursor: pointer;
-            margin-left: 15px;
-            /*background: url(~/Images/img/btn.png) no-repeat;*/
+            margin-left: 10px;
+            background: url(img/btn.png) no-repeat;
         }
 
             #sendBtn.hover {
-                /*background-position: 0 -30px;*/
+                background-position: 0 -30px;
             }
 
         #msgBox form .maxNum {
@@ -168,7 +168,7 @@
                 }
 
                     #msgBox .list ul li.hover {
-                        /*background: #f5f5f5;*/
+                        background: #f5f5f5;
                     }
 
             #msgBox .list .userPic {
@@ -183,7 +183,7 @@
 
             #msgBox .list .content {
                 float: left;
-                width: 400px;
+                width: auto;
                 font-size: 14px;
                 margin-left: 10px;
                 font-family: arial;
@@ -360,10 +360,10 @@
                     var alpah = count = 0;
                     css(oLi, { "opacity": "0", "height": "0" });
                     timer = setInterval(function () {
-                        css(oLi, { "display": "block", "opacity": "0", "height": (count += 8) + "px" });
+                        css(oLi, { "display": "block", "opacity": "100", "height": "auto" });
                         if (count > iHeight) {
                             clearInterval(timer);
-                            css(oLi, "height", iHeight + "px");
+                            css(oLi, "height", "auto");
                             timer = setInterval(function () {
                                 css(oLi, "opacity", (alpah += 10));
                                 alpah > 100 && (clearInterval(timer), css(oLi, "opacity", 100))
@@ -562,15 +562,19 @@
     </div>
 
 
+    <div class="alert alert-success" role="alert" style="margin-top:3%;margin-bottom:1px">
+        <h4><i class="glyphicon glyphicon-pencil"></i>&nbsp;&nbsp;写下你的评论</h4>
+    </div>
+
+
     <div id="msgBox">
         <form>
-            <h2>来 , 说说你在做什么 , 想什么</h2>
-
             <div>
-                <input id="userName" class="f-text" value="" />
-                <p id="face"><img src="~/Images/img/face1.gif" class="current" /><img src="~/Images/img/face2.gif" /><img src="~/Images/img/face3.gif" /><img src="~/Images/img/face4.gif" /><img src="~/Images/img/face5.gif" /><img src="~/Images/img/face6.gif" /><img src="~/Images/img/face7.gif" /><img src="~/Images/img/face8.gif" /></p>
+                <label>姓名</label>
+                <input id="userName" class="f-text" value="" />&nbsp;&nbsp;&nbsp;
+                <p id="face"><img src="~/Images/img/face7.gif" class="current" /><img src="~/Images/img/face2.gif" /><img src="~/Images/img/face3.gif" /><img src="~/Images/img/face4.gif" /><img src="~/Images/img/face5.gif" /><img src="~/Images/img/face6.gif" /><img src="~/Images/img/face1.gif" /><img src="~/Images/img/face8.gif" /></p>
             </div>
-            <div><textarea id="conBox" class="f-text"></textarea></div>
+            <div><label>留言内容</label>&nbsp;&nbsp;&nbsp;<textarea id="conBox" class="f-text"></textarea></div>
             <div class="tr">
                 <p>
                     <span class="countTxt">还能输入</span><strong class="maxNum">140</strong><span>个字</span>
@@ -586,8 +590,10 @@
 
                     <div class="userPic"><img src="~/Images/img/face.gif" /></div>
                     <div class="content">
-                        <div class="userName"><a href="javascript:;">永不上线</a>:</div>
-                        <div class="msgInfo">新增删除广播功能。</div>
+                        <div class="userName"><a href="javascript:;">王启帆</a>:</div>
+                        <div class="msgInfo">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.3
+                        </div>
                         <div class="times"><span>07月05日 15:14</span><a class="del" href="javascript:;">删除</a></div>
                     </div>
 
@@ -595,8 +601,10 @@
                 <li>
                     <div class="userPic"><img src="~/Images/img/face.gif" /></div>
                     <div class="content">
-                        <div class="userName"><a href="javascript:;">永不上线</a>:</div>
-                        <div class="msgInfo">新增Ctrl+Enter快捷键发送广播。</div>
+                        <div class="userName"><a href="javascript:;">王启帆</a>:</div>
+                        <div class="msgInfo">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.3
+                        </div>
                         <div class="times"><span>07月05日 12:20</span><a class="del" href="javascript:;">删除</a></div>
 
                     </div>
@@ -604,8 +612,10 @@
                 <li>
                     <div class="userPic"><img src="~/Images/img/face.gif" /></div>
                     <div class="content">
-                        <div class="userName"><a href="javascript:;">永不上线</a>:</div>
-                        <div class="msgInfo">新增选择头像功能。</div>
+                        <div class="userName"><a href="javascript:;">发光体</a>:</div>
+                        <div class="msgInfo">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.3
+                        </div>
 
                         <div class="times"><span>07月05日 12:08</span><a class="del" href="javascript:;">删除</a></div>
                     </div>
@@ -613,9 +623,11 @@
                 <li>
                     <div class="userPic"><img src="~/Images/img/face.gif" /></div>
                     <div class="content">
-                        <div class="userName"><a href="javascript:;">永不上线</a>:</div>
+                        <div class="userName"><a href="javascript:;">里卡多</a>:</div>
 
-                        <div class="msgInfo">增加了记录广播时间的功能。</div>
+                        <div class="msgInfo">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.3
+                        </div>
                         <div class="times"><span>07月04日 16:55</span><a class="del" href="javascript:;">删除</a></div>
                     </div>
                 </li>
@@ -623,8 +635,10 @@
                     <div class="userPic"><img src="~/Images/img/face.gif" /></div>
                     <div class="content">
 
-                        <div class="userName"><a href="javascript:;">永不上线</a>:</div>
-                        <div class="msgInfo">增加了输入字符检测功能，英文/半角为半个字符，汉字/全角为一个字符。</div>
+                        <div class="userName"><a href="javascript:;">夫人发</a>:</div>
+                        <div class="msgInfo">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.3
+                        </div>
                         <div class="times"><span>07月04日 08:30</span><a class="del" href="javascript:;">删除</a></div>
                     </div>
                 </li>
@@ -632,8 +646,10 @@
 
                     <div class="userPic"><img src="~/Images/img/face.gif" /></div>
                     <div class="content">
-                        <div class="userName"><a href="javascript:;">永不上线</a>:</div>
-                        <div class="msgInfo">仿腾讯微博效果，欢迎大家测试！</div>
+                        <div class="userName"><a href="javascript:;">防热瓦</a>:</div>
+                        <div class="msgInfo">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.3
+                        </div>
                         <div class="times"><span>07月03日 20:19</span><a class="del" href="javascript:;">删除</a></div>
                     </div>
 

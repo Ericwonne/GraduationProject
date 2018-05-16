@@ -260,6 +260,7 @@ namespace GradutionProject.Models
             return set.Tables["student_information"];
         }
 
+        //获取所有开放课程
         internal static DataSet GetCourseTable(string studentID = "")
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
@@ -412,9 +413,59 @@ namespace GradutionProject.Models
         {
             //who:   suid
             //which: cuid
-            //type:  A/B/C
+            //type:  A/B/C ----- Chosen/Collected/Both
             who = who.Substring(0, 10);
             which = which.Substring(0, 10);
+
+            MySqlConnection connect = new MySqlConnection(connectionString);
+
+            //Start of connection
+            connect.Open();
+            string cmdTxt = "select mtype,ifdeleted from course_records where suid = '" + who + "' and cuid='" + which + "'";
+            MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
+            DataSet set = new DataSet();
+            adapter.Fill(set, "mtype");
+
+            if (set.Tables["mtype"].Rows.Count == 0)
+            {
+                cmdTxt = "insert into course_records values('" + who + "','" + which + "','" + type.ToString() + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','N')";
+            }
+            else
+            {
+                if (set.Tables["mtype"].Rows[0][1].ToString() == "Y")
+                {
+                    cmdTxt = "update course_records set mtype='" + type.ToString() + "', ifdeleted='N' where suid='" + who + "' and cuid='" + which + "'";
+                }
+                else
+                {
+                    //这里存在一个问题：当用户选择/收藏一门课程后，没有刷新页面而是使用缓存再次进入选择该课程页面并点击同一个按钮时，就会出现type='C'的失误。
+                    //这个问题似乎是异步刷新带来的。客户端没有及时更新。
+                    cmdTxt = "update course_records set mtype='C' where suid='" + who + "' and cuid='" + which + "' and ifdeleted='N'";
+                }
+
+            }
+
+            MySqlCommand cmd = new MySqlCommand(cmdTxt, connect);
+            var result = cmd.ExecuteNonQuery();
+            //End of connection
+            connect.Close();
+        }
+
+
+        internal static void DeselectCourse(string who, string which, char type = 'a')
+        {
+            //who:   suid
+            //which: cuid
+            //type:  a/b -----  Unchosen/Uncollected
+            who = who.Substring(0, 10);
+            which = which.Substring(0, 10);
+
+            switch (type)
+            {
+                case 'a': type = 'B'; break;
+                case 'b': type = 'A'; break;
+                default: return;
+            }
 
             MySqlConnection connect = new MySqlConnection(connectionString);
 
@@ -427,11 +478,18 @@ namespace GradutionProject.Models
 
             if (set.Tables["mtype"].Rows.Count == 0)
             {
-                cmdTxt = "insert into course_records values('" + who + "','" + which + "','" + type.ToString() + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','N')";
+                return;
             }
             else
             {
-                cmdTxt = "update course_records set mtype='C' where suid='" + who + "' and cuid='" + which + "' and ifdeleted='N'";
+                if (set.Tables["mtype"].Rows[0][0].ToString() == "C")
+                {
+                    cmdTxt = "update course_records set mtype='" + type.ToString() + "' where suid='" + who + "' and cuid='" + which + "' and ifdeleted='N'";
+                }
+                else
+                {
+                    cmdTxt = "update course_records set ifdeleted='Y' where suid='" + who + "' and cuid='" + which + "'";
+                }
             }
 
             MySqlCommand cmd = new MySqlCommand(cmdTxt, connect);
@@ -439,6 +497,7 @@ namespace GradutionProject.Models
             //End of connection
             connect.Close();
         }
+
 
         internal static DataSet GetCourseOfTeacher(string courseTeacherID)  //courseTeacherID = uniqueClientID of Teacher
         {
