@@ -66,7 +66,7 @@ namespace GradutionProject.Controllers
 
             //此处问题：不能强制将User转为Teacher类型
             //【未解决】
-            User teacher = (User)Session["S_teacher"];
+            User teacher = (User)Session["S_user"];
             course.CourseTeacher = teacher.UniqueClientID;
             DBManip.AddCourse(course, exam);
 
@@ -75,7 +75,7 @@ namespace GradutionProject.Controllers
 
         public object DisplayCourses()
         {
-            string studentID = ((User)Session["S_student"]).UniqueClientID;
+            string studentID = ((User)Session["S_user"]).UniqueClientID;
             DataSet set = DBManip.GetCourseTable(studentID);
 
             return View(set);
@@ -106,7 +106,7 @@ namespace GradutionProject.Controllers
             //Session["S_student"]  the info of the one who select : User()
 
             string selectedCourseId = Session["S_courseid"].ToString();
-            string selectedBy = ((User)Session["S_student"]).UniqueClientID;
+            string selectedBy = ((User)Session["S_user"]).UniqueClientID;
             char selectType = 'A';//which means Choose course
 
             DBManip.SelectCourse(selectedBy, selectedCourseId);
@@ -117,7 +117,7 @@ namespace GradutionProject.Controllers
         public object CollectCourse()
         {
             string selectedCourseId = Session["S_courseid"].ToString();
-            string selectedBy = ((User)Session["S_student"]).UniqueClientID;
+            string selectedBy = ((User)Session["S_user"]).UniqueClientID;
             char selectType = 'B';//which means Choose course
 
             DBManip.SelectCourse(selectedBy, selectedCourseId, selectType);
@@ -138,7 +138,7 @@ namespace GradutionProject.Controllers
             //}
 
             string selectedCourseId = Session["S_courseid"].ToString();
-            string selectedBy = ((User)Session["S_student"]).UniqueClientID;
+            string selectedBy = ((User)Session["S_user"]).UniqueClientID;
             char selectType = 'a';//which means Choose course
 
             DBManip.DeselectCourse(selectedBy, selectedCourseId);
@@ -158,7 +158,7 @@ namespace GradutionProject.Controllers
             //    Session["S_state"] = "";
             //}
             string selectedCourseId = Session["S_courseid"].ToString();
-            string selectedBy = ((User)Session["S_student"]).UniqueClientID;
+            string selectedBy = ((User)Session["S_user"]).UniqueClientID;
             char selectType = 'b';//which means Choose course
 
             DBManip.DeselectCourse(selectedBy, selectedCourseId, selectType);

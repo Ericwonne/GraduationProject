@@ -47,7 +47,7 @@
                     <li style="color:papayawhip">@Html.ActionLink("关于", "About", "Home")</li>
                     <li style="color:papayawhip">@Html.ActionLink("每日一句", "Contact", "Home")</li>
                     @{
-                        if (Session["S_teacher"] != null || Session["S_student"] != null)
+                        if (Session["S_user"] != null)
                         {
                             <li style="float:right"><a id="logout" href="../Home/Logout" onclick="clearCookie()">注销</a></li>
                         }

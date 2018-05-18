@@ -11,7 +11,7 @@ namespace GradutionProject.Controllers
         public ActionResult Index()
         {
             bool iflogged = false;
-            if (Session["S_teacher"] != null || Session["S_student"] != null)
+            if (Session["S_user"] != null)
             {
                 iflogged = true;
             }
@@ -20,7 +20,7 @@ namespace GradutionProject.Controllers
 
         public object IfLogged()
         {
-            if (Session["S_teacher"] != null || Session["S_student"] != null)
+            if (Session["S_user"] != null)
             {
                 return null;
             }

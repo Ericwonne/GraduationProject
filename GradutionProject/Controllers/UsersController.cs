@@ -18,11 +18,11 @@ namespace GradutionProject.Controllers
         public ActionResult Login()
         {
             //【未解决】该页面存在一个问题：使用浏览器的回退（Back）则会清除Session。
-            if (Session["S_teacher"] != null && Session["S_teacher"].ToString() != "")
+            if (Session["S_user"] != null && Session["S_user"].ToString()[1] == 'T')
             {
                 return RedirectToAction("TeacherMainPage");
             }
-            else if (Session["S_student"] != null && Session["S_student"].ToString() != "")
+            else if (Session["S_user"] != null && Session["S_user"].ToString()[1] == 'S')
             {
                 return RedirectToAction("StudentMainPage");
             }
@@ -53,12 +53,12 @@ namespace GradutionProject.Controllers
             }
             else if (Existence == true && user.RegistryType == 'S')
             {
-                Session["S_student"] = user;
+                Session["S_user"] = user;
                 return Redirect("StudentMainPage");
             }
             else if (Existence == true && user.RegistryType == 'T')
             {
-                Session["S_teacher"] = user;
+                Session["S_user"] = user;
                 return Redirect("TeacherMainPage");
             }
             else
@@ -73,7 +73,7 @@ namespace GradutionProject.Controllers
         [HttpGet]
         public ActionResult TeacherMainPage(string tab)
         {
-            ViewData["V_uname"] = DBManip.GetUser(((User)Session["S_teacher"]).UniqueClientID);
+            ViewData["V_uname"] = DBManip.GetUser(((User)Session["S_user"]).UniqueClientID);
             ViewData["V_courseChosen"] = "";
             if (tab == null)
             {
@@ -81,14 +81,14 @@ namespace GradutionProject.Controllers
             }
             else
                 ViewData["tab"] = tab;
-            DataSet set = DBManip.GetCourseOfTeacher(((User)Session["S_teacher"]).UniqueClientID);
+            DataSet set = DBManip.GetCourseOfTeacher(((User)Session["S_user"]).UniqueClientID);
             return View(set);
         }
 
         [HttpPost]
         public object TeacherMainPage(FormCollection fc)
         {
-            User user = (User)Session["S_teacher"];
+            User user = (User)Session["S_user"];
             Teacher teacherInfo = new Teacher
             {
                 UniqueClientID = user.UniqueClientID,
@@ -112,15 +112,15 @@ namespace GradutionProject.Controllers
         [HttpGet]
         public ActionResult StudentMainPage()
         {
-            ViewData["V_uname"] = DBManip.GetUser(((User)Session["S_student"]).UniqueClientID);
-            DataSet set = DBManip.GetCourseOfStudent(((User)Session["S_student"]).UniqueClientID);
+            ViewData["V_uname"] = DBManip.GetUser(((User)Session["S_user"]).UniqueClientID);
+            DataSet set = DBManip.GetCourseOfStudent(((User)Session["S_user"]).UniqueClientID);
             return View(set);
         }
 
         [HttpPost]
         public object StudentMainPage(FormCollection fc)
         {
-            User user = (User)Session["S_student"];
+            User user = (User)Session["S_user"];
             Student studentInfo = new Student
             {
                 UniqueClientID = user.UniqueClientID,
@@ -173,7 +173,7 @@ namespace GradutionProject.Controllers
                 return Redirect("Register");
             }
             //DBManip.AddUser(student);
-            Session["S_student"] = student;
+            Session["S_user"] = student;
             return View();
         }
 
@@ -187,7 +187,7 @@ namespace GradutionProject.Controllers
                 return Redirect("Register");
             }
             //DBManip.AddUser(teacher);
-            Session["S_teacher"] = teacher;
+            Session["S_user"] = teacher;
             return View();
         }
 
@@ -197,11 +197,11 @@ namespace GradutionProject.Controllers
         }
         public object MainPage()
         {
-            if (Session["S_teacher"] != null && Session["S_teacher"].ToString() != "")
+            if (Session["S_user"] != null && Session["S_user"].ToString()[1] == 'T')
             {
                 return RedirectToAction("TeacherMainPage");
             }
-            else if (Session["S_student"] != null && Session["S_student"].ToString() != "")
+            else if (Session["S_user"] != null && Session["S_user"].ToString()[1] == 'S')
             {
                 return RedirectToAction("StudentMainPage");
             }
