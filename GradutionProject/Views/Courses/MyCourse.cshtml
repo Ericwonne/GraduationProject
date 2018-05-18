@@ -1,18 +1,14 @@
 ﻿
 @{
+    System.Data.DataTable c = Model.Tables["courseInfo"];
+    System.Data.DataTable t = Model.Tables["teacherInfo"];
+
+    System.Data.DataRow crow = c.Rows[0];
+    System.Data.DataRow trow = t.Rows[0];
+
+    ViewBag.Title = crow[1] + "-学生选课管理信息系统";
     ViewBag.Title = "MyCourse";
 }
-
-
-
-
-
-
-
-
-
-
-
 <head>
     <style type="text/css">
         body, div, h2, h3, ul, li, p {
@@ -342,11 +338,11 @@
                     var oLi = document.createElement("li");
                     var oDate = new Date();
                     oLi.innerHTML = "<div class=\"userPic\"><img src=\"" + get.byClass("current", get.byId("face"))[0].src + "\"></div>\
-                                                                                             <div class=\"content\">\
-                                                                                                <div class=\"userName\"><a href=\"javascript:;\">" + oUserName.value + "</a>:</div>\
-                                                                                                <div class=\"msgInfo\">" + oConBox.value.replace(/<[^>]*>|&nbsp;/ig, "") + "</div>\
-                                                                                                <div class=\"times\"><span>" + format(oDate.getMonth() + 1) + "\u6708" + format(oDate.getDate()) + "\u65e5 " + format(oDate.getHours()) + ":" + format(oDate.getMinutes()) + "</span><a class=\"del\" href=\"javascript:;\">\u5220\u9664</a></div>\
-                                                                                             </div>";
+                                                                                                 <div class=\"content\">\
+                                                                                                    <div class=\"userName\"><a href=\"javascript:;\">" + oUserName.value + "</a>:</div>\
+                                                                                                    <div class=\"msgInfo\">" + oConBox.value.replace(/<[^>]*>|&nbsp;/ig, "") + "</div>\
+                                                                                                    <div class=\"times\"><span>" + format(oDate.getMonth() + 1) + "\u6708" + format(oDate.getDate()) + "\u65e5 " + format(oDate.getHours()) + ":" + format(oDate.getMinutes()) + "</span><a class=\"del\" href=\"javascript:;\">\u5220\u9664</a></div>\
+                                                                                                 </div>";
                     //插入元素
                     aLi.length ? oUl.insertBefore(oLi, aLi[0]) : oUl.appendChild(oLi);
 
@@ -484,7 +480,7 @@
 </head>
 
 <body>
-    <h2>MyCourse</h2>
+    <h2>@crow[1]</h2>
 
     <div class="container-fluid">
         <div class="row-fluid">
@@ -562,7 +558,7 @@
     </div>
 
 
-    <div class="alert alert-success" role="alert" style="margin-top:3%;margin-bottom:1px">
+    <div id="remark_div" class="alert alert-success" role="alert" style="margin-top:3%;margin-bottom:1px">
         <h4><i class="glyphicon glyphicon-pencil"></i>&nbsp;&nbsp;写下你的评论</h4>
     </div>
 
@@ -660,8 +656,11 @@
 
 </body>
 
-
-
+<script>
+    window.onload = function hideRemark() {
+        //本次Commit之前最后写的代码
+    }
+</script>
 
 
 

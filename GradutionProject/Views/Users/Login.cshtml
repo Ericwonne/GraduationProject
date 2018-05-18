@@ -5,7 +5,7 @@
 @* 此登录页面默认学生和教师的注册邮箱和密码均不同，所以没有设定区分学生登录和教师登录的checkbox *@
 <h2>登录</h2>
 <br />
-<form role="form" action="LoginTypeCheck" method="post">
+<form role="form" action="LoginTypeCheck" method="post" onsubmit="return checkExist();">
     <div class="form-group">
         <label class="control-label" for="inputEmail">电子邮箱</label>
         <div class="form-inline">
@@ -18,10 +18,10 @@
     </div>
     <div class="checkbox">
         <label>
-            <input id="remember" type="checkbox"> 记住我
+            <input id="remember" type="checkbox"> 下次自动登录
         </label>
     </div>
-    <button type="submit" class="btn btn-default" onclick="checkExist()">登录</button>
+    <button type="submit" class="btn btn-default">登录</button>
 </form>
 <br />
 <p class="alert-link">没有账号？点击<a href="Register"><strong>注册</strong></a></p>
@@ -85,15 +85,18 @@
         //var formData = new FormData();
         //formData.append("inputEmail", document.getElementById("inputEmail"));
         //formData.append("inputPassword", document.getElementById("inputPassword"));
+        var flag = true;
         $.ajax({
             type: "GET",
             url: "CheckExist",
             data: "email=" + document.getElementById("inputEmail").value + "&passwd=" + document.getElementById("inputPassword").value + "",
             contentType: false,
             processData: false,
+            async: false,               //同步: Google"如何获取Ajax的返回值,了解只有同步机制下可以获取返回值，否则获取到的就是undefined"
             success: function (response) {
                 if (response == "N") {
                     document.getElementById("span_email").innerText = "用户名不存在！";
+                    flag = false;
                 }
                 else {
                     if (document.getElementById("remember").checked == true) {
@@ -107,6 +110,6 @@
                 console.log(response);
             }
         });
+        return flag;
     }
-    document.getElementById("s").hasAttribute
 </script>

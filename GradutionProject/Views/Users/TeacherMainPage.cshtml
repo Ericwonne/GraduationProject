@@ -103,7 +103,7 @@
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
                     本周课表
-                    <small><span style="font-size:smaller">一共有<span>8</span>节课</span></small>
+                    <small><span style="font-size:smaller">一共有<span>@CoursesOfTeacher.Rows.Count</span>节课</span></small>
                 </h3>
             </div>
 
@@ -293,11 +293,11 @@
                     {
                         <tr>
                             <td><a href="../Courses/MyCourse?id=@row[0]"> @row[1] </a> </td>
-                            <td>Placeholder</td>
+                            <td>否</td>
                             <td>@Convert.ToDateTime(row[4]).ToString("yy年MM月dd日") 至 @Convert.ToDateTime(row[5]).ToString("MM月dd日")</td>
                             <td>@P.Period[row[7].ToString()], @row[6], 共 @Count_All[CoursesOfTeacher.Rows.IndexOf(row)]人</td>
                             <td>Placeholder</td>
-                            <td>Placeholder</td>
+                            <td><a href="#">管理</a></td>
                         </tr>
                     }
                 </tbody>
@@ -309,7 +309,7 @@
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
                     我教过的学生
-                    <small><span style="font-size:smaller">一共有<span>8</span>人</span></small>
+                    <small><span style="font-size:smaller">一共有<span>@counts.ToString()</span>人</span></small>
                 </h3>
             </div><table class="table table-striped">
                 <thead>
@@ -328,9 +328,9 @@
                         <tr>
                             <td><a href="SpecificUser?id=@row[0]"> @row[1] </a> </td>
                             <td>@x</td>
-                            <td>Placeholder</td>
-                            <td>Placeholder</td>
-                            <td>Placeholder</td>
+                            <td>马克思主义概论</td>
+                            <td>80</td>
+                            <td>是</td>
                         </tr>
 
                     }

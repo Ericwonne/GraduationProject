@@ -338,11 +338,11 @@
                     var oLi = document.createElement("li");
                     var oDate = new Date();
                     oLi.innerHTML = "<div class=\"userPic\"><img src=\"" + get.byClass("current", get.byId("face"))[0].src + "\"></div>\
-                                                                                                                                                                                                                                                                                 <div class=\"content\">\
-                                                                                                                                                                                                                                                                                    <div class=\"userName\"><a href=\"javascript:;\">" + oUserName.value + "</a>:</div>\
-                                                                                                                                                                                                                                                                                    <div class=\"msgInfo\">" + oConBox.value.replace(/<[^>]*>|&nbsp;/ig, "") + "</div>\
-                                                                                                                                                                                                                                                                                    <div class=\"times\"><span>" + format(oDate.getMonth() + 1) + "\u6708" + format(oDate.getDate()) + "\u65e5 " + format(oDate.getHours()) + ":" + format(oDate.getMinutes()) + "</span><a class=\"del\" href=\"javascript:;\">\u5220\u9664</a></div>\
-                                                                                                                                                                                                                                                                                 </div>";
+                                                                                                                                                                                                                                                                                         <div class=\"content\">\
+                                                                                                                                                                                                                                                                                            <div class=\"userName\"><a href=\"javascript:;\">" + oUserName.value + "</a>:</div>\
+                                                                                                                                                                                                                                                                                            <div class=\"msgInfo\">" + oConBox.value.replace(/<[^>]*>|&nbsp;/ig, "") + "</div>\
+                                                                                                                                                                                                                                                                                            <div class=\"times\"><span>" + format(oDate.getMonth() + 1) + "\u6708" + format(oDate.getDate()) + "\u65e5 " + format(oDate.getHours()) + ":" + format(oDate.getMinutes()) + "</span><a class=\"del\" href=\"javascript:;\">\u5220\u9664</a></div>\
+                                                                                                                                                                                                                                                                                         </div>";
                     //插入元素
                     aLi.length ? oUl.insertBefore(oLi, aLi[0]) : oUl.appendChild(oLi);
 
@@ -486,6 +486,7 @@
     <h4 style="display:inline-block">
         <span hidden id="choose_span" class="label label-info">已选</span>
         <span hidden id="collect_span" class="label label-info">已收藏</span>
+        &nbsp;&nbsp;&nbsp;<span hidden id="prompt" class="label label-warning">选择课程后5分钟内课表才会生效</span>
     </h4>
     <br /><br />
 
@@ -684,6 +685,8 @@
         //动态改变Progressbar的值
         //document.getElementsByTagName("progress")[0].setAttribute("value", (Number(sessionStorage.c_amt.split('_')[1]) + 1).toString());
         //document.getElementById('selected_amount').innerHTML = (Number(sessionStorage.c_amt.split('_')[1]) + 1).toString();
+        //提示
+        document.getElementById('prompt').removeAttribute('hidden');
     }
     function unchoose() {
         useAjax('UnchooseCourse');
@@ -691,6 +694,8 @@
         //动态改变Progressbar的值
         //document.getElementsByTagName("progress")[0].setAttribute("value", (Number(sessionStorage.c_amt.split('_')[1]) - 1).toString());
         //document.getElementById('selected_amount').innerHTML = (Number(sessionStorage.c_amt.split('_')[1]) - 1).toString();
+        //取消提示
+        document.getElementById('prompt').setAttribute('hidden', '');
     }
     function collect() {
         useAjax('CollectCourse');
@@ -706,6 +711,7 @@
         $.ajax({
             type: "GET",
             url: url,
+            async: true,
             success: function (response) {
                 if (response) {
                     onButtonLoad(response);

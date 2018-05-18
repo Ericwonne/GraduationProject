@@ -387,6 +387,10 @@ namespace GradutionProject.Models
 
         internal static string GetUser(string uid)
         {
+            if (uid == null || uid == "")
+            {
+                return null;
+            }
             string cmdTxt;
             if (uid[1] == 'T')
             {
