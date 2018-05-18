@@ -3,7 +3,7 @@
     ViewBag.Title = "AddStudent";
 }
 
-<form id="addStudentInfo" action="StudentMainPage" method="post">
+<form id="addStudentInfo" action="StudentMainPage" method="post" onsubmit="return validation()">
     <section class="jq22-content bgcolor-10">
         <h2>注册成功，完善您的个人信息</h2>
         <br />
@@ -158,5 +158,16 @@
             var id = "input-" + list[i].toString();
             document.getElementById(id).value = "";
         }
+    }
+    function validation() {
+        var list = "123456789ab";
+        for (var i = 0; i < list.length; i++) {
+            var id = "input-" + list[i].toString();
+            if (document.getElementById(id).value == "") {
+                alert("您有未填写项，请完成填写再提交！");
+                return false;
+            }
+        }
+        return true;
     }
 </script>

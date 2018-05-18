@@ -277,6 +277,7 @@
     <Content Include="Views\Users\SpecificUser.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Home\Logout.cshtml" />
+    <Content Include="Views\Users\AdminMainPage.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

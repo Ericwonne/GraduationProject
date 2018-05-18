@@ -97,6 +97,7 @@ namespace GradutionProject.Controllers
         public ActionResult MyCourse(string id)  // id = courseID
         {
             DataSet tc = DBManip.GetCourseInfo(id);
+            ViewData["V_uid"] = ((User)Session["S_user"]).UniqueClientID;
             return View(tc);
         }
 

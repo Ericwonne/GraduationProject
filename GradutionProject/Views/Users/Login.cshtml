@@ -95,7 +95,7 @@
             async: false,               //同步: Google"如何获取Ajax的返回值,了解只有同步机制下可以获取返回值，否则获取到的就是undefined"
             success: function (response) {
                 if (response == "N") {
-                    document.getElementById("span_email").innerText = "用户名不存在！";
+                    document.getElementById("span_email").innerText = "用户名或密码错误！";
                     flag = false;
                 }
                 else {

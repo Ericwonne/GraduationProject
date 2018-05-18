@@ -51,18 +51,22 @@ namespace GradutionProject.Controllers
             {
                 return "User doesn't exist";                                // This means user not exist
             }
-            else if (Existence == true && user.RegistryType == 'S')
+            else if (user.RegistryType == 'S')
             {
                 Session["S_user"] = user;
                 return Redirect("StudentMainPage");
             }
-            else if (Existence == true && user.RegistryType == 'T')
+            else if (user.RegistryType == 'T')
             {
                 Session["S_user"] = user;
                 return Redirect("TeacherMainPage");
             }
             else
-                return "We are sorry to provide you with System Error 2100";
+            {
+                //response == "A" Admin
+                return Redirect("AdminMainPage");
+            }
+
         }
 
         public ActionResult Register()
@@ -83,6 +87,11 @@ namespace GradutionProject.Controllers
                 ViewData["tab"] = tab;
             DataSet set = DBManip.GetCourseOfTeacher(((User)Session["S_user"]).UniqueClientID);
             return View(set);
+        }
+
+        public ActionResult AdminMainPage()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -195,6 +204,7 @@ namespace GradutionProject.Controllers
         {
             return View();
         }
+        //[CookieFilter]        //Not yet perceived how it worked.
         public object MainPage()
         {
             if (Session["S_user"] != null && Session["S_user"].ToString()[1] == 'T')
@@ -225,8 +235,15 @@ namespace GradutionProject.Controllers
             {
                 return Content("N");
             }
+            else if (user.RegistryType == 'A')
+            {
+                return Content("A");
+            }
             else
+            {
                 return Content("Y");
+            }
+
         }
     }
 }

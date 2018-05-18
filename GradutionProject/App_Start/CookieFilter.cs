@@ -11,21 +11,31 @@ namespace GradutionProject
 
         void IActionFilter.OnActionExecuted(ActionExecutedContext filterContext)
         {
-            
+
         }
 
         void IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (HttpContext.Current.Request.Cookies["User"] != null)
+            //HttpContext.Current.Session
+            if (filterContext.HttpContext.Session["S_user"] != null)
             {
-
-                if (HttpContext.Current.Request.Cookies.Get("User").Values["uid"] != null)
+                char loginType = ((Models.User)filterContext.HttpContext.Session["S_user"]).RegistryType;
+                if (loginType == 'S')
                 {
-
-                    HttpCookie cookie = HttpContext.Current.Request.Cookies.Get("User");
-
-                    filterContext.HttpContext.Session["uid"] = cookie.Values["uid"];
+                    new RedirectResult("~/Views/Users/StudentMainPage");
                 }
+                else if (loginType == 'T')
+                {
+                    new RedirectResult("~/Views/Users/TeacherMainPage");
+                }
+                else
+                {
+                    new RedirectResult("~/Views/Users/AdminMainPage");
+                }
+            }
+            else
+            {
+                HttpContext.Current.Response.Redirect("https://www.baidu.com");
             }
 
         }
