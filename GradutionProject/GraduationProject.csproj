@@ -185,6 +185,7 @@
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\Scripts\bootstrap-hover-dropdown.js" />
     <Content Include="Content\Scripts\bootstrap-hover-dropdown.min.js" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\zMy_Created_Css.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -259,7 +260,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Everyday.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Users\Register.cshtml" />
     <Content Include="Views\Users\StudentMainPage.cshtml" />

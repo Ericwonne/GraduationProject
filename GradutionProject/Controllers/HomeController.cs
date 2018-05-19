@@ -50,7 +50,7 @@ namespace GradutionProject.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Everyday()
         {
             ViewBag.Message = "Your contact page.";
 
