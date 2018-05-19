@@ -36,10 +36,11 @@
         *创建时间：20160713
         *创建人：
         */
-    function ShowReport_Click(uid, pwd) {
+    function ShowReport_Click(uid,email, pwd) {
 
         var parames = new Array();
-        parames.push({ name: "inputEmail", value: uid });
+        parames.push({ name: "Uid", value: uid });
+        parames.push({ name: "inputEmail", value: email });
         parames.push({ name: "inputPassword", value: pwd });
 
         Post("LoginTypeCheck", parames);
@@ -78,7 +79,7 @@
     //自动登录
     window.onload = function LoadPass() {
         if (localStorage.storageid != null && localStorage.storagepass != null) {
-            ShowReport_Click(localStorage.storageid, localStorage.storagepass);
+            ShowReport_Click(localStorage.storageid, localStorage.storageemail, localStorage.storagepass);
         }
     }
     function checkExist() {
@@ -100,9 +101,10 @@
                 }
                 else {
                     if (document.getElementById("remember").checked == true) {
-                        var storageid = document.getElementById("inputEmail").value, storagepass = document.getElementById("inputPassword").value;
-                        localStorage.storageid = storageid;
+                        var storageemail = document.getElementById("inputEmail").value, storagepass = document.getElementById("inputPassword").value;
+                        localStorage.storageemail = storageemail;
                         localStorage.storagepass = storagepass;
+                        localStorage.storageid = response;
                     }
                 }
             },

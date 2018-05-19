@@ -205,6 +205,7 @@
     <Content Include="Images\usst.png" />
     <Content Include="Images\usst_frontdoor.jpg" />
     <Content Include="Images\上海理工大学.PNG" />
+    <Content Include="Scripts\bootstable.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">

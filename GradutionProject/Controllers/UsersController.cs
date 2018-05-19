@@ -15,19 +15,29 @@ namespace GradutionProject.Controllers
         {
             return View();
         }
+
         public ActionResult Login()
         {
             //【未解决】该页面存在一个问题：使用浏览器的回退（Back）则会清除Session。
-            if (Session["S_user"] != null && ((User)Session["S_user"]).UniqueClientID[1] == 'T')
+            if (Session["S_user"] != null)
             {
-                return RedirectToAction("TeacherMainPage");
-            }
-            else if (Session["S_user"] != null && ((User)Session["S_user"]).UniqueClientID[1] == 'S')
-            {
-                return RedirectToAction("StudentMainPage");
+                if (((User)Session["S_user"]).RegistryType == 'T')
+                {
+                    return RedirectToAction("TeacherMainPage");
+                }
+                else if (((User)Session["S_user"]).RegistryType == 'S')
+                {
+                    return RedirectToAction("StudentMainPage");
+                }
+                else
+                {
+                    return RedirectToAction("AdminMainPage");
+                }
             }
             else
+            {
                 return View();
+            }
         }
 
         [HttpGet]
@@ -39,7 +49,22 @@ namespace GradutionProject.Controllers
         [HttpPost]
         public object LoginTypeCheck(FormCollection fc)
         {
-            User user = (User)Session["S_user"];
+            User user = null;
+            if (Session["S_user"] != null)
+            {
+                user = (User)Session["S_user"];
+            }
+            else
+            {
+                user = new User
+                {
+                    UniqueClientID = fc["Uid"],
+                    Username = fc["inputEmail"],
+                    Password = fc["inputPassword"]
+                };
+                user.RegistryType = user.UniqueClientID[1];
+                Session["S_user"] = user;
+            }
 
             if (user.RegistryType == 'S')
             {
@@ -64,7 +89,12 @@ namespace GradutionProject.Controllers
         [CookieFilter]
         public ActionResult AdminMainPage()
         {
-            return View();
+            DataSet set = new DataSet();
+            DataTable Teachertable = DBManip.GetTeacherTable(),
+                             Studenttable = DBManip.GetStudentTable();
+            set.Tables.Add(Studenttable.Clone());
+            set.Tables.Add(Teachertable.Clone());
+            return View(set);
         }
 
         [HttpGet]
@@ -72,7 +102,6 @@ namespace GradutionProject.Controllers
         public ActionResult TeacherMainPage()
         {
             ViewData["V_uname"] = DBManip.GetUser(((User)Session["S_user"]).UniqueClientID);
-            ViewData["V_courseChosen"] = "";
             DataSet set = DBManip.GetCourseOfTeacher(((User)Session["S_user"]).UniqueClientID);
             return View(set);
         }
@@ -136,8 +165,13 @@ namespace GradutionProject.Controllers
             return "已经成功注册！";
         }
 
+        [CookieFilter]
         public ActionResult DisplayUsers()
         {
+            if (((User)Session["S_user"]).RegistryType != 'A')
+            {
+                return Redirect("MainPage");
+            }
             DataTable table = DBManip.GetUserTable();
 
             return View(table);
@@ -189,6 +223,7 @@ namespace GradutionProject.Controllers
         {
             return View();
         }
+
         //[CookieFilter]        //Not yet perceived how it worked.
         public object MainPage()
         {
@@ -212,6 +247,7 @@ namespace GradutionProject.Controllers
                 return RedirectToAction("Login");
             }
         }
+
         public object CheckExist(string email, string passwd)
         {
             User user = new User
@@ -220,8 +256,6 @@ namespace GradutionProject.Controllers
                 Username = email,
                 Password = passwd
             };
-
-
             bool Existence = DBManip.CheckUserExistence(ref user, true);
             Session["S_user"] = user;
             if (Existence == false)
@@ -230,14 +264,7 @@ namespace GradutionProject.Controllers
             }
             else
             {
-                if (user.RegistryType == 'A')
-                {
-                    return Content("A");
-                }
-                else
-                {
-                    return Content("Y");
-                }
+                return Content(user.UniqueClientID);
             }
         }
     }
