@@ -18,11 +18,11 @@ namespace GradutionProject.Controllers
         public ActionResult Login()
         {
             //【未解决】该页面存在一个问题：使用浏览器的回退（Back）则会清除Session。
-            if (Session["S_user"] != null && Session["S_user"].ToString()[1] == 'T')
+            if (Session["S_user"] != null && ((User)Session["S_user"]).UniqueClientID[1] == 'T')
             {
                 return RedirectToAction("TeacherMainPage");
             }
-            else if (Session["S_user"] != null && Session["S_user"].ToString()[1] == 'S')
+            else if (Session["S_user"] != null && ((User)Session["S_user"]).UniqueClientID[1] == 'S')
             {
                 return RedirectToAction("StudentMainPage");
             }
@@ -39,31 +39,18 @@ namespace GradutionProject.Controllers
         [HttpPost]
         public object LoginTypeCheck(FormCollection fc)
         {
-            User user = new User
-            {
-                //unknown which type
-                Username = fc["inputEmail"],
-                Password = fc["inputPassword"]
-            };
+            User user = (User)Session["S_user"];
 
-            bool Existence = DBManip.CheckUserExistence(ref user, true);
-            if (Existence == false)
+            if (user.RegistryType == 'S')
             {
-                return "User doesn't exist";                                // This means user not exist
-            }
-            else if (user.RegistryType == 'S')
-            {
-                Session["S_user"] = user;
                 return Redirect("StudentMainPage");
             }
             else if (user.RegistryType == 'T')
             {
-                Session["S_user"] = user;
                 return Redirect("TeacherMainPage");
             }
             else
             {
-                //response == "A" Admin
                 return Redirect("AdminMainPage");
             }
 
@@ -74,24 +61,20 @@ namespace GradutionProject.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult TeacherMainPage(string tab)
-        {
-            ViewData["V_uname"] = DBManip.GetUser(((User)Session["S_user"]).UniqueClientID);
-            ViewData["V_courseChosen"] = "";
-            if (tab == null)
-            {
-                ViewData["tab"] = "home";
-            }
-            else
-                ViewData["tab"] = tab;
-            DataSet set = DBManip.GetCourseOfTeacher(((User)Session["S_user"]).UniqueClientID);
-            return View(set);
-        }
-
+        [CookieFilter]
         public ActionResult AdminMainPage()
         {
             return View();
+        }
+
+        [HttpGet]
+        [CookieFilter]
+        public ActionResult TeacherMainPage()
+        {
+            ViewData["V_uname"] = DBManip.GetUser(((User)Session["S_user"]).UniqueClientID);
+            ViewData["V_courseChosen"] = "";
+            DataSet set = DBManip.GetCourseOfTeacher(((User)Session["S_user"]).UniqueClientID);
+            return View(set);
         }
 
         [HttpPost]
@@ -118,7 +101,9 @@ namespace GradutionProject.Controllers
             ViewData["V_uname"] = teacherInfo.Name;
             return "已经成功注册！";
         }
+
         [HttpGet]
+        [CookieFilter]
         public ActionResult StudentMainPage()
         {
             ViewData["V_uname"] = DBManip.GetUser(((User)Session["S_user"]).UniqueClientID);
@@ -207,13 +192,20 @@ namespace GradutionProject.Controllers
         //[CookieFilter]        //Not yet perceived how it worked.
         public object MainPage()
         {
-            if (Session["S_user"] != null && Session["S_user"].ToString()[1] == 'T')
+            if (Session["S_user"] != null)
             {
-                return RedirectToAction("TeacherMainPage");
-            }
-            else if (Session["S_user"] != null && Session["S_user"].ToString()[1] == 'S')
-            {
-                return RedirectToAction("StudentMainPage");
+                if (((User)Session["S_user"]).UniqueClientID[1] == 'T')
+                {
+                    return RedirectToAction("TeacherMainPage");
+                }
+                else if (((User)Session["S_user"]).UniqueClientID[1] == 'S')
+                {
+                    return RedirectToAction("StudentMainPage");
+                }
+                else
+                {
+                    return RedirectToAction("AdminMainPage");
+                }
             }
             else
             {
@@ -231,19 +223,22 @@ namespace GradutionProject.Controllers
 
 
             bool Existence = DBManip.CheckUserExistence(ref user, true);
+            Session["S_user"] = user;
             if (Existence == false)
             {
                 return Content("N");
             }
-            else if (user.RegistryType == 'A')
-            {
-                return Content("A");
-            }
             else
             {
-                return Content("Y");
+                if (user.RegistryType == 'A')
+                {
+                    return Content("A");
+                }
+                else
+                {
+                    return Content("Y");
+                }
             }
-
         }
     }
 }

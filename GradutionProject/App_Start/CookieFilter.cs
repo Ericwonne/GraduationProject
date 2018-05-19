@@ -19,23 +19,23 @@ namespace GradutionProject
             //HttpContext.Current.Session
             if (filterContext.HttpContext.Session["S_user"] != null)
             {
-                char loginType = ((Models.User)filterContext.HttpContext.Session["S_user"]).RegistryType;
-                if (loginType == 'S')
-                {
-                    new RedirectResult("~/Views/Users/StudentMainPage");
-                }
-                else if (loginType == 'T')
-                {
-                    new RedirectResult("~/Views/Users/TeacherMainPage");
-                }
-                else
-                {
-                    new RedirectResult("~/Views/Users/AdminMainPage");
-                }
+                //char loginType = ((Models.User)filterContext.HttpContext.Session["S_user"]).RegistryType;
+                //if (loginType == 'S')
+                //{
+                //    filterContext.HttpContext.Response.Redirect("StudentMainPage");
+                //}
+                //else if (loginType == 'T')
+                //{
+                //    filterContext.HttpContext.Response.Redirect("TeacherMainPage");
+                //}
+                //else
+                //{
+                //    filterContext.HttpContext.Response.Redirect("AdminMainPage");
+                //}
             }
             else
             {
-                HttpContext.Current.Response.Redirect("https://www.baidu.com");
+                filterContext.HttpContext.Response.Redirect("Login");
             }
 
         }
