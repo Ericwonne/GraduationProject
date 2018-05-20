@@ -63,11 +63,11 @@
     });
 
     function loadPinyin() {
+        //The following is to support PinYin search
         var aList = document.getElementsByName("hiddena");                   //List of Names for Pinyin
         var bList = document.getElementsByName("hiddenb");                  //List of University Pinyin
         var cList = document.getElementsByName("hiddenc");                   //List of Majors Pinyin
-        var hiddenList = document.getElementsByClassName("hidden");
-
+        var hiddenList = document.getElementsByClassName("hidden");   //Destionation to put the concatenation
         for (var index = 0; index < aList.length; index++) {
             hiddenList[index].innerText = ConvertPinyin(aList[index].innerText) + ConvertPinyin(bList[index].innerText) + ConvertPinyin(cList[index].innerText);
         }

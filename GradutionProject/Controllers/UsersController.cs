@@ -89,11 +89,17 @@ namespace GradutionProject.Controllers
         [CookieFilter]
         public ActionResult AdminMainPage()
         {
+            DataTable teacher = DBManip.GetTeacherTable(),
+                             student = DBManip.GetStudentTable();
+            //此处注意：DataSet的Add()方法不能添加两个没有命名的DataTable；见下网址：
+            //https://www.cnblogs.com/chenhuzi/archive/2010/11/02/dataset-add-more-table-example.html
+
             DataSet set = new DataSet();
-            DataTable Teachertable = DBManip.GetTeacherTable(),
-                             Studenttable = DBManip.GetStudentTable();
-            set.Tables.Add(Studenttable.Clone());
-            set.Tables.Add(Teachertable.Clone());
+            student.TableName = "student";
+            set.Tables.Add(student.Copy());
+
+            teacher.TableName = "teacher";
+            set.Tables.Add(teacher.Copy());
             return View(set);
         }
 
@@ -222,6 +228,12 @@ namespace GradutionProject.Controllers
         public ActionResult SpecificUser(string id)
         {
             return View();
+        }
+
+        public object GetSpecificUser(string id)
+        {
+            string data = DBManip.GetSpecificUser(id);
+            return data;
         }
 
         //[CookieFilter]        //Not yet perceived how it worked.

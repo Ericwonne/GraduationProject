@@ -447,7 +447,7 @@ function ucfirst(l1) {
 
 //创建字典类  来自网络-实现字典
 let Dictionary = (function () {
-    const items = {};
+    items = {};
     class Dictionary {
         constructor() {
         }

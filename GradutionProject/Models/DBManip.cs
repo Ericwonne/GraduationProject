@@ -677,6 +677,34 @@ namespace GradutionProject.Models
             return set;
         }
 
+        internal static string GetSpecificUser(string id)
+        {
+            MySqlConnection connect = new MySqlConnection(connectionString);
+            string table_to_select = "student_information";
+            if (id[1] == 'T')
+            {
+                table_to_select = "teacher_information";
+            }
+
+            string cmdTxt = "select * from " + table_to_select + " where uniqueClientID=" + "'" + id + "'";
+            DataSet set = new DataSet();
+
+            //Start of connection
+            connect.Open();
+            MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "SpecificUser");
+            connect.Close();
+
+            string result = "", sep = "&";
+            for (int i = 0; i < set.Tables["SpecificUser"].Columns.Count; i++)
+            {
+                string columnName = set.Tables["SpecificUser"].Columns[i].ColumnName;
+                result = result + columnName + "=" + set.Tables["SpecificUser"].Rows[0][i].ToString() + sep;
+            }
+            result = result.Substring(0, result.Length - 1);
+            return result;
+        }
+
     }
 
 
