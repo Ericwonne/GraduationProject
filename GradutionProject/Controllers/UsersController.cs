@@ -236,6 +236,25 @@ namespace GradutionProject.Controllers
             return data;
         }
 
+        [HttpPost]
+        public object ModifySpecificUser(FormCollection fc)
+        {
+            string[] arraydata = fc["ajaxData"].ToString().Split('&');
+            string tableName = arraydata[0][1] == 'S' ? "student_information" : "teacher_information";
+
+            string cmdTxt = "update " + tableName + " set ", tmp = "";
+            //From one
+            for (int i = 1; i < arraydata.Length; i++)
+            {
+                tmp += arraydata[i] + ',';
+            }
+
+            tmp = tmp.Substring(0, tmp.Length - 1);    //除掉最后的‘,’号
+            cmdTxt = cmdTxt + tmp + " where uniqueClientID='" + arraydata[0] + "'";
+
+            return null;
+        }
+
         //[CookieFilter]        //Not yet perceived how it worked.
         public object MainPage()
         {
