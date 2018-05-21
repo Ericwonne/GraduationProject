@@ -227,7 +227,10 @@ namespace GradutionProject.Controllers
 
         public ActionResult SpecificUser(string id)
         {
-            return View();
+            string[] tableTest = new string[2];
+            tableTest[0] = DBManip.GetSpecificUser(id);
+            tableTest[1] = "A TestTable";
+            return View(tableTest);
         }
 
         public object GetSpecificUser(string id)
@@ -251,8 +254,13 @@ namespace GradutionProject.Controllers
 
             tmp = tmp.Substring(0, tmp.Length - 1);    //除掉最后的‘,’号
             cmdTxt = cmdTxt + tmp + " where uniqueClientID='" + arraydata[0] + "'";
+            int rowAffected = DBManip.ModifySpecificUser(cmdTxt);
 
-            return null;
+            if (rowAffected == 0)
+            {
+                return PartialView("Error");
+            }
+            return Redirect("DisplayUsers");
         }
 
         //[CookieFilter]        //Not yet perceived how it worked.

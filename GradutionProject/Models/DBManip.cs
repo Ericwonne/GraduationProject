@@ -705,6 +705,18 @@ namespace GradutionProject.Models
             return result;
         }
 
+        internal static int ModifySpecificUser(string cmdTxt)
+        {
+            MySqlConnection connect = new MySqlConnection(connectionString);
+            MySqlCommand cmd = new MySqlCommand(cmdTxt, connect);
+            //Start of connection
+            connect.Open();
+            int affectedRows = cmd.ExecuteNonQuery();
+            connect.Close();
+
+            return affectedRows;
+        }
+
     }
 
 

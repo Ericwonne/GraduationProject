@@ -406,6 +406,7 @@
         }
         //-------------------------------------Begin 渲染课表颜色-----------------------------------------//
     }
+
     //该函数在点击panel的header时调用，用来切换当前活动状态的panel。
     function checkPane(param) {
         window.location.href = window.location.href.toString().split('#')[0] + param;
@@ -430,8 +431,8 @@
 <script>
     //该函数在页面加载完成时调用（相当于body onload="loadTip()"），用来保持页面刷新后仍在当前panel。
     window.onload = function loadTip() {
-        showTeachWeek();
-        RenderTable();
+        showTeachWeek();                //显示教学周
+        RenderTable();                       //渲染表格课程
 
         //-------------------------------------Begin 处理tab pane显示问题-----------------------------------------//
         //!!!不知道为什么后台传过来的值如果第一个字符是“#”，前端就无法接收到这个值。

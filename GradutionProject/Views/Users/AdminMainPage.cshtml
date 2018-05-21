@@ -5,25 +5,25 @@
     System.Data.DataTable teacher = Model.Tables["teacher"];  //teacher table
 }
 
-<h2>欢迎您，管理员！</h2>
+<h2>欢迎您，管理员！<small id="showDate"></small></h2>
 <br />
 <ul id="myTab" class="nav nav-tabs">
-    <li class="active">
+    <li id="student_tab" class="active">
         <a href="#student" data-toggle="tab">
             管理学生
         </a>
     </li>
-    <li>
+    <li id="teacher_tab">
         <a href="#teacher" data-toggle="tab">
             管理教师
         </a>
     </li>
-    <li>
+    <li id="course_tab">
         <a href="#course" data-toggle="tab">
             管理课程
         </a>
     </li>
-    <li>
+    <li id="miscellaneous_tab">
         <a href="#miscellaneous" data-toggle="tab">
             管理其他
         </a>
@@ -225,4 +225,91 @@
     $('#teachertable').SetEditable({
         $addButton: $('#addteacher')
     });
+</script>
+
+
+<script>
+    // 由此上一行开始的script至其结束之间代码的功能是获得当前教学周并显示（来源：网络）。
+    function getSt(year, month, day) {
+        var curDate = new Date();
+        curDate.getTime();
+        var beginDate = new Date(year, month, day, 0, 0, 0);
+        return Math.ceil((curDate - beginDate) / (1000 * 60 * 60 * 24 * 7));
+    }
+    function show1() {
+        var xn = "2017-2018";
+        var xq = 2;
+        var StartWeek = 1;
+        var result = xn + "学年 第" + xq + "学期 第" + getSt(2018, 2, 5) + "教学周";
+        return result;
+    }
+    function showTeachWeek() {
+        calendar = new Date();
+        day = calendar.getDay();
+        month = calendar.getMonth();
+        date = calendar.getDate();
+        year = calendar.getYear();
+        if (year < 200) year = 1900 + year;
+        cent = parseInt(year / 100);
+        g = year % 19;
+        k = parseInt((cent - 17) / 25);
+        i = (cent - parseInt(cent / 4) - parseInt((cent - k) / 3) + 19 * g + 15) % 30;
+        i = i - parseInt(i / 28) * (1 - parseInt(i / 28) * parseInt(29 / (i + 1)) * parseInt((21 - g) / 11));
+        j = (year + parseInt(year / 4) + i + 2 - cent + parseInt(cent / 4)) % 7;
+        l = i - j;
+        emonth = 3 + parseInt((l + 40) / 44);
+        edate = l + 28 - 31 * parseInt((emonth / 4));
+        emonth--;
+
+        var dayname = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+        var monthname =
+            new Array("1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月");
+
+        var a = year + "年" + monthname[month] + date + "日" + dayname[day] + " " + " （" + show1() + " ）";
+        document.getElementById("showDate").innerHTML = a;
+    }
+
+    //该函数在点击panel的header时调用，用来切换当前活动状态的panel。
+    //function checkPane(param) {
+    //    window.location.href = window.location.href.toString().split('#')[0] + param;
+    //    if (param == "#ejb" || param == "#jmeter") {
+    //        if (param == "#ejb") {
+    //            document.getElementById("jmeter_tab").removeAttribute("class");
+    //        }
+    //        else {
+    //            document.getElementById("ejb_tab").removeAttribute("class");
+    //        }
+    //        document.getElementById("jmeter_ejb_tab").setAttribute("class", "active");
+    //    }
+    //    else {
+    //        document.getElementById("ejb_tab").removeAttribute("class");
+    //        document.getElementById("jmeter_tab").removeAttribute("class");
+    //    }
+        //window.location.href = window.location.href.toString().split('?')[0] + "?tab=" + param.toString().substring(1, param.length);
+        //alert(window.location.href);
+    }
+</script>
+
+<script>
+    //该函数在页面加载完成时调用（相当于body onload="loadTip()"），用来保持页面刷新后仍在当前panel。
+    window.onload = function loadTip() {
+        showTeachWeek();                //显示教学周
+
+        //-------------------------------------Begin 处理tab pane显示问题-----------------------------------------//
+        //!!!不知道为什么后台传过来的值如果第一个字符是“#”，前端就无法接收到这个值。
+        //var item = "ViewData["tab"].ToString()";
+        var href = window.location.href.toString().split('#')[window.location.href.toString().split('#').length - 1];
+        var tagid = "";
+        switch (href) {
+            case 'student': tagid = href + "_tab"; break;
+            case 'teacher': tagid = href + "_tab"; break;
+            case 'course': tagid = href + "_tab"; break;
+            case 'miscellaneous': tagid = href + "_tab"; break;
+            default: tagid = "student_tab"; href = "student"; break;
+        }
+
+        document.getElementById(href).setAttribute("class", "tab-pane fade in active");
+        document.getElementById(tagid).setAttribute("class", "active");
+        //-------------------------------------End    处理tab pane显示问题-----------------------------------------//
+    }
 </script>
