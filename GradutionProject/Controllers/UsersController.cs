@@ -306,5 +306,10 @@ namespace GradutionProject.Controllers
                 return Content(user.UniqueClientID);
             }
         }
+
+        public object LoadDenpendencies()
+        {
+            return DBManip.LoadDenpendencies();
+        }
     }
 }

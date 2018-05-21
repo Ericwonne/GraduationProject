@@ -35,7 +35,7 @@ namespace GradutionProject
             }
             else
             {
-                filterContext.HttpContext.Response.Redirect("Login");
+                filterContext.HttpContext.Response.Redirect("/Users/Login");
             }
 
         }

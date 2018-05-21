@@ -82,7 +82,7 @@
                     </div>
                     <div class="col-md-12" style="padding-bottom:2em;">
                         <button class="btn btn-info" id="addstudent"><i class="fa fa-plus"></i> 新增学生数据</button>
-                        <button class="btn btn-danger" id="s_submitChange" onclick="submitChange()"><i class="fa fa-upload"></i> 提交所有修改</button>
+                        <button class="btn btn-danger" id="s_submitChange" onclick="submitChange('studenttable')"><i class="fa fa-upload"></i> 提交所有修改</button>
                     </div>
                 </div>
             </div>
@@ -112,7 +112,6 @@
                                         <th><i class="fa fa-qq"></i>&nbsp; QQ</th>
                                         <th><i class="fa fa-graduation-cap"></i>&nbsp; 毕业院校</th>
                                         <th><i class="fa fa-hashtag"></i>&nbsp;专业</th>
-                                        <th><i class="fa fa-hashtag"></i>&nbsp;课程</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -126,7 +125,6 @@
                                             <td>@rows[6]</td>
                                             <td>@rows[8]</td>
                                             <td>@rows[10]</td>
-                                            <td>Placeholder</td>
                                         </tr>
                                     }
                                 </tbody>
@@ -134,8 +132,8 @@
                         </div>
                     </div>
                     <div class="col-md-12" style="padding-bottom:2em;">
-                        <button class="btn btn-info" id="addteacher"><i class="fa fa-plus"></i> 新增学生数据</button>
-                        <button class="btn btn-danger" id="t_submitChange" onclick="submitChange()"><i class="fa fa-upload"></i> 提交所有修改</button>
+                        <button class="btn btn-info" id="addteacher"><i class="fa fa-plus"></i> 新增教师数据</button>
+                        <button class="btn btn-danger" id="t_submitChange" onclick="submitChange('teachertable')"><i class="fa fa-upload"></i> 提交所有修改</button>
                     </div>
                 </div>
             </div>
@@ -193,6 +191,25 @@
         //Change the database field to human readable. Not on teachertable due to it has been processed at backend.
         var tds = document.getElementById('studenttable').getElementsByTagName('td');  //student table
         DisplayHumanReadable(tds);
+
+        showTeachWeek();                //显示教学周
+
+        //-------------------------------------Begin 处理tab pane显示问题-----------------------------------------//
+        //!!!不知道为什么后台传过来的值如果第一个字符是“#”，前端就无法接收到这个值。
+        //var item = "ViewData["tab"].ToString()";
+        var href = window.location.href.toString().split('#')[window.location.href.toString().split('#').length - 1];
+        var tagid = "";
+        switch (href) {
+            case 'student': tagid = href + "_tab"; break;
+            case 'teacher': tagid = href + "_tab"; break;
+            case 'course': tagid = href + "_tab"; break;
+            case 'miscellaneous': tagid = href + "_tab"; break;
+            default: tagid = "student_tab"; href = "student"; break;
+        }
+
+        document.getElementById(href).setAttribute("class", "tab-pane fade in active");
+        document.getElementById(tagid).setAttribute("class", "active");
+        //-------------------------------------End    处理tab pane显示问题-----------------------------------------//
     }
 
     function DisplayHumanReadable(tds) {
@@ -214,8 +231,18 @@
         }
     }
 
-    function submitChange() {
-        alert("a");
+    function submitChange(clickedBy) {
+        var destTable = document.getElementById(clickedBy);
+        var destThs = destTable.children[0].children[0].children;        //The trs in the thead part of the table
+        var destTrs = destTable.children[1].children;        //The trs in the tbody part of the table
+        for (var t in destTrs) {
+            if (destTrs[t].getAttribute('id') == 'editing') {
+                //此处完成未点击【bAcep】按钮的修改项的提交
+            }
+            else {
+                //此处完成未修改项或修改完成项
+            }
+        }
     }
 </script>
 <script>
@@ -285,31 +312,7 @@
     //        document.getElementById("ejb_tab").removeAttribute("class");
     //        document.getElementById("jmeter_tab").removeAttribute("class");
     //    }
-        //window.location.href = window.location.href.toString().split('?')[0] + "?tab=" + param.toString().substring(1, param.length);
-        //alert(window.location.href);
-    }
-</script>
-
-<script>
-    //该函数在页面加载完成时调用（相当于body onload="loadTip()"），用来保持页面刷新后仍在当前panel。
-    window.onload = function loadTip() {
-        showTeachWeek();                //显示教学周
-
-        //-------------------------------------Begin 处理tab pane显示问题-----------------------------------------//
-        //!!!不知道为什么后台传过来的值如果第一个字符是“#”，前端就无法接收到这个值。
-        //var item = "ViewData["tab"].ToString()";
-        var href = window.location.href.toString().split('#')[window.location.href.toString().split('#').length - 1];
-        var tagid = "";
-        switch (href) {
-            case 'student': tagid = href + "_tab"; break;
-            case 'teacher': tagid = href + "_tab"; break;
-            case 'course': tagid = href + "_tab"; break;
-            case 'miscellaneous': tagid = href + "_tab"; break;
-            default: tagid = "student_tab"; href = "student"; break;
-        }
-
-        document.getElementById(href).setAttribute("class", "tab-pane fade in active");
-        document.getElementById(tagid).setAttribute("class", "active");
-        //-------------------------------------End    处理tab pane显示问题-----------------------------------------//
-    }
+    //window.location.href = window.location.href.toString().split('?')[0] + "?tab=" + param.toString().substring(1, param.length);
+    //alert(window.location.href);
+    //}
 </script>

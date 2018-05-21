@@ -36,7 +36,7 @@
         *创建时间：20160713
         *创建人：
         */
-    function ShowReport_Click(uid,email, pwd) {
+    function ShowReport_Click(uid, email, pwd) {
 
         var parames = new Array();
         parames.push({ name: "Uid", value: uid });
@@ -76,11 +76,25 @@
     //----------------Above are copied from online: https://www.cnblogs.com/lideqiang/p/5667576.html ----------------------//
 </script>
 <script>
-    //自动登录
+    //Load all dependencies
     window.onload = function LoadPass() {
+        //自动登录
         if (localStorage.storageid != null && localStorage.storagepass != null) {
             ShowReport_Click(localStorage.storageid, localStorage.storageemail, localStorage.storagepass);
         }
+
+        //Get the Faculty Dictionary
+        $.ajax({
+            type: "GET",
+            url: "LoadDenpendencies",
+            async: false,               //同步: Google"如何获取Ajax的返回值,了解只有同步机制下可以获取返回值，否则获取到的就是undefined"
+            success: function (response) {
+                sessionStorage.Faculty = response;
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
     }
     function checkExist() {
         //var formData = new FormData();

@@ -73,6 +73,7 @@ namespace GradutionProject.Controllers
             return "Error";
         }
 
+        [CookieFilter]
         public object DisplayCourses()
         {
             string studentID = ((User)Session["S_user"]).UniqueClientID;

@@ -10,7 +10,7 @@
     }
 </style>
 
-<body onload="loadPinyin();">
+<body>
     <h2>本学期开设课程的教师</h2>
     <br />
     <div class="container">
@@ -22,6 +22,7 @@
             <thead>
                 <tr>
                     <th><i class="fa fa-hashtag"></i>&nbsp;姓名 </th>
+                    <th><i class="fa fa-hashtag"></i>&nbsp;系别</th>
                     <th><i class="fa fa-female"></i><i class="fa fa-male"></i>&nbsp;</th>
                     <th><i class="fa fa-address-book-o"></i>&nbsp; 邮箱</th>
                     <th><i class="fa fa-mobile-phone fa-lg"></i>&nbsp; 手机</th>
@@ -36,6 +37,7 @@
                 {
                     <tr>
                         <td><a name="hiddena" style="color:blue" href="SpecificUser?id=@rows[0]">@rows[1]</a></td>
+                        <td name="faculty">@rows[14]</td>
                         <td>@rows[2]</td>
                         <td><a href="mailto:@rows[4]">@rows[4]</a></td>
                         <td>@rows[7]</td>
@@ -52,24 +54,38 @@
 </body>
 
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.js" type="text/javascript"></script>
-@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
-@*<script src="~/Scripts/jquery.filtertable.js"></script>*@
-
 <script>
     $(document).ready(function () {
         $('table').filterTable({ // apply filterTable to all tables on this page
             inputSelector: '#input-filter' // use the existing input instead of creating a new one
         });
     });
-
-    function loadPinyin() {
-        //The following is to support PinYin search
+</script>
+<script>
+    //Window load
+    window.onload = function LoadDependencies() {
+        //loadPinyin: The following is to support PinYin search
         var aList = document.getElementsByName("hiddena");                   //List of Names for Pinyin
         var bList = document.getElementsByName("hiddenb");                  //List of University Pinyin
         var cList = document.getElementsByName("hiddenc");                   //List of Majors Pinyin
         var hiddenList = document.getElementsByClassName("hidden");   //Destionation to put the concatenation
         for (var index = 0; index < aList.length; index++) {
             hiddenList[index].innerText = ConvertPinyin(aList[index].innerText) + ConvertPinyin(bList[index].innerText) + ConvertPinyin(cList[index].innerText);
+        }
+
+        //loadFaculty: The follow is to make human readable faculties
+        var faculties = document.getElementsByName('faculty');
+        for (var i = 0; i < faculties.length; i++) {
+            //faculties[i].innerHTML = faculties[i].innerText
+            var keyValues = sessionStorage.Faculty.split('&');
+            //sessionStorage.removeItem('Faculty');
+            var Faculty = new Map();
+            for (var k = 0; k < keyValues.length; k++) {
+                Faculty.set(keyValues[k].split('=')[0], keyValues[k].split('=')[1]);
+            }
+            for (var f = 0; f < faculties.length; f++) {
+                faculties[f].innerHTML = Faculty.get(faculties[f].innerText).toString();    //此处一定要加toString()方法，否则显示出Undefined【未解决问题】
+            }
         }
     }
 </script>

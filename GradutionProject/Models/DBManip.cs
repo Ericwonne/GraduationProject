@@ -717,6 +717,26 @@ namespace GradutionProject.Models
             return affectedRows;
         }
 
+        internal static string LoadDenpendencies()
+        {
+            MySqlConnection connect = new MySqlConnection(connectionString);
+            string cmdTxt = "select uniqueCode,name from faculty_information";
+            DataSet set = new DataSet();
+
+            //Start of connection
+            connect.Open();
+            MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "Faculty");
+            connect.Close();
+
+            string result = "", sep = "&";
+            for (int i = 0; i < set.Tables["Faculty"].Rows.Count; i++)
+            {
+                result = result + set.Tables["Faculty"].Rows[i][0].ToString() + "=" + set.Tables["Faculty"].Rows[i][1].ToString() + "&";
+            }
+            result = result.Substring(0, result.Length - 1);
+            return result;
+        }
     }
 
 
