@@ -231,17 +231,6 @@ namespace GradutionProject.Models
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
             adapter.Fill(set, "teacher_information");
             connect.Close();
-
-            for (int index = 0; index < set.Tables["teacher_information"].Rows.Count; index++)
-            {
-                switch (set.Tables["teacher_information"].Rows[index][2].ToString())
-                {
-                    case "M": set.Tables["teacher_information"].Rows[index][2] = "男"; break;
-                    case "F": set.Tables["teacher_information"].Rows[index][2] = "女"; break;
-                    case "U": set.Tables["teacher_information"].Rows[index][2] = "未知"; break;
-                }
-            }
-
             return set.Tables["teacher_information"];
         }
 

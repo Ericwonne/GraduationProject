@@ -9,19 +9,19 @@ Bootstable
 var params = null;  		//Parameters
 var colsEdi = null;
 var newColHtml = '<div class="btn-group pull-right">' +
-'<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="rowEdit(this);">' +
-'<span class="glyphicon glyphicon-pencil" > </span>' +
-'</button>' +
-'<button id="bElim" type="button" class="btn btn-sm btn-default" onclick="rowElim(this);">' +
-'<span class="glyphicon glyphicon-trash" > </span>' +
-'</button>' +
-'<button id="bAcep" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowAcep(this);">' +
-'<span class="glyphicon glyphicon-ok" > </span>' +
-'</button>' +
-'<button id="bCanc" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowCancel(this);">' +
-'<span class="glyphicon glyphicon-remove" > </span>' +
-'</button>' +
-  '</div>';
+    '<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="rowEdit(this);">' +
+    '<span class="glyphicon glyphicon-pencil" > </span>' +
+    '</button>' +
+    '<button id="bElim" type="button" class="btn btn-sm btn-default" onclick="rowElim(this);">' +
+    '<span class="glyphicon glyphicon-trash" > </span>' +
+    '</button>' +
+    '<button id="bAcep" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowAcep(this);">' +
+    '<span class="glyphicon glyphicon-ok" > </span>' +
+    '</button>' +
+    '<button id="bCanc" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowCancel(this);">' +
+    '<span class="glyphicon glyphicon-remove" > </span>' +
+    '</button>' +
+    '</div>';
 var colEdicHtml = '<td name="buttons">' + newColHtml + '</td>';
 
 $.fn.SetEditable = function (options) {
@@ -73,14 +73,19 @@ function IterarCamposEdit($cols, tarea) {
         }
     }
 }
-function FijModoNormal(but) {
+function FijModoNormal(but, flag) {
     $(but).parent().find('#bAcep').hide();
     $(but).parent().find('#bCanc').hide();
     $(but).parent().find('#bEdit').show();
     $(but).parent().find('#bElim').show();
     var $row = $(but).parents('tr');  //accede a la fila
     //Edited By Wang Qifan on May 22 2018--Begin
-    $row.attr('id', '');  //quita marca   
+    if (flag == true) {
+        $row.attr('id', 'edited'); //Wang Qifan Edited on May 22
+    }
+    else {
+        $row.attr('id', '');  //quita marca   
+    }
     //Edited By Wang Qifan on May 22 2018--End
 }
 function FijModoEdit(but) {
@@ -92,9 +97,10 @@ function FijModoEdit(but) {
     $row.attr('id', 'editing');  //indica que está en edición
 }
 function ModoEdicion($row) {
-    if ($row.attr('id') == 'editing' || $row.attr('id') == 'edited') {
+    if ($row.attr('id') == 'editing') {
         return true;
-    } else {
+    }
+    else {
         return false;
     }
 }
@@ -108,8 +114,7 @@ function rowAcep(but) {
         var cont = $td.find('input').val(); //lee contenido del input
         $td.html(cont);  //fija contenido y elimina controles
     });
-    FijModoNormal(but);
-    $row.attr('id', 'edited'); //Wang Qifan Edited on May 22
+    FijModoNormal(but, true);
     params.onEdit($row);
 }
 function rowCancel(but) {
@@ -122,7 +127,7 @@ function rowCancel(but) {
         var cont = $td.find('div').html(); //lee contenido del div
         $td.html(cont);  //fija contenido y elimina controles
     });
-    FijModoNormal(but);
+    FijModoNormal(but, false);
 }
 function rowEdit(but) {  //Inicia la edición de una fila
     var $row = $(but).parents('tr');  //accede a la fila

@@ -311,5 +311,16 @@ namespace GradutionProject.Controllers
         {
             return DBManip.LoadDenpendencies();
         }
+
+        public object ModifyMultipleUsers(FormCollection fc)
+        {
+            if (fc["cmdTxt"] == null)
+            {
+                return null;
+            }
+            DBManip.ModifySpecificUser(fc["cmdTxt"].ToString());
+            return Redirect("AdminMainPage");
+        }
+
     }
 }

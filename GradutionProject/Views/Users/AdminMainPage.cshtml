@@ -48,32 +48,34 @@
                             <table class="table table-bordered table-striped" id="studenttable">
                                 <thead>
                                     <tr>
-                                        <th><i class="fa fa-hashtag"></i>&nbsp;姓名 </th>
-                                        <th><i class="fa fa-female"></i></th>
-                                        <th>年龄</th>
-                                        <th><i class="fa fa-address-book-o"></i>&nbsp;邮箱</th>
-                                        <th><i class="fa fa-mobile-phone fa-lg"></i>&nbsp;手机</th>
-                                        <th><i class="fa fa-qq"></i>&nbsp;QQ</th>
-                                        <th><i class="fa fa-graduation-cap"></i>&nbsp;毕业院校</th>
-                                        <th><i class="fa fa-hashtag"></i>&nbsp;专业</th>
-                                        <th><i class="fa fa-hashtag"></i>&nbsp;在读学位</th>
-                                        <th><i class="fa fa-hashtag"></i>&nbsp;年级</th>
+                                        <th name="@student.Columns[0].ColumnName" hidden></th>
+                                        <th name="@student.Columns[1].ColumnName"><i class="fa fa-hashtag"></i>&nbsp;姓名 </th>
+                                        <th name="@student.Columns[2].ColumnName"><i class="fa fa-female"></i></th>
+                                        <th name="@student.Columns[3].ColumnName">年龄</th>
+                                        <th name="@student.Columns[4].ColumnName"><i class="fa fa-address-book-o"></i>&nbsp;邮箱</th>
+                                        <th name="@student.Columns[7].ColumnName"><i class="fa fa-mobile-phone fa-lg"></i>&nbsp;手机</th>
+                                        <th name="@student.Columns[6].ColumnName"><i class="fa fa-qq"></i>&nbsp;QQ</th>
+                                        <th name="@student.Columns[8].ColumnName"><i class="fa fa-graduation-cap"></i>&nbsp;毕业院校</th>
+                                        <th name="@student.Columns[10].ColumnName"><i class="fa fa-hashtag"></i>&nbsp;专业</th>
+                                        <th name="@student.Columns[11].ColumnName"><i class="fa fa-hashtag"></i>&nbsp;在读学位</th>
+                                        <th name="@student.Columns[12].ColumnName"><i class="fa fa-hashtag"></i>&nbsp;年级</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (System.Data.DataRow rows in student.Rows)
                                     {
                                         <tr>
-                                            <td name="@rows[0]">@rows[1]</td>
-                                            <td name="@rows[2].ToString().ToLower()"></td>
+                                            <td hidden>@rows[0]</td>
+                                            <td>@rows[1]</td>
+                                            <td name="@rows[2].ToString().ToLower()">@rows[2]</td>
                                             <td>@rows[3]</td>
                                             <td>@rows[4]</td>
                                             <td>@rows[7]</td>
                                             <td>@rows[6]</td>
                                             <td>@rows[8]</td>
                                             <td>@rows[10]</td>
-                                            <td name="@rows[11]"></td>
-                                            <td name="@rows[12]"></td>
+                                            <td name="@rows[11]">@rows[11]</td>
+                                            <td name="@rows[12]">@rows[12]</td>
                                         </tr>
                                     }
                                 </tbody>
@@ -105,21 +107,23 @@
                             <table class="table table-bordered table-striped" id="teachertable">
                                 <thead>
                                     <tr>
-                                        <th><i class="fa fa-hashtag"></i>&nbsp;姓名 </th>
-                                        <th><i class="fa fa-female"></i><i class="fa fa-male"></i>&nbsp;</th>
-                                        <th><i class="fa fa-address-book-o"></i>&nbsp; 邮箱</th>
-                                        <th><i class="fa fa-mobile-phone fa-lg"></i>&nbsp; 手机</th>
-                                        <th><i class="fa fa-qq"></i>&nbsp; QQ</th>
-                                        <th><i class="fa fa-graduation-cap"></i>&nbsp; 毕业院校</th>
-                                        <th><i class="fa fa-hashtag"></i>&nbsp;专业</th>
+                                        <th name="@teacher.Columns[0].ColumnName" hidden></th>
+                                        <th name="@teacher.Columns[1].ColumnName"><i class="fa fa-hashtag"></i>&nbsp;姓名 </th>
+                                        <th name="@teacher.Columns[2].ColumnName"><i class="fa fa-female"></i><i class="fa fa-male"></i>&nbsp;</th>
+                                        <th name="@teacher.Columns[4].ColumnName"><i class="fa fa-address-book-o"></i>&nbsp; 邮箱</th>
+                                        <th name="@teacher.Columns[7].ColumnName"><i class="fa fa-mobile-phone fa-lg"></i>&nbsp; 手机</th>
+                                        <th name="@teacher.Columns[6].ColumnName"><i class="fa fa-qq"></i>&nbsp; QQ</th>
+                                        <th name="@teacher.Columns[8].ColumnName"><i class="fa fa-graduation-cap"></i>&nbsp; 毕业院校</th>
+                                        <th name="@teacher.Columns[10].ColumnName"><i class="fa fa-hashtag"></i>&nbsp;专业</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (System.Data.DataRow rows in teacher.Rows)
                                     {
                                         <tr>
-                                            <td name="@rows[0]">@rows[1]</td>
-                                            <td>@rows[2]</td>
+                                            <td hidden>@rows[0]</td>
+                                            <td>@rows[1]</td>
+                                            <td name="@rows[2].ToString().ToLower()">@rows[2]</td>
                                             <td>@rows[4]</td>
                                             <td>@rows[7]</td>
                                             <td>@rows[6]</td>
@@ -191,10 +195,11 @@
         //Change the database field to human readable. Not on teachertable due to it has been processed at backend.
         var tds = document.getElementById('studenttable').getElementsByTagName('td');  //student table
         DisplayHumanReadable(tds);
-
+        tds = document.getElementById('teachertable').getElementsByTagName('td');       //teacher table
+        DisplayHumanReadable(tds);
         showTeachWeek();                //显示教学周
 
-        //-------------------------------------Begin 处理tab pane显示问题-----------------------------------------//
+        //-----------------------------------------处理tab pane显示问题Begin-----------------------------------------//
         //!!!不知道为什么后台传过来的值如果第一个字符是“#”，前端就无法接收到这个值。
         //var item = "ViewData["tab"].ToString()";
         var href = window.location.href.toString().split('#')[window.location.href.toString().split('#').length - 1];
@@ -209,9 +214,10 @@
 
         document.getElementById(href).setAttribute("class", "tab-pane fade in active");
         document.getElementById(tagid).setAttribute("class", "active");
-        //-------------------------------------End    处理tab pane显示问题-----------------------------------------//
+        //-----------------------------------------处理tab pane显示问题End-----------------------------------------//
     }
 
+    //把数据库拿出来的非可读性文字转化为可读性文字如：M（男性），F（女性）..
     function DisplayHumanReadable(tds) {
         for (var i = 0; i < tds.length; i++) {
             if (tds[i].hasAttribute('name') == true) {
@@ -231,18 +237,99 @@
         }
     }
 
-    function submitChange(clickedBy) {
-        var destTable = document.getElementById(clickedBy);
-        var destThs = destTable.children[0].children[0].children;        //The trs in the thead part of the table
-        var destTrs = destTable.children[1].children;        //The trs in the tbody part of the table
-        for (var t in destTrs) {
-            if (destTrs[t].getAttribute('id') == 'editing') {
-                //此处完成未点击【bAcep】按钮的修改项的提交
-            }
-            else {
-                //此处完成未修改项或修改完成项
+    //与DisplayHumanReadable()功能相反
+    function RevertToDatabaseTypes(tds, inputs) {
+        for (var i = 0; i < tds.length; i++) {
+            switch (tds[i].innerHTML) {
+                case '男': tds[i].innerHTML = "M"; break;
+                case '女': tds[i].innerHTML = "F"; break;
+                case '未知': tds[i].innerHTML = "U"; break;
+                case '学士': tds[i].innerHTML = "B"; break;
+                case '硕士': tds[i].innerHTML = "M"; break;
+                case '博士': tds[i].innerHTML = "D"; break;
+                case '大一': tds[i].innerHTML = "FR"; break;
+                case '大二': tds[i].innerHTML = "SO"; break;
+                case '大三': tds[i].innerHTML = "JU"; break;
+                case '大四': tds[i].innerHTML = "SE"; break;
             }
         }
+        if (inputs.length == 0) {
+            return;
+        }
+        else {
+            for (var i = 0; i < inputs.length; i++) {
+                switch (inputs[i].value) {
+                    case '男': inputs[i].value = "M"; break;
+                    case '女': inputs[i].value = "F"; break;
+                    case '未知': inputs[i].value = "U"; break;
+                    case '学士': inputs[i].value = "B"; break;
+                    case '硕士': inputs[i].value = "M"; break;
+                    case '博士': inputs[i].value = "D"; break;
+                    case '大一': inputs[i].value = "FR"; break;
+                    case '大二': inputs[i].value = "SO"; break;
+                    case '大三': inputs[i].value = "JU"; break;
+                    case '大四': inputs[i].value = "SE"; break;
+                }
+            }
+        }
+
+    }
+
+    function submitChange(clickedBy) {
+        var tds = document.getElementById(clickedBy).getElementsByTagName('td');
+        var inputs = document.getElementById(clickedBy).getElementsByTagName('input');
+        RevertToDatabaseTypes(tds, inputs);
+        var destThs = document.getElementById(clickedBy).children[0].children[0].children;        //The trs in the thead part of the table
+        var destTrs = document.getElementById(clickedBy).children[1].children;        //The trs in the tbody part of the table
+        clickedBy = clickedBy == "studenttable" ? "student_information" : "teacher_information";
+        var cmdTxt = "", sep = ";";
+        for (var t in destTrs) {
+            //----------------------------------------Case Analysis Begin-----------------------------------------------//
+            //对修改表格下面只分析了两种情况：
+            //（1）即修改了表格中某一行但是没有点击行末的确认按钮，此时点击提交所有更改会将这部分修改提交；
+            //（2）即修改了表格中某一行并且点击了行末的确认按钮，此种情况也会提交；
+            //第三种情况存在，但未做处理：
+            //（3）即第一次修改了表格中某一行，点击了行末的确认按钮；再点击该行进行修改，但点击了取消按钮；
+            //         此种情况应该提交第一次做出的修改，可是根据下面的逻辑，点击取消之后该行不会提交；
+            //----------------------------------------Case Analysis Middle---------------------------------------------//
+            if (destTrs[t].id == 'editing') {           //Not knowing why 【destTrs[t].getAttribute('id')】 doesn't work!
+                //此处完成未点击【bAcep】（即table中行元素的提交）按钮的修改项：提交
+                var conditionString = " where " + destThs[0].getAttribute('name') + "='" + destTrs[t].children[0].children[1].value + "'";
+                var updateString = "update " + clickedBy + " set ";
+                var loopStr = "";
+                for (var i = 1; i < destTrs[t].children.length - 1; i++) {
+                    var key = destThs[i].getAttribute('name');
+                    var val = destTrs[t].children[i].children[1].value;
+                    loopStr += key + "='" + val + "',";
+                }
+                loopStr = loopStr.substr(0, loopStr.length - 1);
+                updateString = updateString + loopStr + conditionString;
+                cmdTxt += updateString + sep;
+            }
+            else if (destTrs[t].id == 'edited') {       //Not knowing why 【destTrs[t].getAttribute('id')】 doesn't work!
+                //此处完成点击【bAcep】（即table中行元素的提交）按钮的修改项的：提交
+                var conditionString = " where " + destThs[0].getAttribute('name') + "='" + destTrs[t].children[0].innerText + "'";
+                var updateString = "update " + clickedBy + " set ";
+                var loopStr = "";
+                for (var i = 1; i < destTrs[t].children.length - 1; i++) {
+                    var key = destThs[i].getAttribute('name');
+                    var val = destTrs[t].children[i].innerText;
+                    loopStr += key + "='" + val + "',";
+                }
+                loopStr = loopStr.substr(0, loopStr.length - 1);
+                updateString = updateString + loopStr + conditionString;
+                cmdTxt += updateString + sep;
+            }
+            else {
+                //此处完成未修改项：不提交
+            }
+            //----------------------------------------Case Analysis End---------------------------------------------//
+        }
+        cmdTxt = cmdTxt.substr(0, cmdTxt.length - 1);
+        var parames = new Array();
+        parames.push({ name: "cmdTxt", value: cmdTxt });
+
+        Post("ModifyMultipleUsers", parames);
     }
 </script>
 <script>
@@ -296,6 +383,26 @@
         document.getElementById("showDate").innerHTML = a;
     }
 
+    //Copied from Login.cshtml
+    function Post(URL, PARAMTERS) {
+        //创建form表单
+        var temp_form = document.createElement("form");
+        temp_form.action = URL;
+        //如需打开新窗口，form的target属性要设置为'_blank'
+        temp_form.target = "_self";
+        temp_form.method = "post";
+        temp_form.style.display = "none";
+        //添加参数
+        for (var item in PARAMTERS) {
+            var opt = document.createElement("textarea");
+            opt.name = PARAMTERS[item].name;
+            opt.value = PARAMTERS[item].value;
+            temp_form.appendChild(opt);
+        }
+        document.body.appendChild(temp_form);
+        //提交数据
+        temp_form.submit();
+    }
     //该函数在点击panel的header时调用，用来切换当前活动状态的panel。
     //function checkPane(param) {
     //    window.location.href = window.location.href.toString().split('#')[0] + param;

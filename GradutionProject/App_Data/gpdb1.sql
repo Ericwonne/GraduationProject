@@ -375,7 +375,7 @@ CREATE TABLE `student_information` (
 
 LOCK TABLES `student_information` WRITE;
 /*!40000 ALTER TABLE `student_information` DISABLE KEYS */;
-INSERT INTO `student_information` VALUES ('US00000001','王启帆','M',22,'wangqifan1996@126.com','EricWong1996','1318272348','15316831783','上海理工大学','光电信息与计算机工程学院','计算机科学与技术','B','SE','1318272348',NULL,'A0001'),('US00000002','李敏其','F',22,'liminqi@anothermail.com','','','','上海理工大学','','','B','SE','','','B0002'),('US00000003','aaa','M',23,'wangyongjian@anothermail.com','','','','上海理工大学','','','B','SE','','','C0003'),('US00000004','冯凯鑫','M',32,'happy@anothermail.com','','','','上海理工大学','','','B','SE','','','D0004');
+INSERT INTO `student_information` VALUES ('US00000001','王启帆','M',22,'wangqifan1996@126.com','EricWong1996','1318272348','15316831783','上海理工大学','光电信息与计算机工程学院','计算机科学与技术','B','SE','1318272348',NULL,'A0001'),('US00000002','李敏其','F',22,'liminqi@anothermail.com','','','','上海理工大学','','','B','SE','','','B0002'),('US00000003','王永健','M',23,'wangyongjian@anothermail.com','','','','上海理工大学','','','B','SE','','','C0003'),('US00000004','冯凯鑫','M',32,'happy@anothermail.com','','','','上海理工大学','','','B','SE','','','D0004');
 /*!40000 ALTER TABLE `student_information` ENABLE KEYS */;
 UNLOCK TABLES;
 
