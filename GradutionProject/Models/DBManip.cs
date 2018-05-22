@@ -721,10 +721,24 @@ namespace GradutionProject.Models
             string result = "", sep = "&";
             for (int i = 0; i < set.Tables["Faculty"].Rows.Count; i++)
             {
-                result = result + set.Tables["Faculty"].Rows[i][0].ToString() + "=" + set.Tables["Faculty"].Rows[i][1].ToString() + "&";
+                result = result + set.Tables["Faculty"].Rows[i][0].ToString() + "=" + set.Tables["Faculty"].Rows[i][1].ToString() + sep;
             }
             result = result.Substring(0, result.Length - 1);
             return result;
+        }
+
+        internal static DataTable GetAllCourses()
+        {
+            MySqlConnection connect = new MySqlConnection(connectionString);
+            string cmdTxt = "select * from course_information";
+            DataSet set = new DataSet();
+
+            //Start of connection
+            connect.Open();
+            MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "AllCourses");
+            connect.Close();
+            return set.Tables["AllCourses"];
         }
     }
 

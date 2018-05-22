@@ -1,9 +1,471 @@
 ﻿
 @{
     ViewBag.Title = "管理员你好-学生选课管理信息系统";
-    System.Data.DataTable student = Model.Tables["student"];  //student table
-    System.Data.DataTable teacher = Model.Tables["teacher"];  //teacher table
+    GradutionProject.Models.PeriodGetter P = new GradutionProject.Models.PeriodGetter();
+    System.Data.DataTable student = Model.Tables["student"];            //student table
+    System.Data.DataTable teacher = Model.Tables["teacher"];            //teacher table
+    System.Data.DataTable AllCourses = Model.Tables["AllCourses"];  //course table
 }
+<style type="text/css">
+    td.alt {
+        background-color: #ffc;
+        background-color: rgba(230, 127, 34, 0.2);
+    }
+</style>
+<style type="text/css">
+    * {
+        outline: none;
+    }
+
+    .tippy-tooltip.honeybee-theme {
+        /* Your styling here. Example: */
+        background-color: yellow;
+        border: 2px solid orange;
+    }
+
+        .tippy-tooltip.honeybee-theme [x-arrow] {
+            /* Your arrow styling here. Uses transform: rotate() so no need for CSS triangle shenanigans. */
+            background-color: yellow;
+            border: 2px solid;
+            border-color: transparent transparent orange orange; /* same for any position */
+        }
+
+        .tippy-tooltip.honeybee-theme .tippy-tooltip-content {
+            /* Your styling here. Example: */
+            color: black;
+        }
+
+        .tippy-tooltip.honeybee-theme [x-circle] {
+            /* Your styling here. Example: */
+            background-color: yellow;
+        }
+
+    .tippy-touch {
+        cursor: pointer !important;
+    }
+
+    .tippy-popper {
+        visibility: hidden;
+        max-width: 400px;
+        -webkit-perspective: 1000px;
+        perspective: 1000px;
+        z-index: 9999;
+    }
+
+        .tippy-popper.enter {
+            opacity: 1;
+            -webkit-transition-property: all;
+            transition-property: all;
+            -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
+        }
+
+        .tippy-popper.leave {
+            opacity: 0;
+            -webkit-transition-property: all;
+            transition-property: all;
+            -webkit-transition-timing-function: ease-in;
+            transition-timing-function: ease-in;
+        }
+
+        .tippy-popper.html-template {
+            max-width: 95%;
+            max-width: calc(100% - 2rem);
+        }
+
+        .tippy-popper[x-placement=top] [x-arrow] {
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            bottom: -5px;
+        }
+
+        .tippy-popper[x-placement=top] [x-circle] {
+            -webkit-transform-origin: 0 33%;
+            transform-origin: 0 33%;
+        }
+
+            .tippy-popper[x-placement=top] [x-circle].enter {
+                opacity: 1;
+                -webkit-transform: scale(1) translate(-50%,-50%);
+                transform: scale(1) translate(-50%,-50%);
+            }
+
+            .tippy-popper[x-placement=top] [x-circle].leave {
+                opacity: 0;
+                -webkit-transform: scale(0) translate(-50%,-50%);
+                transform: scale(0) translate(-50%,-50%);
+            }
+
+        .tippy-popper[x-placement=top] [data-animation=none].enter, .tippy-popper[x-placement=top] [data-animation=none].leave {
+            opacity: 1;
+            -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+        }
+
+        .tippy-popper[x-placement=top] [data-animation=perspective] {
+            -webkit-transform-origin: bottom;
+            transform-origin: bottom;
+        }
+
+            .tippy-popper[x-placement=top] [data-animation=perspective].enter {
+                opacity: 1;
+                -webkit-transform: translateY(-10px) rotateX(0);
+                transform: translateY(-10px) rotateX(0);
+            }
+
+            .tippy-popper[x-placement=top] [data-animation=perspective].leave {
+                opacity: 0;
+                -webkit-transform: translateY(0) rotateX(90deg);
+                transform: translateY(0) rotateX(90deg);
+            }
+
+        .tippy-popper[x-placement=top] [data-animation=fade].enter {
+            opacity: 1;
+            -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+        }
+
+        .tippy-popper[x-placement=top] [data-animation=fade].leave {
+            opacity: 0;
+            -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+        }
+
+        .tippy-popper[x-placement=top] [data-animation=shift].enter {
+            opacity: 1;
+            -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+        }
+
+        .tippy-popper[x-placement=top] [data-animation=shift].leave {
+            opacity: 0;
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+
+        .tippy-popper[x-placement=top] [data-animation=scale].enter {
+            opacity: 1;
+            -webkit-transform: translateY(-10px) scale(1);
+            transform: translateY(-10px) scale(1);
+        }
+
+        .tippy-popper[x-placement=top] [data-animation=scale].leave {
+            opacity: 0;
+            -webkit-transform: translateY(0) scale(0);
+            transform: translateY(0) scale(0);
+        }
+
+        .tippy-popper[x-placement=bottom] [x-arrow] {
+            -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+            top: -5px;
+        }
+
+        .tippy-popper[x-placement=bottom] [x-circle] {
+            -webkit-transform-origin: 0 -33%;
+            transform-origin: 0 -33%;
+        }
+
+            .tippy-popper[x-placement=bottom] [x-circle].enter {
+                opacity: 1;
+                -webkit-transform: scale(1) translate(-50%,-50%);
+                transform: scale(1) translate(-50%,-50%);
+            }
+
+            .tippy-popper[x-placement=bottom] [x-circle].leave {
+                opacity: 0;
+                -webkit-transform: scale(0) translate(-50%,-50%);
+                transform: scale(0) translate(-50%,-50%);
+            }
+
+        .tippy-popper[x-placement=bottom] [data-animation=none].enter, .tippy-popper[x-placement=bottom] [data-animation=none].leave {
+            opacity: 1;
+            -webkit-transform: translateY(10px);
+            transform: translateY(10px);
+        }
+
+        .tippy-popper[x-placement=bottom] [data-animation=perspective] {
+            -webkit-transform-origin: top;
+            transform-origin: top;
+        }
+
+            .tippy-popper[x-placement=bottom] [data-animation=perspective].enter {
+                opacity: 1;
+                -webkit-transform: translateY(10px) rotateX(0);
+                transform: translateY(10px) rotateX(0);
+            }
+
+            .tippy-popper[x-placement=bottom] [data-animation=perspective].leave {
+                opacity: 0;
+                -webkit-transform: translateY(0) rotateX(-90deg);
+                transform: translateY(0) rotateX(-90deg);
+            }
+
+        .tippy-popper[x-placement=bottom] [data-animation=fade].enter {
+            opacity: 1;
+            -webkit-transform: translateY(10px);
+            transform: translateY(10px);
+        }
+
+        .tippy-popper[x-placement=bottom] [data-animation=fade].leave {
+            opacity: 0;
+            -webkit-transform: translateY(10px);
+            transform: translateY(10px);
+        }
+
+        .tippy-popper[x-placement=bottom] [data-animation=shift].enter {
+            opacity: 1;
+            -webkit-transform: translateY(10px);
+            transform: translateY(10px);
+        }
+
+        .tippy-popper[x-placement=bottom] [data-animation=shift].leave {
+            opacity: 0;
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+
+        .tippy-popper[x-placement=bottom] [data-animation=scale].enter {
+            opacity: 1;
+            -webkit-transform: translateY(10px) scale(1);
+            transform: translateY(10px) scale(1);
+        }
+
+        .tippy-popper[x-placement=bottom] [data-animation=scale].leave {
+            opacity: 0;
+            -webkit-transform: translateY(0) scale(0);
+            transform: translateY(0) scale(0);
+        }
+
+        .tippy-popper[x-placement=left] [x-arrow] {
+            -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+            right: -5px;
+            top: 50%;
+        }
+
+        .tippy-popper[x-placement=left] [x-circle] {
+            -webkit-transform-origin: 50% 5%;
+            transform-origin: 50% 5%;
+        }
+
+            .tippy-popper[x-placement=left] [x-circle].enter {
+                opacity: 1;
+                -webkit-transform: scale(1) translate(-50%,-50%);
+                transform: scale(1) translate(-50%,-50%);
+            }
+
+            .tippy-popper[x-placement=left] [x-circle].leave {
+                opacity: 0;
+                -webkit-transform: scale(0) translate(-50%,-33%);
+                transform: scale(0) translate(-50%,-33%);
+            }
+
+        .tippy-popper[x-placement=left] [data-animation=none].enter, .tippy-popper[x-placement=left] [data-animation=none].leave {
+            opacity: 1;
+            -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+        }
+
+        .tippy-popper[x-placement=left] [data-animation=perspective] {
+            -webkit-transform-origin: right;
+            transform-origin: right;
+        }
+
+            .tippy-popper[x-placement=left] [data-animation=perspective].enter {
+                opacity: 1;
+                -webkit-transform: translateX(-10px) rotateY(0);
+                transform: translateX(-10px) rotateY(0);
+            }
+
+            .tippy-popper[x-placement=left] [data-animation=perspective].leave {
+                opacity: 0;
+                -webkit-transform: translateX(0) rotateY(-90deg);
+                transform: translateX(0) rotateY(-90deg);
+            }
+
+        .tippy-popper[x-placement=left] [data-animation=fade].enter {
+            opacity: 1;
+            -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+        }
+
+        .tippy-popper[x-placement=left] [data-animation=fade].leave {
+            opacity: 0;
+            -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+        }
+
+        .tippy-popper[x-placement=left] [data-animation=shift].enter {
+            opacity: 1;
+            -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+        }
+
+        .tippy-popper[x-placement=left] [data-animation=shift].leave {
+            opacity: 0;
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+
+        .tippy-popper[x-placement=left] [data-animation=scale].enter {
+            opacity: 1;
+            -webkit-transform: translateX(-10px) scale(1);
+            transform: translateX(-10px) scale(1);
+        }
+
+        .tippy-popper[x-placement=left] [data-animation=scale].leave {
+            opacity: 0;
+            -webkit-transform: translateX(0) scale(0);
+            transform: translateX(0) scale(0);
+        }
+
+        .tippy-popper[x-placement=right] [x-arrow] {
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            left: -5px;
+            top: 50%;
+        }
+
+        .tippy-popper[x-placement=right] [x-circle] {
+            -webkit-transform-origin: -50% 5%;
+            transform-origin: -50% 5%;
+        }
+
+            .tippy-popper[x-placement=right] [x-circle].enter {
+                opacity: 1;
+                -webkit-transform: scale(1) translate(-50%,-50%);
+                transform: scale(1) translate(-50%,-50%);
+            }
+
+            .tippy-popper[x-placement=right] [x-circle].leave {
+                opacity: 0;
+                -webkit-transform: scale(0) translate(-50%,-33%);
+                transform: scale(0) translate(-50%,-33%);
+            }
+
+        .tippy-popper[x-placement=right] [data-animation=none].enter, .tippy-popper[x-placement=right] [data-animation=none].leave {
+            opacity: 1;
+            -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+        }
+
+        .tippy-popper[x-placement=right] [data-animation=perspective] {
+            -webkit-transform-origin: left;
+            transform-origin: left;
+        }
+
+            .tippy-popper[x-placement=right] [data-animation=perspective].enter {
+                opacity: 1;
+                -webkit-transform: translateX(10px) rotateY(0);
+                transform: translateX(10px) rotateY(0);
+            }
+
+            .tippy-popper[x-placement=right] [data-animation=perspective].leave {
+                opacity: 0;
+                -webkit-transform: translateX(0) rotateY(90deg);
+                transform: translateX(0) rotateY(90deg);
+            }
+
+        .tippy-popper[x-placement=right] [data-animation=fade].enter {
+            opacity: 1;
+            -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+        }
+
+        .tippy-popper[x-placement=right] [data-animation=fade].leave {
+            opacity: 0;
+            -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+        }
+
+        .tippy-popper[x-placement=right] [data-animation=shift].enter {
+            opacity: 1;
+            -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+        }
+
+        .tippy-popper[x-placement=right] [data-animation=shift].leave {
+            opacity: 0;
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+
+        .tippy-popper[x-placement=right] [data-animation=scale].enter {
+            opacity: 1;
+            -webkit-transform: translateX(10px) scale(1);
+            transform: translateX(10px) scale(1);
+        }
+
+        .tippy-popper[x-placement=right] [data-animation=scale].leave {
+            opacity: 0;
+            -webkit-transform: translateX(0) scale(0);
+            transform: translateX(0) scale(0);
+        }
+
+    .tippy-tooltip {
+        position: relative;
+        color: #fff;
+        border-radius: 4px;
+        padding: .5rem 1rem;
+        text-align: center;
+        will-change: transform;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #333;
+    }
+
+        .tippy-tooltip [x-arrow] {
+            z-index: -1;
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #333;
+            border: 1px solid;
+            border-color: transparent transparent #333 #333;
+        }
+
+        .tippy-tooltip[data-animatefill] {
+            overflow: hidden;
+            background-color: transparent;
+        }
+
+        .tippy-tooltip [x-circle] {
+            position: absolute;
+            background-color: #333;
+            border-radius: 50%;
+            width: 130%;
+            width: calc(125% + 2rem);
+            height: 0;
+            padding-bottom: 130%;
+            padding-bottom: calc(125% + 2rem);
+            left: 50%;
+            -webkit-transition: all ease-out;
+            transition: all ease-out;
+            z-index: -1;
+            opacity: 0;
+        }
+
+        .tippy-tooltip.light-theme {
+            color: #203d5d;
+            box-shadow: 0 0 16px -4px rgba(0,20,40,.2),0 0 80px -10px rgba(0,20,40,.3);
+            background-color: #f3f6f9;
+            border: 1px solid #ced2e2;
+        }
+
+            .tippy-tooltip.light-theme [x-circle] {
+                background-color: #f3f6f9;
+            }
+
+            .tippy-tooltip.light-theme [x-arrow] {
+                background-color: #f3f6f9;
+                border-color: transparent transparent #ced2e2 #ced2e2;
+            }
+
+            .tippy-tooltip.light-theme[data-animatefill] {
+                background-color: transparent;
+            }
+</style>
 
 <h2>欢迎您，管理员！<small id="showDate"></small></h2>
 <br />
@@ -153,6 +615,82 @@
                     <small></small>
                 </h3>
             </div>
+            <div class="container">
+                <div class="container">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-search fa-lg"></i>&nbsp;</div>
+                        <input class="form-control" type="search" id="input-filter" size="15" placeholder="搜索表格中的条目" />
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><i class="fa fa-hashtag"></i>&nbsp;课程类别</th>
+                                <th><i class="fa fa-hashtag"></i>&nbsp;所属学院</th>
+                                <th><i class="fa fa-hashtag"></i>&nbsp;课程名称</th>
+                                <th><i class="fa fa-hashtag"></i>&nbsp;上课周期</th>
+                                <th><i class="fa fa-hashtag"></i>&nbsp;任课教师</th>
+                                <th><i class="fa fa-hashtag"></i>&nbsp;上课地点</th>
+                                <th><i class="fa fa-hashtag"></i>&nbsp;上课时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int count = AllCourses.Columns.Count; string sep = "&";}
+                            @foreach (System.Data.DataRow row in AllCourses.Rows)
+                            {
+                                <tr>
+                                    <td name="@row[0]" hidden>
+                                        @{
+                                            int i = 1;
+                                            while (i < count)
+                                            {
+                                                @row[i]@sep
+                                                i++;
+                                            }
+                                        }
+                                    </td>
+                                    <td class="category"></td>
+                                    <td>所属学院</td>
+                                    <td><a title="" href="SpecificCourse?id=@row[0]">@row[1]</a></td>
+                                    <td>@Convert.ToDateTime(row[4]).ToString("yy年MM月dd日")至 @Convert.ToDateTime(row[5]).ToString("MM月dd日")</td>
+                                    <td>Placeholder</td>
+                                    <td>@row[6]</td>
+                                    <td name="@row[7]">@P.Period[row[7].ToString()]</td>
+                                    <td>
+                                        <!--傻傻的方法 onclick="getSpecificInfo(this.parentElement.parentElement.children[0].children[0].getAttribute('href').split('=')[1])"-->
+                                        <button id="@row[0]" class="btn btn-default tippy-arrow" data-toggle="modal" data-target="#myModal" onclick="getSpecificInfo('@row[0]', '@row[1]')" title="Tooltip">
+                                            <!--<button class="btn btn-link">-->
+                                            管理
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- 模态框（Modal） -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel"></h4>
+                            </div>
+                            <div id="modal-body" class="modal-body" style="margin-top:0">
+                            </div>
+                            <div class="modal-footer" style="margin-top:0">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    关闭
+                                </button>
+                                <button type="button" class="btn btn-primary" onclick="submitChange()">
+                                    提交更改
+                                </button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal -->
+                </div>
+            </div>
         </div>
     </div>
     <!--管理杂项-->
@@ -188,9 +726,18 @@
     </div>
 </div>
 
-<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+@*<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>*@
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.filtertable.min.js"></script>
+<script src="~/Scripts/tippy.js"></script>
 <script src="~/Scripts/bootstable.js"></script>
+
 <script>
+    //Floppy
+    new Tippy('.tippy-arrow', { position: 'top', animation: 'scale', arrow: 'true' });
+
+    //Load evertthing alright
     window.onload = function loadPage() {
         //Change the database field to human readable. Not on teachertable due to it has been processed at backend.
         var tds = document.getElementById('studenttable').getElementsByTagName('td');  //student table
@@ -332,6 +879,7 @@
         Post("ModifyMultipleUsers", parames);
     }
 </script>
+
 <script>
     $('#studenttable').SetEditable({
         $addButton: $('#addstudent')
@@ -403,6 +951,7 @@
         //提交数据
         temp_form.submit();
     }
+
     //该函数在点击panel的header时调用，用来切换当前活动状态的panel。
     //function checkPane(param) {
     //    window.location.href = window.location.href.toString().split('#')[0] + param;
@@ -422,4 +971,39 @@
     //window.location.href = window.location.href.toString().split('?')[0] + "?tab=" + param.toString().substring(1, param.length);
     //alert(window.location.href);
     //}
+
+    //点击【管理】按钮后向数据库请求数据动态写入Modal框
+
+    function getSpecificInfo(id, name) {
+        document.getElementById('myModalLabel').innerHTML = "修改" + name + "的信息";
+        var result = "";
+        $.ajax({
+            type: "GET",
+            url: "GetSpecificUser",
+            data: "id=" + id,
+            contentType: false,
+            processData: false,
+            async: false,               //同步: Google"如何获取Ajax的返回值,了解只有同步机制下可以获取返回值，否则获取到的就是undefined"
+            success: function (response) {
+                result = response;
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+        result = result.split('&');
+        var one_record = "", element = "<table id='dynamic_table' class='table table-condensed'>"; // internal_initial_modal = "";
+
+        for (var i = 0; i < result.length; i++) {
+            one_record = result[i].split('=');      //one_record[0]: attribute;   one_record[1]: value;
+            element += "<tr><td><label>" + one_record[0].toUpperCase() + "</label></td>" + "<td><input type='text' class='form-control' placeholder=" + one_record[1] + " /></td></tr>";
+            //internal_initial_modal += one_record[1] + "&";
+        }
+        element += "</table>";
+        var modal = document.getElementById("modal-body");
+        modal.innerHTML = element;
+        modal.children[0].children[0].children[0].children[1].children[0].setAttribute('disabled', '');
+        //initialModal = internal_initial_modal.substr(0, internal_initial_modal.length - 1);
+        initialModal = result;
+    }
 </script>
