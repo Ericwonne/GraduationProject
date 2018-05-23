@@ -21,12 +21,34 @@
             <div class="input-group-addon">搜索</div>
             <input class="form-control" type="search" id="input-filter" placeholder="搜索表格中的条目" />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <small><i class="glyphicon glyphicon-asterisk" style="color:forestgreen"></i></small> 已选
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <small><i class="glyphicon glyphicon-asterisk" style="color:blue"></i></small> 已收藏
-        </div>
-        <br />
-        <table class="table">
+
+            @{
+                if (Model.Tables.Count == 1)
+                {
+
+                }
+                else
+                {
+                    <small><i class="glyphicon glyphicon-asterisk" style="color:forestgreen"></i></small><span>已选</span>
+                }
+            }
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            @{
+                if (Model.Tables.Count == 1)
+                {
+
+                }
+                else
+                {
+                    <small><i class="glyphicon glyphicon-asterisk" style="color:blue"></i></small><span>已收藏 </span>
+                }
+            }
+
+            </ div >
+
+            < br />
+
+            < table class="table">
             <thead>
                 <tr>
                     <th><i class="fa fa-hashtag"></i>&nbsp;课程类别</th>
@@ -36,7 +58,15 @@
                     <th><i class="fa fa-hashtag"></i>&nbsp;上课地点</th>
                     <th><i class="fa fa-hashtag"></i>&nbsp;上课时间</th>
                     <th><i class="fa fa-male"></i>&nbsp;容量(已选)</th>
-                    <th><i class="fa fa-male"></i>&nbsp;操作</th>
+                    @{ if (Model.Tables.Count == 1)
+                        {
+                            //此处表示管理员访问
+                        }
+                        else
+                        {
+                            <th><i class="fa fa-male"></i>&nbsp;操作</th>
+                        }
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -73,26 +103,34 @@
                         <td>@row[4]</td>
                         <td name="@row[5]">@P.Period[row[5].ToString()]</td>
                         <td>@row[6] &nbsp;(<span style="color:darkslategray">@row[8]</span>)</td>
-                        <td>
-                            <ul>
-                                <li class="dropdown">
-                                    <span class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#">
-                                        收藏/选择 <span class="caret"></span>
-                                    </span>
-                                    <ul class="dropdown-menu">
-                                        <li>选择该课程</li>
-                                        <li class="divider" style="margin-top:2px;margin-bottom:2px"></li>
-                                        <li>收藏该课程</li>
+                        @{ if (Model.Tables.Count == 1)
+                            {
+                                //此处表示管理员访问
+                            }
+                            else
+                            {
+                                <td>
+                                    <ul>
+                                        <li class="dropdown">
+                                            <span class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#">
+                                                收藏/选择 <span class="caret"></span>
+                                            </span>
+                                            <ul class="dropdown-menu">
+                                                <li>选择该课程</li>
+                                                <li class="divider" style="margin-top:2px;margin-bottom:2px"></li>
+                                                <li>收藏该课程</li>
+                                            </ul>
+                                        </li>
                                     </ul>
-                                </li>
-                            </ul>
-                        </td>
+                                </td>
+                            }
+                        }
                         <td class="hidden"></td>
                     </tr>
-                                }
+                }
             </tbody>
-        </table>
-    </div>
+            </table>
+        </div>
 </body>
 
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
@@ -145,7 +183,7 @@
     function transferSession(para) {
         sessionStorage.c_amt = para;        //c_amt: cookie storing amount of total and selected heads of course;
     }
-    
+
 
 </script>
 

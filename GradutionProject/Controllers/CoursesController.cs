@@ -76,7 +76,8 @@ namespace GradutionProject.Controllers
         [CookieFilter]
         public object DisplayCourses()
         {
-            string studentID = ((User)Session["S_user"]).UniqueClientID;
+            string studentID = ((User)Session["S_user"]).RegistryType == 'A' ? "" : ((User)Session["S_user"]).UniqueClientID;
+            //string studentID = ((User)Session["S_user"]).UniqueClientID;
             DataSet set = DBManip.GetCourseTable(studentID);
 
             return View(set);
@@ -93,15 +94,16 @@ namespace GradutionProject.Controllers
             //tc = teacher_course_information
             DataSet tc = DBManip.GetCourseInfo(id);
             Session["S_courseid"] = id;
-            Session["S_state"] = state;
             switch (state)
             {
                 //Only three situations: select/collect/both
-                case "A": break;
-                case "B": break;
-                case "C": break;
+                case "A":
+                case "B":
+                case "C":
+                    break;
                 default: state = ""; break;
             }
+            //Session["S_state"] = state;
             //本来使用的是ViewData["V_state"] = state; 但现在似乎两者没什么区别：因为这里TempData并不能跨Action传值。
             TempData["T_state"] = state; //Original: Session["S_state"];
 

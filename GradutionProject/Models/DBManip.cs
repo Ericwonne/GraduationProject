@@ -267,7 +267,12 @@ namespace GradutionProject.Models
                 adapter = new MySqlDataAdapter(cmdTxt, connect);
                 adapter.Fill(set, "selectedCourses");
             }
-
+            else
+            {
+                set.Tables["courses"].Columns.Add("ifselected", Type.GetType("System.String"));
+                set.Tables["courses"].Columns.Add("chosen", Type.GetType("System.String"));
+                return set;
+            }
             for (int i = 0; i < set.Tables["courses"].Rows.Count; i++)
             {
                 cmdTxt = "select count(*) from course_records where cuid='" + set.Tables["courses"].Rows[i][0].ToString() + "' and ifdeleted='N'";
