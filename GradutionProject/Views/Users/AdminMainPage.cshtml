@@ -615,7 +615,11 @@
                     <small></small>
                 </h3>
             </div>
+            <div style="margin-bottom:10px">
+                <a id="courseProject" href="../Courses/DisplayCourses" class="btn btn-success">查看当前培养计划中的课表</a>
+            </div>
             <div class="container">
+                <!--Table-->
                 <div class="container">
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-search fa-lg"></i>&nbsp;</div>
@@ -659,10 +663,10 @@
                                         }
                                     </td>
                                     <td class="category"></td>
-                                    <td>所属学院</td>
+                                    <td>@row[16]</td>
                                     <td><a title="" href="SpecificCourse?id=@row[0]">@row[1]</a></td>
                                     <td>@Convert.ToDateTime(row[4]).ToString("yy年MM月dd日")至 @Convert.ToDateTime(row[5]).ToString("MM月dd日")</td>
-                                    <td>Placeholder</td>
+                                    <td>@row[2]</td>
                                     <td>@row[6]</td>
                                     <td name="@row[7]">@P.Period[row[7].ToString()]</td>
                                     <td>
@@ -755,6 +759,7 @@
         tds = document.getElementById('teachertable').getElementsByTagName('td');       //teacher table
         DisplayHumanReadable(tds);
         showTeachWeek();                //显示教学周
+        loadTooltip()
 
         //-----------------------------------------处理tab pane显示问题Begin-----------------------------------------//
         //!!!不知道为什么后台传过来的值如果第一个字符是“#”，前端就无法接收到这个值。
@@ -887,6 +892,34 @@
         parames.push({ name: "cmdTxt", value: cmdTxt });
 
         Post("ModifyMultipleUsers", parames);
+    }
+
+    //加载hover项
+    function loadTooltip() {
+
+
+        var a_list = document.getElementById('coursetable').getElementsByTagName("a");
+        var td_list = document.getElementById('coursetable').getElementsByClassName("category");
+        for (var index = 0; index < a_list.length; index++) {
+            var tdval = a_list[index].getAttribute("href").toString().substr(19, 1);
+            switch (tdval) {
+                case "A": tdval = "哲学门类"; break;
+                case "B": tdval = "经济学门类"; break;
+                case "C": tdval = "法学门类"; break;
+                case "D": tdval = "教育学门类"; break;
+                case "E": tdval = "文学门类"; break;
+                case "F": tdval = "历史学门类"; break;
+                case "G": tdval = "理学门类"; break;
+                case "H": tdval = "工学门类"; break;
+                case "I": tdval = "农学门类"; break;
+                case "J": tdval = "医学门类"; break;
+                case "K": tdval = "军事学门类"; break;
+                case "L": tdval = "管理学门类"; break;
+                case "M": tdval = "艺术学门类"; break;
+            }
+            a_list[index].setAttribute("title", tdval);
+            td_list[index].innerHTML = tdval.toString().split("门")[0];
+        }
     }
 </script>
 

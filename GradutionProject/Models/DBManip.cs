@@ -253,7 +253,7 @@ namespace GradutionProject.Models
         internal static DataSet GetCourseTable(string studentID = "")
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
-            string cmdTxt = "select courseID, courseName, startDate, endDate, venue, period, capacity from course_information";
+            string cmdTxt = "select courseID, courseName, startDate, endDate, venue, period, capacity, faculty, courseTeacher from course_information";
             DataSet set = new DataSet();
 
             //Start of connection

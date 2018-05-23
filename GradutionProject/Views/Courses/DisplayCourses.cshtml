@@ -43,14 +43,15 @@
                 }
             }
 
-            </div>
+        </div>
 
-            <br />
+        <br />
 
-            <table class="table">
+        <table class="table">
             <thead>
                 <tr>
                     <th><i class="fa fa-hashtag"></i>&nbsp;课程类别</th>
+                    <th><i class="fa fa-hashtag"></i>&nbsp;所属系别</th>
                     <th><i class="fa fa-hashtag"></i>&nbsp;课程名称</th>
                     <th><i class="fa fa-hashtag"></i>&nbsp;上课周期</th>
                     <th><i class="fa fa-hashtag"></i>&nbsp;任课教师</th>
@@ -58,13 +59,13 @@
                     <th><i class="fa fa-hashtag"></i>&nbsp;上课时间</th>
                     <th><i class="fa fa-male"></i>&nbsp;容量(已选)</th>
                     @{ if (Model.Tables.Count == 1)
-                        {
-                            //此处表示管理员访问
-                        }
-                        else
-                        {
-                            <th><i class="fa fa-male"></i>&nbsp;操作</th>
-                        }
+        {
+            //此处表示管理员访问
+        }
+        else
+        {
+                <th><i class="fa fa-male"></i>&nbsp;操作</th>
+}
                     }
                 </tr>
             </thead>
@@ -73,21 +74,22 @@
                 {
                     <tr>
                         <td class="category"></td>
+                        <td>@row[7]</td>
                         <td>
-                            <a title="" href="SpecificCourse?id=@row[0]&state=@row[7]" onclick="transferSession('@row[6]' +'_'+ '@row[8]')">
+                            <a title="" href="SpecificCourse?id=@row[0]&state=@row[9]" onclick="transferSession('@row[6]' +'_'+ '@row[10]')">
                                 @row[1]
                             </a>
                             @{
-                                if (row[7].ToString() == GradutionProject.Models.ManipCourseType.C.ToString())
+                                if (row[9].ToString() == GradutionProject.Models.ManipCourseType.C.ToString())
                                 {
                                     <small><i class="glyphicon glyphicon-asterisk" style="color:forestgreen;font-size:x-small"></i></small>
                                     <small><i class="glyphicon glyphicon-asterisk" style="color:blue;font-size:x-small"></i></small>
                                 }
-                                else if (row[7].ToString() == GradutionProject.Models.ManipCourseType.A.ToString())
+                                else if (row[9].ToString() == GradutionProject.Models.ManipCourseType.A.ToString())
                                 {
                                     <small><i class="glyphicon glyphicon-asterisk" style="color:forestgreen;font-size:x-small"></i></small>
                                 }
-                                else if (row[7].ToString() == GradutionProject.Models.ManipCourseType.B.ToString())
+                                else if (row[9].ToString() == GradutionProject.Models.ManipCourseType.B.ToString())
                                 {
                                     <small><i class="glyphicon glyphicon-asterisk" style="color:blue;font-size:x-small"></i></small>
                                 }
@@ -98,10 +100,10 @@
                             }
                         </td>
                         <td>@Convert.ToDateTime(row[2]).ToString("yy年MM月dd日")至 @Convert.ToDateTime(row[3]).ToString("MM月dd日")</td>
-                        <td>Placeholder</td>
+                        <td>@row[8]</td>
                         <td>@row[4]</td>
                         <td name="@row[5]">@P.Period[row[5].ToString()]</td>
-                        <td>@row[6] &nbsp;(<span style="color:darkslategray">@row[8]</span>)</td>
+                        <td>@row[6] &nbsp;(<span style="color:darkslategray">@row[10]</span>)</td>
                         @{ if (Model.Tables.Count == 1)
                             {
                                 //此处表示管理员访问
@@ -128,8 +130,8 @@
                     </tr>
                 }
             </tbody>
-            </table>
-        </div>
+        </table>
+    </div>
 </body>
 
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
