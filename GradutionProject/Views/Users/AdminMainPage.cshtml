@@ -621,9 +621,20 @@
                         <div class="input-group-addon"><i class="fa fa-search fa-lg"></i>&nbsp;</div>
                         <input class="form-control" type="search" id="input-filter" size="15" placeholder="搜索表格中的条目" />
                     </div>
-                    <table class="table">
+                    @{ int count = AllCourses.Columns.Count; string sep = "&";}
+                    <table class="table" id="coursetable">
                         <thead>
                             <tr>
+                                <th hidden>
+                                    @{
+                                        int i = 0;
+                                        while (i < count)
+                                        {
+                                            @AllCourses.Columns[i].ColumnName@sep
+                                            i++;
+                                        }
+                                    }
+                                </th>
                                 <th><i class="fa fa-hashtag"></i>&nbsp;课程类别</th>
                                 <th><i class="fa fa-hashtag"></i>&nbsp;所属学院</th>
                                 <th><i class="fa fa-hashtag"></i>&nbsp;课程名称</th>
@@ -634,13 +645,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @{ int count = AllCourses.Columns.Count; string sep = "&";}
                             @foreach (System.Data.DataRow row in AllCourses.Rows)
                             {
                                 <tr>
                                     <td name="@row[0]" hidden>
                                         @{
-                                            int i = 1;
+                                            i = 0;
                                             while (i < count)
                                             {
                                                 @row[i]@sep
@@ -974,36 +984,32 @@
 
     //点击【管理】按钮后向数据库请求数据动态写入Modal框
 
+    //label: The column name
+    var label = document.getElementById('coursetable').children[0].children[0].children[0].innerText.split('&');
     function getSpecificInfo(id, name) {
-        document.getElementById('myModalLabel').innerHTML = "修改" + name + "的信息";
-        var result = "";
-        $.ajax({
-            type: "GET",
-            url: "GetSpecificUser",
-            data: "id=" + id,
-            contentType: false,
-            processData: false,
-            async: false,               //同步: Google"如何获取Ajax的返回值,了解只有同步机制下可以获取返回值，否则获取到的就是undefined"
-            success: function (response) {
-                result = response;
-            },
-            error: function (response) {
-                console.log(response);
-            }
-        });
-        result = result.split('&');
-        var one_record = "", element = "<table id='dynamic_table' class='table table-condensed'>"; // internal_initial_modal = "";
+        document.getElementById('myModalLabel').innerHTML = "<span>课程：</span><strong>" + name + "</strong>审核";
+        //result: The column value
+        var result = document.getElementsByName(id)[0].innerText.split('&');
+        //Optimize: remove the last empty item
+        label.pop();
+        result.pop();
 
+        var element = "<table id='dynamic_table' class='table table-condensed'>"; // internal_initial_modal = "";
         for (var i = 0; i < result.length; i++) {
-            one_record = result[i].split('=');      //one_record[0]: attribute;   one_record[1]: value;
-            element += "<tr><td><label>" + one_record[0].toUpperCase() + "</label></td>" + "<td><input type='text' class='form-control' placeholder=" + one_record[1] + " /></td></tr>";
+            element += "<tr><td><label>" + label[i].toString().toUpperCase() + "</label></td>" + "<td><input type='text' class='form-control' placeholder=" + result[i] + " /></td></tr>";
             //internal_initial_modal += one_record[1] + "&";
         }
         element += "</table>";
+        element += "<i class=\"glyphicon glyphicon-alert\"></i><div>注：对“AVA”的值进行修改，决定该课程是否发布，Y表示允许，N表示禁止</div>";
         var modal = document.getElementById("modal-body");
         modal.innerHTML = element;
+
+        //此处位置是需要禁用的input元素的索引值
+        //______________________________________[0]______________________________________
         modal.children[0].children[0].children[0].children[1].children[0].setAttribute('disabled', '');
-        //initialModal = internal_initial_modal.substr(0, internal_initial_modal.length - 1);
-        initialModal = result;
+        modal.children[0].children[0].children[9].children[1].children[0].setAttribute('disabled', '');
+        modal.children[0].children[0].children[10].children[1].children[0].setAttribute('disabled', '');
+        ////initialModal = internal_initial_modal.substr(0, internal_initial_modal.length - 1);
+        //initialModal = result;
     }
 </script>

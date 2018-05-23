@@ -603,6 +603,8 @@
         element += "</table>";
         var modal = document.getElementById("modal-body");
         modal.innerHTML = element;
+        //此处位置是需要禁用的input元素的索引值
+        //______________________________________[0]______________________________________
         modal.children[0].children[0].children[0].children[1].children[0].setAttribute('disabled', '');
         //initialModal = internal_initial_modal.substr(0, internal_initial_modal.length - 1);
         initialModal = result;
