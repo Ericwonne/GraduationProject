@@ -669,7 +669,7 @@
                                         <!--傻傻的方法 onclick="getSpecificInfo(this.parentElement.parentElement.children[0].children[0].getAttribute('href').split('=')[1])"-->
                                         <button id="@row[0]" class="btn btn-default tippy-arrow" data-toggle="modal" data-target="#myModal" onclick="getSpecificInfo('@row[0]', '@row[1]')" title="Tooltip">
                                             <!--<button class="btn btn-link">-->
-                                            管理
+                                            审核
                                         </button>
                                     </td>
                                 </tr>
@@ -693,7 +693,7 @@
                                 <button type="button" class="btn btn-default" data-dismiss="modal">
                                     关闭
                                 </button>
-                                <button type="button" class="btn btn-primary" onclick="submitChange()">
+                                <button type="button" class="btn btn-primary" onclick="submitModal()">
                                     提交更改
                                 </button>
                             </div>
@@ -986,6 +986,9 @@
 
     //label: The column name
     var label = document.getElementById('coursetable').children[0].children[0].children[0].innerText.split('&');
+    //initialModal declare: global
+    var initialModal = null;
+    //get Specific ones
     function getSpecificInfo(id, name) {
         document.getElementById('myModalLabel').innerHTML = "<span>课程：</span><strong>" + name + "</strong>审核";
         //result: The column value
@@ -1010,6 +1013,59 @@
         modal.children[0].children[0].children[9].children[1].children[0].setAttribute('disabled', '');
         modal.children[0].children[0].children[10].children[1].children[0].setAttribute('disabled', '');
         ////initialModal = internal_initial_modal.substr(0, internal_initial_modal.length - 1);
-        //initialModal = result;
+        initialModal = label;
+    }
+
+    //点击【提交更改】—— 直接提交SQL字符串
+    //【未完成】--------- 判断特殊字符（'%', 'At', '`', '^', '&', '='）不能插入数据库 】---------【未完成】
+    function submitModal() {
+        //console.log(initialModal);
+        //initialModal = initialModal.split('&');
+
+        var dynamic_table_contents = document.getElementById('dynamic_table').getElementsByTagName('input');
+        var ifchanged = false;                      //是否进行更改
+        var sqlTxt = '', tmp = '';
+        //var i从1开始因为第一个数据不可改变
+        for (var i = 1; i < dynamic_table_contents.length; i++) {
+            //tmp = dynamic_table_contents[i].getAttribute('value');  ----which just doesn't work using getAttribute(), confusing yet.
+            //Understand now: the value property of an element is updated with its current status, while getAttribute('value') is just getting its default value, which is not changed.
+            tmp = dynamic_table_contents[i].value;
+            if (tmp == "") {
+                continue;
+            }
+            else if (tmp.indexOf('&') != -1) {
+                alert("对不起，您修改的内容中不能含有“&”符号！");
+                sqlTxt = null;
+                return;
+            }
+            else if (tmp.indexOf('=') != -1) {
+                alert("对不起，您修改的内容中不能含有“=”符号！");
+                sqlTxt = null;
+                return;
+            }
+            else if (tmp.indexOf('%') != -1) {
+                alert("对不起，您修改的内容中不能含有“%”符号！");
+                sqlTxt = null;
+                return;
+            }
+            else {
+                ifchanged = true;
+                sqlTxt += initialModal[i].toString().split('=')[0] + '=' + '\'' + tmp + '\'' + ',';
+            }
+        }
+        if (ifchanged == false) {
+            alert("您未作任何修改！");
+            return;
+        }
+
+        //生成sqlTxt的时候注意空格
+        sqlTxt = sqlTxt.substr(0, sqlTxt.length - 1);                                                                                                          //去掉最后多余的‘&’符号
+        sqlTxt = "update course_information set " + sqlTxt;
+        sqlTxt = sqlTxt + " where uniqueClientID='" + dynamic_table_contents[0].getAttribute('placeholder') + "'";    //把uniqueclientid值传入
+
+        var parames = new Array();
+        parames.push({ name: "cmdTxt", value: sqlTxt });
+
+        Post("ModifySpecificCourse", parames);
     }
 </script>

@@ -694,7 +694,7 @@ namespace GradutionProject.Models
             return result;
         }
 
-        internal static int ModifySpecificUser(string cmdTxt)
+        internal static int ModifyDBwithSQL(string cmdTxt)
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
             MySqlCommand cmd = new MySqlCommand(cmdTxt, connect);

@@ -258,7 +258,7 @@ namespace GradutionProject.Controllers
 
             tmp = tmp.Substring(0, tmp.Length - 1);    //除掉最后的‘,’号
             cmdTxt = cmdTxt + tmp + " where uniqueClientID='" + arraydata[0] + "'";
-            int rowAffected = DBManip.ModifySpecificUser(cmdTxt);
+            int rowAffected = DBManip.ModifyDBwithSQL(cmdTxt);
 
             if (rowAffected == 0)
             {
@@ -322,9 +322,26 @@ namespace GradutionProject.Controllers
             {
                 return null;
             }
-            DBManip.ModifySpecificUser(fc["cmdTxt"].ToString());
+            int rowAffected = DBManip.ModifyDBwithSQL(fc["cmdTxt"].ToString());
+            if (rowAffected == 0)
+            {
+                return PartialView("Error");
+            }
             return Redirect("AdminMainPage");
         }
 
+        public object ModifySpecificCourse(FormCollection fc)
+        {
+            if (fc["cmdTxt"] == null)
+            {
+                return null;
+            }
+            int rowAffected = DBManip.ModifyDBwithSQL(fc["cmdTxt"].ToString());
+            if (rowAffected == 0)
+            {
+                return PartialView("Error");
+            }
+            return Redirect("AdminMainPage");
+        }
     }
 }

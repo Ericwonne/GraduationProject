@@ -528,7 +528,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         关闭
                     </button>
-                    <button type="button" class="btn btn-primary" onclick="submitChange()">
+                    <button type="button" class="btn btn-primary" onclick="submitModal()">
                         提交更改
                     </button>
                 </div>
@@ -610,20 +610,20 @@
         initialModal = result;
     }
 
-    //点击【提交更改】
+    //点击【提交更改】—— 提交原始字符串给Action进行处理后成为SQL字符串
     //【未完成】--------- 判断特殊字符（'%', 'At', '`', '^', '&', '='）不能插入数据库 】---------【未完成】
-    function submitChange() {
+    function submitModal() {
         //console.log(initialModal);
         //initialModal = initialModal.split('&');
 
         var dynamic_table_contents = document.getElementById('dynamic_table').getElementsByTagName('input');
         var ajaxData = '', tmp = '';
+        var ifchanged = false;   //是否进行更改
         //var i从1开始因为第一个数据不可改变
         for (var i = 1; i < dynamic_table_contents.length; i++) {
             //tmp = dynamic_table_contents[i].getAttribute('value');  ----which just doesn't work using getAttribute(), confusing yet.
             //Understand now: the value property of an element is updated with its current status, while getAttribute('value') is just getting its default value, which is not changed.
             tmp = dynamic_table_contents[i].value;
-            var ifchanged = false;   //是否未进行更改
             if (tmp == "") {
                 continue;
             }
