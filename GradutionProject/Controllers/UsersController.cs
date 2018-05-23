@@ -187,6 +187,7 @@ namespace GradutionProject.Controllers
             return View(table);
         }
 
+        [CookieFilter]
         public ActionResult DisplayTeachers()
         {
             DataTable table = DBManip.GetTeacherTable();
@@ -194,6 +195,7 @@ namespace GradutionProject.Controllers
             return View(table);
         }
 
+        [CookieFilter]
         public ActionResult DisplayStudents()
         {
             DataTable table = DBManip.GetStudentTable();

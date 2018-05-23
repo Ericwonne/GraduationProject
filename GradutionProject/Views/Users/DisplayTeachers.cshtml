@@ -75,17 +75,15 @@
 
         //loadFaculty: The follow is to make human readable faculties
         var faculties = document.getElementsByName('faculty');
-        for (var i = 0; i < faculties.length; i++) {
-            //faculties[i].innerHTML = faculties[i].innerText
-            var keyValues = sessionStorage.Faculty.split('&');
-            //sessionStorage.removeItem('Faculty');
-            var Faculty = new Map();
-            for (var k = 0; k < keyValues.length; k++) {
-                Faculty.set(keyValues[k].split('=')[0], keyValues[k].split('=')[1]);
-            }
-            for (var f = 0; f < faculties.length; f++) {
-                faculties[f].innerHTML = Faculty.get(faculties[f].innerText).toString();    //此处一定要加toString()方法，否则显示出Undefined【未解决问题】
-            }
+        var keyValues = sessionStorage.Faculty.split('&');
+        //sessionStorage.removeItem('Faculty');
+        var Faculty = new Map();
+        for (var k = 0; k < keyValues.length; k++) {
+            Faculty.set(keyValues[k].split('=')[0], keyValues[k].split('=')[1]);
         }
+        for (var f = 0; f < faculties.length; f++) {
+            faculties[f].innerHTML = Faculty.get(faculties[f].innerText).toString();    //此处一定要加toString()方法，否则显示出Undefined【未解决问题】
+        }
+
     }
 </script>

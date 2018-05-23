@@ -82,14 +82,27 @@ namespace GradutionProject.Controllers
             return View(set);
         }
 
+        [CookieFilter]
         public ActionResult SpecificCourse(string id, string state)   // id = courseID; state = selected/not selected
         {
+            if (id == null)
+            {
+                return Redirect("MainPage");
+            }
+
             //tc = teacher_course_information
             DataSet tc = DBManip.GetCourseInfo(id);
             Session["S_courseid"] = id;
-
+            Session["S_state"] = state;
+            switch (state)
+            {
+                //Only three situations: select/collect/both
+                case "A": break;
+                case "B": break;
+                case "C": break;
+                default: state = ""; break;
+            }
             //本来使用的是ViewData["V_state"] = state; 但现在似乎两者没什么区别：因为这里TempData并不能跨Action传值。
-            //Session["S_state"] = state;
             TempData["T_state"] = state; //Original: Session["S_state"];
 
             return View(tc);
