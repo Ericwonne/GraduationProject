@@ -543,7 +543,7 @@ namespace GradutionProject.Models
             //Get the count of heads attending each of the course of the teacher 
             for (int index = 0; index < set.Tables["CoursesOfTeacher"].Rows.Count; index++)
             {
-                cmdTxt = "select count(*) from course_records where cuid='" + set.Tables["CoursesOfTeacher"].Rows[index][0] + "'";
+                cmdTxt = "select count(*) from course_records where cuid='" + set.Tables["CoursesOfTeacher"].Rows[index][0] + "' and ifdeleted='N'";
                 adapter = new MySqlDataAdapter(cmdTxt, connect);
                 adapter.Fill(set, "count" + set.Tables["CoursesOfTeacher"].Rows[index][0].ToString());
             }
@@ -668,10 +668,10 @@ namespace GradutionProject.Models
 
             //Start of connection
             connect.Open();
-
-            #region In order to Select All The Courses's info of Specific Student
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
             adapter.Fill(set, "courseSelected");
+
+            #region In order to Select All The Courses's info of Specific Student
             string coursesAsTuple = "", coursesAsTupleBegin = "(", coursesAsTupleEnd = ")";
             for (int i = 0; i < set.Tables["courseSelected"].Rows.Count; i++)
             {

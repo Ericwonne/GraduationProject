@@ -203,6 +203,14 @@ namespace GradutionProject.Controllers
             return View(table);
         }
 
+        [HttpGet]
+        public ActionResult AddStudent()
+        {
+            //404 not found
+            return PartialView("FoF");
+        }
+
+        [HttpPost]
         public ActionResult AddStudent(FormCollection fc)
         {
             User student = new User(fc["inputEmail"], fc["inputPassword"], 'S');
@@ -217,6 +225,7 @@ namespace GradutionProject.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult AddTeacher(FormCollection fc)
         {
             User teacher = new User(fc["inputEmail"], fc["inputPassword"], 'T');

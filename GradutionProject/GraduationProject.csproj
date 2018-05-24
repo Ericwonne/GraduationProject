@@ -293,6 +293,7 @@
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Home\Logout.cshtml" />
     <Content Include="Views\Users\AdminMainPage.cshtml" />
+    <Content Include="Views\Shared\FoF.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

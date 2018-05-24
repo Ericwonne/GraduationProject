@@ -75,14 +75,6 @@
 <div id="myTabContent" class="tab-content">
 
     <div class="tab-pane fade in active" id="home" style="padding-top:20px">
-        @*<div style="color:saddlebrown;padding-bottom:10px">
-                @Html.ActionLink("查看本学期选课列表？", "DisplayCourses", "Courses")
-            </div>
-
-            <div style="color:saddlebrown;padding-bottom:10px">
-                @Html.ActionLink("查看教师列表？", "DisplayTeachers")
-            </div>*@
-
         <div style="margin-bottom:5%">
             <div class="page-header" style="margin-top:5px">
                 <h3>
@@ -173,6 +165,7 @@
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
                     本学期所有课程
+                    <small><span style="font-size:smaller">一共有<span>@selectedCourseInfo.Rows.Count</span>节课</span></small>
                     <small><span style="font-size:smaller"></span></small>
                 </h3>
             </div>

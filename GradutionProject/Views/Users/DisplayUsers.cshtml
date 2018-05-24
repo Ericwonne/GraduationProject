@@ -473,7 +473,7 @@
             <div class="input-group-addon"><i class="fa fa-search fa-lg"></i>&nbsp;</div>
             <input class="form-control" type="search" id="input-filter" size="15" placeholder="搜索表格中的条目" />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <small><i class="glyphicon glyphicon-question-sign" style="color:forestgreen"></i></small> 用户类型（S:学生  T:教师）
+            <small><i class="glyphicon glyphicon-question-sign" style="color:forestgreen"></i></small> 用户类型（S:学生 &nbsp;&nbsp;  T:教师）
             &nbsp;&nbsp;&nbsp;&nbsp;
         </div>
         <table class="table">
@@ -546,9 +546,31 @@
 
     //全局变量
     var initialModal = null;
+    var DBFieldToHumanReadable = null;  //a map
 
     //Onload
     window.onload = function LoadAllDependencies() {
+        //HumanReadable Map
+        DBFieldToHumanReadable = new Map(
+            [
+                ['uniqueClientID', '学生编号'],
+                ['name', '姓名'],
+                ['gender', '性别'],
+                ['age', '年龄'],
+                ['email', '邮箱'],
+                ['wechat', '微信'],
+                ['qqNumber', 'QQ'],
+                ['phone', '手机号码'],
+                ['university', '校区'],
+                ['college', '学院'],
+                ['major', '专业'],
+                ['position', '当前学位'],
+                ['grade', '年纪'],
+                ['cardNo', '学号'],
+                ['cardPass', '密码'],
+                ['faculty', '系别']
+            ]
+        );
         //---------------loadPinyin -- 用来支持拼音搜索表格数据----BEGIN-----//
         var aList = document.getElementsByName("hiddena");
         var hiddenList = document.getElementsByClassName("hidden");
@@ -597,7 +619,7 @@
 
         for (var i = 0; i < result.length; i++) {
             one_record = result[i].split('=');      //one_record[0]: attribute;   one_record[1]: value;
-            element += "<tr><td><label>" + one_record[0].toUpperCase() + "</label></td>" + "<td><input type='text' class='form-control' placeholder=" + one_record[1] + " /></td></tr>";
+            element += "<tr><td><label>" + DBFieldToHumanReadable.get(one_record[0]) + "</label></td>" + "<td><input type='text' class='form-control' placeholder=" + one_record[1] + " /></td></tr>";
             //internal_initial_modal += one_record[1] + "&";
         }
         element += "</table>";
