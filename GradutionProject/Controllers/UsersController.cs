@@ -138,7 +138,7 @@ namespace GradutionProject.Controllers
             };
             DBManip.AddUser(user, teacherInfo);
             ViewData["V_uname"] = teacherInfo.Name;
-            return "已经成功注册！";
+            return Redirect("TeacherMainPage");
         }
 
         [HttpGet]
@@ -172,7 +172,7 @@ namespace GradutionProject.Controllers
             };
             DBManip.AddUser(user, studentInfo);
             ViewData["V_uname"] = studentInfo.Name;
-            return "已经成功注册！";
+            return Redirect("StudentMainPage");
         }
 
         [CookieFilter]

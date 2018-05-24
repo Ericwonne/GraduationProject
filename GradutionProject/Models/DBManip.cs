@@ -51,17 +51,13 @@ namespace GradutionProject.Models
             if (user.RegistryType == 'S')
             {
                 cmdTxt = "select uniqueClientID from login_examine where uniqueClientID like 'US%' order by uniqueClientID desc limit 1";
-                Student student = (Student)X;
-                cmdTxt1 = "insert into student_information values('" + student.UniqueClientID + "','" + student.Name + "','" + student.Gender + "','" + student.Age + "','" + student.Email + "','" + student.Wechat + "','" + student.QQ + "','" + student.Phone + "','" + student.University + "','" + student.College + "','" + student.Major + "','" + student.Position + "','" + student.Grade + "','" + student.CardNo + "','" + student.CardPass + "')";
             }
             else
             {
                 cmdTxt = "select uniqueClientID from login_examine where uniqueClientID like 'UT%' order by uniqueClientID desc limit 1";
-                Teacher teacher = (Teacher)X;
-                cmdTxt1 = "insert into teacher_information values('" + teacher.UniqueClientID + "','" + teacher.Name + "','" + teacher.Gender + "','" + teacher.Age + "','" + teacher.Email + "','" + teacher.Wechat + "','" + teacher.QQ + "','" + teacher.Phone + "','" + teacher.University + "','" + teacher.College + "','" + teacher.Major + "','" + teacher.Courses + "','" + teacher.WorkNo + "','" + teacher.WorkPass + "')";
             }
-            DataSet set = new DataSet();
 
+            DataSet set = new DataSet();
             //Start of connection
             connect.Open();
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
@@ -71,20 +67,33 @@ namespace GradutionProject.Models
             uniqueID = GetUniqueID(uniqueID, uniqueID[1]);
             user.UniqueClientID = uniqueID;
 
+            if (user.RegistryType == 'S')
+            {
+                Student student = (Student)X;
+                student.UniqueClientID = user.UniqueClientID;
+                //PLACEHOLDER
+                cmdTxt1 = "insert into student_information values('" + student.UniqueClientID + "','" + student.Name + "','" + student.Gender + "','" + student.Age + "','" + student.Email + "','" + student.Wechat + "','" + student.QQ + "','" + student.Phone + "','" + student.University + "','" + student.College + "','" + student.Major + "','" + student.Position + "','" + student.Grade + "','" + student.CardNo + "','" + student.CardPass + "', 'A0001')";
+            }
+            else
+            {
+                Teacher teacher = (Teacher)X;
+                teacher.UniqueClientID = user.UniqueClientID;
+                //PLACEHOLDER
+                cmdTxt1 = "insert into teacher_information values('" + teacher.UniqueClientID + "','" + teacher.Name + "','" + teacher.Gender + "','" + teacher.Age + "','" + teacher.Email + "','" + teacher.Wechat + "','" + teacher.QQ + "','" + teacher.Phone + "','" + teacher.University + "','" + teacher.College + "','" + teacher.Major + "','" + teacher.Courses + "','" + teacher.WorkNo + "','" + teacher.WorkPass + "', 'A0001')";
+            }
+
             //insert SQL statement
             //very important format below
-            cmdTxt = "insert into login_examine values('" + user.UniqueClientID + "','" + user.Username + "','" + user.Password + "','" + user.RegistryDate + "','" + user.RegistryType + "')";
+            //PLACEHOLDER
+            cmdTxt = "insert into login_examine values('" + user.UniqueClientID + "','" + user.Username + "','" + user.Password + "','" + user.RegistryDate + "','" + user.RegistryType + "', 'Y')";
 
             MySqlCommand cmd = new MySqlCommand(cmdTxt, connect);
-            try
-            {
-                cmd.ExecuteNonQuery();
-            }
-            catch
-            {
+            //执行插入login_examine表
+            cmd.ExecuteNonQuery();
 
-            }
-
+            cmd = new MySqlCommand(cmdTxt1, connect);
+            //执行插入X_information表
+            cmd.ExecuteNonQuery();
             //End of connection
             connect.Close();
 
@@ -670,6 +679,11 @@ namespace GradutionProject.Models
             connect.Open();
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
             adapter.Fill(set, "courseSelected");
+
+            if (set.Tables["courseSelected"].Rows.Count == 0)
+            {
+                return null;
+            }
 
             #region In order to Select All The Courses's info of Specific Student
             string coursesAsTuple = "", coursesAsTupleBegin = "(", coursesAsTupleEnd = ")";
