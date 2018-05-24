@@ -611,8 +611,7 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    课程列表
-                    <small></small>
+                    课程列表<small>一共有<strong>@AllCourses.Rows.Count</strong>  门课</small>
                 </h3>
             </div>
             <div style="margin-bottom:3%">
@@ -708,6 +707,7 @@
     </div>
     <!--管理杂项-->
     <div class="tab-pane fade" id="miscellaneous">
+        <!--所有用户-->
         <div style="margin-bottom:5%;margin-top:2%">
             <div class="page-header" style="margin-top:5px">
                 <h3>
@@ -716,8 +716,9 @@
                     <small></small>
                 </h3>
             </div>
-            <a href="DisplayUsers" class="btn btn-info" onclick="solveConflictTable()">查看所有用户</a>
+            <a href="DisplayUsers" class="btn btn-success">管理所有用户信息</a>
         </div>
+        <!---->
         <div style="margin-bottom:5%;margin-top:2%">
             <div class="page-header" style="margin-top:5px">
                 <h3>
@@ -727,11 +728,52 @@
                 </h3>
             </div>
         </div>
+        <!---->
         <div style="margin-bottom:5%;margin-top:2%">
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
                     管理教室
+                    <small></small>
+                </h3>
+            </div>
+        </div>
+        <!---->
+        <div style="margin-bottom:5%;margin-top:2%">
+            <div class="page-header" style="margin-top:5px">
+                <h3>
+                    <small><i class="glyphicon glyphicon-tags"></i></small>
+                    管理学院名称
+                    <small></small>
+                </h3>
+            </div>
+        </div>
+        <!---->
+        <div style="margin-bottom:5%;margin-top:2%">
+            <div class="page-header" style="margin-top:5px">
+                <h3>
+                    <small><i class="glyphicon glyphicon-tags"></i></small>
+                    管理系别名称
+                    <small></small>
+                </h3>
+            </div>
+        </div>
+        <!---->
+        <div style="margin-bottom:5%;margin-top:2%">
+            <div class="page-header" style="margin-top:5px">
+                <h3>
+                    <small><i class="glyphicon glyphicon-tags"></i></small>
+                    管理学科门类
+                    <small></small>
+                </h3>
+            </div>
+        </div>
+        <!---->
+        <div style="margin-bottom:5%;margin-top:2%">
+            <div class="page-header" style="margin-top:5px">
+                <h3>
+                    <small><i class="glyphicon glyphicon-tags"></i></small>
+                    管理二级学科
                     <small></small>
                 </h3>
             </div>
@@ -747,11 +789,42 @@
 <script src="~/Scripts/bootstable.js"></script>
 
 <script>
-    //Floppy
+    //Floppy: used to show the tooltip of each course
     new Tippy('.tippy-arrow', { position: 'top', animation: 'scale', arrow: 'true' });
 
-    //Load evertthing alright
+    //-----------global variables-----------BEGIN//
+    var DBFieldToHumanReadable = null;  //a map
+    var label = null;              //label: The column name
+    var initialModal = null;  //initialModal declare: global
+    //-----------global variables-----------END//
+
+    //Load evertthing alright in onload function
     window.onload = function loadPage() {
+        //Initialize the map
+        DBFieldToHumanReadable = new Map(
+            [
+                ['courseID', '课程编号'],
+                ['courseName', '课程名称'],
+                ['courseTeacher', '任课教师'],
+                ['publishDate', '发布日期'],
+                ['startDate', '开始日期'],
+                ['endDate', '结束日期'],
+                ['venue', '上课地点'],
+                ['period', '上课时间'],
+                ['examID', '考试编号'],
+                ['chosen', '选课人数'],
+                ['collected', '收藏次数'],
+                ['courseInfo', '课程信息'],
+                ['detailInfo', '详细信息'],
+                ['subTag', '二级学科'],
+                ['capacity', '容量'],
+                ['ava', '是否发布'],
+                ['faculty', '系别']
+            ]
+        );
+        //Initialize the label in field
+        label = document.getElementById('coursetable').children[0].children[0].children[0].innerText.replace(/(^\s*)|(\s*$)/g, "").slice(0, -1).split('&');
+
         //Add search feature
         $('#coursetable').filterTable({ // apply filterTable to all tables on this page
             inputSelector: '#input-filter' // use the existing input instead of creating a new one
@@ -849,6 +922,7 @@
         var destTrs = document.getElementById(clickedBy).children[1].children;        //The trs in the tbody part of the table
         clickedBy = clickedBy == "studenttable" ? "student_information" : "teacher_information";
         var cmdTxt = "", sep = ";";
+        var ifchanged = false;
         for (var t in destTrs) {
             //----------------------------------------Case Analysis Begin-----------------------------------------------//
             //对修改表格下面只分析了两种情况：
@@ -871,6 +945,7 @@
                 loopStr = loopStr.substr(0, loopStr.length - 1);
                 updateString = updateString + loopStr + conditionString;
                 cmdTxt += updateString + sep;
+                ifchanged = true;
             }
             else if (destTrs[t].id == 'edited') {       //Not knowing why 【destTrs[t].getAttribute('id')】 doesn't work!
                 //此处完成点击【bAcep】（即table中行元素的提交）按钮的修改项的：提交
@@ -885,12 +960,18 @@
                 loopStr = loopStr.substr(0, loopStr.length - 1);
                 updateString = updateString + loopStr + conditionString;
                 cmdTxt += updateString + sep;
+                ifchanged = true;
             }
             else {
                 //此处完成未修改项：不提交
             }
             //----------------------------------------Case Analysis End---------------------------------------------//
         }
+        if (ifchanged == false) {
+            alert("您未做任何修改！");
+            return;
+        }
+
         cmdTxt = cmdTxt.substr(0, cmdTxt.length - 1);
         var parames = new Array();
         parames.push({ name: "cmdTxt", value: cmdTxt });
@@ -926,6 +1007,7 @@
 </script>
 
 <script>
+    //允许添加表行
     $('#studenttable').SetEditable({
         $addButton: $('#addstudent')
     });
@@ -1017,24 +1099,14 @@
     //alert(window.location.href);
     //}
 
-    //点击【管理】按钮后向数据库请求数据动态写入Modal框
-
-    //label: The column name
-    var label = document.getElementById('coursetable').children[0].children[0].children[0].innerText.split('&');
-    //initialModal declare: global
-    var initialModal = null;
-    //get Specific ones
+    //点击【审核】按钮后向数据库请求数据动态写入Modal框
     function getSpecificInfo(id, name) {
         document.getElementById('myModalLabel').innerHTML = "<span>课程：</span><strong>" + name + "</strong>审核";
         //result: The column value
-        var result = document.getElementsByName(id)[0].innerText.split('&');
-        //Optimize: remove the last empty item
-        label.pop();
-        result.pop();
-
+        var result = document.getElementsByName(id)[0].innerText.replace(/(^\s*)|(\s*$)/g, "").slice(0, -1).split('&');
         var element = "<table id='dynamic_table' class='table table-condensed'>"; // internal_initial_modal = "";
         for (var i = 0; i < result.length; i++) {
-            element += "<tr><td><label>" + label[i].toString().toUpperCase() + "</label></td>" + "<td><input type='text' class='form-control' placeholder=" + result[i] + " /></td></tr>";
+            element += "<tr><td><label>" + DBFieldToHumanReadable.get(label[i]) + "</label></td>" + "<td><input type='text' class='form-control' placeholder=" + result[i] + " /></td></tr>";
             //internal_initial_modal += one_record[1] + "&";
         }
         element += "</table>";

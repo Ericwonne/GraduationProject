@@ -13,16 +13,16 @@
     }
 </style>
 <body>
-    <h2>本学期所有课程</h2>
+    <h2>本学期所有课程 <small>一共有<strong>@AllCourses.Rows.Count</strong>  门课</small></h2>
     <br />
-
+    
     <div class="container">
         <div class="input-group">
             <div class="input-group-addon">搜索</div>
             <input class="form-control" type="search" id="input-filter" placeholder="搜索表格中的条目" />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             @{
-                if (Model.Tables.Count == 1)
+                if (ViewData["browseType"].ToString() == "")
                 {
 
                 }
@@ -33,7 +33,7 @@
             }
             &nbsp; &nbsp; &nbsp; &nbsp;
             @{
-                if (Model.Tables.Count == 1)
+                if (ViewData["browseType"].ToString() == "")
                 {
 
                 }
@@ -58,7 +58,7 @@
                     <th><i class="fa fa-hashtag"></i>&nbsp;上课地点</th>
                     <th><i class="fa fa-hashtag"></i>&nbsp;上课时间</th>
                     <th><i class="fa fa-male"></i>&nbsp;容量(已选)</th>
-                    @{ if (Model.Tables.Count == 1)
+                    @{ if (ViewData["browseType"].ToString() == "")
                         {
                             //此处表示管理员访问
                         }
@@ -104,7 +104,7 @@
                         <td>@row[4]</td>
                         <td name="@row[5]">@P.Period[row[5].ToString()]</td>
                         <td>@row[6] &nbsp;(<span style="color:darkslategray">@row[10]</span>)</td>
-                        @{ if (Model.Tables.Count == 1)
+                        @{ if (ViewData["browseType"].ToString() == "")
                             {
                                 //此处表示管理员访问
                             }

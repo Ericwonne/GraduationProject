@@ -76,10 +76,10 @@ namespace GradutionProject.Controllers
         [CookieFilter]
         public object DisplayCourses()
         {
-            string studentID = ((User)Session["S_user"]).RegistryType == 'A' ? "" : ((User)Session["S_user"]).UniqueClientID;
+            string studentID = ((User)Session["S_user"]).RegistryType == 'S' ? ((User)Session["S_user"]).UniqueClientID : "";
             //string studentID = ((User)Session["S_user"]).UniqueClientID;
             DataSet set = DBManip.GetCourseTable(studentID);
-
+            ViewData["browseType"] = studentID;
             return View(set);
         }
 
