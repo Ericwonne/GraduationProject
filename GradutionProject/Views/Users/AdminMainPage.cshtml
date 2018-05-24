@@ -917,7 +917,7 @@
     function submitChange(clickedBy) {
         var tds = document.getElementById(clickedBy).getElementsByTagName('td');
         var inputs = document.getElementById(clickedBy).getElementsByTagName('input');
-        RevertToDatabaseTypes(tds, inputs);
+        RevertToDatabaseTypes(tds, inputs);     //将表中字段还原为数据库存储值（如果未修改，则再返回前做一次逆向操作）
         var destThs = document.getElementById(clickedBy).children[0].children[0].children;        //The trs in the thead part of the table
         var destTrs = document.getElementById(clickedBy).children[1].children;        //The trs in the tbody part of the table
         clickedBy = clickedBy == "studenttable" ? "student_information" : "teacher_information";
@@ -948,7 +948,7 @@
                 ifchanged = true;
             }
             else if (destTrs[t].id == 'edited') {       //Not knowing why 【destTrs[t].getAttribute('id')】 doesn't work!
-                //此处完成点击【bAcep】（即table中行元素的提交）按钮的修改项的：提交
+                //此处完成点击【bAcep】（即table中行元素的提交）按钮的修改项：提交
                 var conditionString = " where " + destThs[0].getAttribute('name') + "='" + destTrs[t].children[0].innerText + "'";
                 var updateString = "update " + clickedBy + " set ";
                 var loopStr = "";
@@ -968,7 +968,8 @@
             //----------------------------------------Case Analysis End---------------------------------------------//
         }
         if (ifchanged == false) {
-            alert("您未做任何修改！");
+            alert("您未作任何修改！");
+            DisplayHumanReadable(tds);  //未作修改则还原所有数据库字段至可读性数据
             return;
         }
 
