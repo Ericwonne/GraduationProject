@@ -59,13 +59,13 @@
                     <th><i class="fa fa-hashtag"></i>&nbsp;上课时间</th>
                     <th><i class="fa fa-male"></i>&nbsp;容量(已选)</th>
                     @{ if (Model.Tables.Count == 1)
-        {
-            //此处表示管理员访问
-        }
-        else
-        {
-                <th><i class="fa fa-male"></i>&nbsp;操作</th>
-}
+                        {
+                            //此处表示管理员访问
+                        }
+                        else
+                        {
+                            <th><i class="fa fa-male"></i>&nbsp;操作</th>
+                        }
                     }
                 </tr>
             </thead>
@@ -74,7 +74,7 @@
                 {
                     <tr>
                         <td class="category"></td>
-                        <td>@row[7]</td>
+                        <td>@row[7]</td>    <!--所属系别-->
                         <td>
                             <a title="" href="SpecificCourse?id=@row[0]&state=@row[9]" onclick="transferSession('@row[6]' +'_'+ '@row[10]')">
                                 @row[1]
@@ -100,7 +100,7 @@
                             }
                         </td>
                         <td>@Convert.ToDateTime(row[2]).ToString("yy年MM月dd日")至 @Convert.ToDateTime(row[3]).ToString("MM月dd日")</td>
-                        <td>@row[8]</td>
+                        <td>@row[8]</td>    <!--任课教师-->
                         <td>@row[4]</td>
                         <td name="@row[5]">@P.Period[row[5].ToString()]</td>
                         <td>@row[6] &nbsp;(<span style="color:darkslategray">@row[10]</span>)</td>

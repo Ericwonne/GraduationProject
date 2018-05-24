@@ -253,13 +253,35 @@ namespace GradutionProject.Models
         internal static DataSet GetCourseTable(string studentID = "")
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
-            string cmdTxt = "select courseID, courseName, startDate, endDate, venue, period, capacity, faculty, courseTeacher from course_information";
+            string cmdTxt = "select courseID, courseName, startDate, endDate, venue, period, capacity, faculty, courseTeacher from course_information where ava='Y'";
             DataSet set = new DataSet();
 
             //Start of connection
             connect.Open();
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
+            MySqlCommand cmd = null;
             adapter.Fill(set, "courses");
+
+            string insert_cmd_text = "";                                                                                       //查询语句
+            string headcount_of_each_course = "update course_information set chosen='";   //计算出每门课的人头数并插入数据库
+            string where_clause = "' where courseID='";                                                            //where语句
+            string end_of_sql = "'; ";                                                                                            //结束符
+
+            //【未完成】计算量太大：每次访问全部课程页面均要执行这个函数，所以下面的代码会很臃肿。
+            //下面这个循环计算出每门课的选课人数
+            for (int i = 0; i < set.Tables["courses"].Rows.Count; i++)
+            {
+                cmdTxt = "select count(*) from course_records where cuid='" + set.Tables["courses"].Rows[i][0].ToString() + "' and ifdeleted='N'";
+                adapter = new MySqlDataAdapter(cmdTxt, connect);
+                adapter.Fill(set, set.Tables["courses"].Rows[i][0].ToString());
+                if (set.Tables[set.Tables["courses"].Rows[i][0].ToString()].Rows[0][0].ToString() != "0")
+                {
+                    insert_cmd_text += headcount_of_each_course + set.Tables[set.Tables["courses"].Rows[i][0].ToString()].Rows[0][0].ToString() + where_clause + set.Tables["courses"].Rows[i][0].ToString() + end_of_sql;
+                }
+            }
+            //Do the Insertion
+            cmd = new MySqlCommand(insert_cmd_text, connect);
+            cmd.ExecuteNonQuery();
 
             if (studentID != "")
             {
@@ -271,13 +293,15 @@ namespace GradutionProject.Models
             {
                 set.Tables["courses"].Columns.Add("ifselected", Type.GetType("System.String"));
                 set.Tables["courses"].Columns.Add("chosen", Type.GetType("System.String"));
+
+                //----Totally copied from below "Add a row named ifselected"---- BEGIN//
+                for (int i = 0; i < set.Tables["courses"].Rows.Count; i++)
+                {
+                    //该语句将每门课的选课人数放入courses表中
+                    set.Tables["courses"].Rows[i][10] = set.Tables[set.Tables["courses"].Rows[i][0].ToString()].Rows[0][0];
+                }
+                //----Totally copied from below "Add a row named ifselected"---- END//
                 return set;
-            }
-            for (int i = 0; i < set.Tables["courses"].Rows.Count; i++)
-            {
-                cmdTxt = "select count(*) from course_records where cuid='" + set.Tables["courses"].Rows[i][0].ToString() + "' and ifdeleted='N'";
-                adapter = new MySqlDataAdapter(cmdTxt, connect);
-                adapter.Fill(set, set.Tables["courses"].Rows[i][0].ToString());
             }
             connect.Close();
 
@@ -290,15 +314,16 @@ namespace GradutionProject.Models
                 {
                     if (set.Tables["courses"].Rows[i][0].ToString() == set.Tables["selectedCourses"].Rows[j][0].ToString())
                     {
-                        set.Tables["courses"].Rows[i][7] = set.Tables["selectedCourses"].Rows[j][1];
+                        set.Tables["courses"].Rows[i][9] = set.Tables["selectedCourses"].Rows[j][1];
                         break;
                     }
                     else
                     {
-                        set.Tables["courses"].Rows[i][7] = ManipCourseType.N.ToString();
+                        set.Tables["courses"].Rows[i][9] = ManipCourseType.N.ToString();
                     }
                 }
-                set.Tables["courses"].Rows[i][8] = set.Tables[set.Tables["courses"].Rows[i][0].ToString()].Rows[0][0];
+                //该语句将每门课的选课人数放入courses表中
+                set.Tables["courses"].Rows[i][10] = set.Tables[set.Tables["courses"].Rows[i][0].ToString()].Rows[0][0];
             }
             return set;
         }
