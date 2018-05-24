@@ -130,7 +130,7 @@
         </span>
 
         <span class="input input--shoko">
-            <input class="input__field input__field--shoko" type="text" name="cardPass" id="input-b" style="color:black" onfocus="this.type='password'"/>
+            <input class="input__field input__field--shoko" type="text" name="cardPass" id="input-b" style="color:black" onfocus="this.type='password'" />
             <label class="input__label input__label--shoko" for="input-b">
                 <span class="input__label-content input__label-content--shoko">教务网密码</span>
             </label>
@@ -153,17 +153,15 @@
 
 <script>
     function resetInputs() {
-        var list = "0123456789ab";
-        for (var i = 0; i < list.length; i++) {
-            var id = "input-" + list[i].toString();
-            document.getElementById(id).value = "";
+        var inputs = document.forms['addStudentInfo'].getElementsByTagName('input');
+        for (var i = 0; i < inputs.length - 2; i++) {   // length-2 means get excluded the submit
+            inputs[i].value = '';
         }
     }
     function validation() {
-        var list = "123456789ab";
-        for (var i = 0; i < list.length; i++) {
-            var id = "input-" + list[i].toString();
-            if (document.getElementById(id).value == "") {
+        var inputs = document.forms['addStudentInfo'].getElementsByTagName('input');
+        for (var i = 0; i < inputs.length - 2; i++) {
+            if (inputs[i].value == '') {
                 alert("您有未填写项，请完成填写再提交！");
                 return false;
             }
