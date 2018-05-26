@@ -499,10 +499,23 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    学生列表<small>一共有<strong>@student.Rows.Count</strong>  位学生</small>
+                    学生列表
                     <small></small>
                 </h3>
             </div>
+            <div class="container" style="margin-top:0">
+                <a id="studentType" href="DisplayStudents" class="btn btn-success">查看系统中所有学生用户</a>
+            </div>
+        </div>
+        <div style="margin-bottom:5%;margin-top:2%">
+            <div class="page-header" style="margin-top:5px">
+                <h3>
+                    <small><i class="glyphicon glyphicon-tags"></i></small>
+                    管理学生<small>一共有<strong>@student.Rows.Count</strong>  位学生</small>
+                    <small></small>
+                </h3>
+            </div>
+
             <div class="container" style="margin-top:0">
                 <div class="row">
                     <div class="col-md-12">
@@ -558,7 +571,19 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    教师列表<small>一共有<strong>@teacher.Rows.Count</strong>  位教师</small>
+                    教师列表
+                    <small></small>
+                </h3>
+            </div>
+            <div class="container" style="margin-top:0">
+                <a id="teacherType" href="DisplayTeachers" class="btn btn-success">查看系统中所有教师用户</a>
+            </div>
+        </div>
+        <div style="margin-bottom:5%;margin-top:2%">
+            <div class="page-header" style="margin-top:5px">
+                <h3>
+                    <small><i class="glyphicon glyphicon-tags"></i></small>
+                    管理教师<small>一共有<strong>@teacher.Rows.Count</strong>  位教师</small>
                     <small></small>
                 </h3>
             </div>
@@ -611,13 +636,21 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    课程列表<small>一共有<strong>@AllCourses.Rows.Count</strong>  门课</small>
+                    课程列表
+                    <small></small>
                 </h3>
             </div>
-            <div style="margin-bottom:3%">
+            <div class="container" style="margin-top:0">
                 <a id="courseProject" href="../Courses/DisplayCourses" class="btn btn-success">查看当前培养计划中的课表</a>
             </div>
-
+        </div>
+        <div style="margin-bottom:5%;margin-top:2%">
+            <div class="page-header" style="margin-top:5px">
+                <h3>
+                    <small><i class="glyphicon glyphicon-tags"></i></small>
+                    管理课程<small>一共有<strong>@AllCourses.Rows.Count</strong>  门课</small>
+                </h3>
+            </div>
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-search fa-lg"></i>&nbsp;</div>
                 <input class="form-control" type="search" id="input-filter" size="15" placeholder="支持课程全部属性搜索" />
@@ -660,8 +693,8 @@
                                     }
                                 }
                             </td>
-                            <td class="category"></td>                              <!--课程类别-->  
-                            <td name="faculty">@row[16]</td>                <!--所属学院-->  
+                            <td class="category"></td>                              <!--课程类别-->
+                            <td name="faculty">@row[16]</td>                <!--所属学院-->
                             <td><a title="" href="SpecificCourse?id=@row[0]">@row[1]</a></td>
                             <td>@Convert.ToDateTime(row[4]).ToString("yy年MM月dd日")至 @Convert.ToDateTime(row[5]).ToString("MM月dd日")</td>
                             <td name="courseteacher">@row[2]</td>      <!--任课教师-->
@@ -675,7 +708,7 @@
                                 </button>
                             </td>
                         </tr>
-                    }
+                                    }
                 </tbody>
             </table>
 

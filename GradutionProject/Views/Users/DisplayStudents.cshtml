@@ -35,16 +35,16 @@
             @foreach (System.Data.DataRow rows in Model.Rows)
             {
                 <tr>
-                    <td><a style="color:blue" href="SpecificUser?id=@rows[0]">@rows[1]</a></td>
-                    <td>@rows[2]</td>
+                    <td><a style="color:blue" href="SpecificUser?id=@rows[0]">@rows[1]</a></td>  <!--姓名-->
+                    <td name="@rows[2].ToString().ToLower()">@rows[2]</td>       <!--性别-->
                     <td>@rows[3]</td>
                     <td>@rows[4]</td>
                     <td>@rows[7]</td>
                     <td>@rows[6]</td>
                     <td>@rows[8]</td>
                     <td>@rows[10]</td>
-                    <td>@rows[11]</td>
-                    <td>@rows[12]</td>
+                    <td name="@rows[11]">@rows[11]</td>      <!--学位-->
+                    <td name="@rows[12]">@rows[12]</td>      <!--年级-->
                 </tr>
             }
         </tbody>
@@ -60,7 +60,29 @@
         $('table').filterTable({ // apply filterTable to all tables on this page
             inputSelector: '#input-filter' // use the existing input instead of creating a new one
         });
+        DisplayHumanReadable();
     });
+
+    //把数据库拿出来的非可读性文字转化为可读性文字如：M（男性），F（女性）..
+    function DisplayHumanReadable() {
+        var tds = document.getElementsByTagName('table')[0].getElementsByTagName('td');
+        for (var i = 0; i < tds.length; i++) {
+            if (tds[i].hasAttribute('name') == true) {
+                switch (tds[i].getAttribute('name')) {
+                    case 'm': tds[i].innerHTML = "男"; break;
+                    case 'f': tds[i].innerHTML = "女"; break;
+                    case 'u': tds[i].innerHTML = "未知"; break;
+                    case 'B': tds[i].innerHTML = "学士"; break;
+                    case 'M': tds[i].innerHTML = "硕士"; break;
+                    case 'D': tds[i].innerHTML = "博士"; break;
+                    case 'FR': tds[i].innerHTML = "大一"; break;
+                    case 'SO': tds[i].innerHTML = "大二"; break;
+                    case 'JU': tds[i].innerHTML = "大三"; break;
+                    case 'SE': tds[i].innerHTML = "大四"; break;
+                }
+            }
+        }
+    }
 
 </script>
 
