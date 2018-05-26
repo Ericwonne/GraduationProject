@@ -729,8 +729,19 @@
             }
         });
     }
+    
+    //function getCookie() set them to variables
+    function loadAmounts(){
+        document.getElementById('total_amount').innerHTML = sessionStorage.c_amt.split('_')[0];
+        document.getElementById('selected_amount').innerHTML = sessionStorage.c_amt.split('_')[1];
+        var progress = document.getElementsByTagName("progress")[0];
+        progress.setAttribute("max", sessionStorage.c_amt.split('_')[0]);
+        progress.setAttribute("value", sessionStorage.c_amt.split('_')[1]);
+    }
 
     function onButtonLoad(para) {
+        loadAmounts();
+
         if (para == "") {
             document.getElementById('identity_choice').setAttribute('hidden', '');
             return;
@@ -782,12 +793,6 @@
         else {
 
         }
-        //function getCookie() set them to variables
-        document.getElementById('total_amount').innerHTML = sessionStorage.c_amt.split('_')[0];
-        document.getElementById('selected_amount').innerHTML = sessionStorage.c_amt.split('_')[1];
-        var progress = document.getElementsByTagName("progress")[0];
-        progress.setAttribute("max", sessionStorage.c_amt.split('_')[0]);
-        progress.setAttribute("value", sessionStorage.c_amt.split('_')[1]);
     }
 
     //设置按钮可用性

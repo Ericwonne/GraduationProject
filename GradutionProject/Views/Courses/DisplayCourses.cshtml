@@ -15,7 +15,7 @@
 <body>
     <h2>本学期所有课程 <small>一共有<strong>@AllCourses.Rows.Count</strong>  门课</small></h2>
     <br />
-    
+
     <div class="container">
         <div class="input-group">
             <div class="input-group-addon">搜索</div>
@@ -74,7 +74,7 @@
                 {
                     <tr>
                         <td class="category"></td>
-                        <td>@row[7]</td>    <!--所属系别-->
+                        <td name="faculty">@row[7]</td>    <!--所属系别-->
                         <td>
                             <a title="" href="SpecificCourse?id=@row[0]&state=@row[9]" onclick="transferSession('@row[6]' +'_'+ '@row[10]')">
                                 @row[1]
@@ -100,7 +100,7 @@
                             }
                         </td>
                         <td>@Convert.ToDateTime(row[2]).ToString("yy年MM月dd日")至 @Convert.ToDateTime(row[3]).ToString("MM月dd日")</td>
-                        <td>@row[8]</td>    <!--任课教师-->
+                        <td name="courseteacher">@row[8]</td>    <!--任课教师-->
                         <td>@row[4]</td>
                         <td name="@row[5]">@P.Period[row[5].ToString()]</td>
                         <td>@row[6] &nbsp;(<span style="color:darkslategray">@row[10]</span>)</td>
@@ -128,7 +128,7 @@
                         }
                         <td class="hidden"></td>
                     </tr>
-                }
+                            }
             </tbody>
         </table>
     </div>
@@ -163,7 +163,7 @@
         }
     }
 
-    //
+    //To solve the conflicts of each course's overlapping time periods
     function loadSolve() {
         var stamps = sessionStorage.stamps;
         for (var i = 0; i < stamps.length; i += 2) {
@@ -172,13 +172,38 @@
 
     }
 
+    //DO HumanReadable stuff
+    function doHumanReadableStuff() {
+        var keyValues = sessionStorage.Faculty.split('&');
+        //Faculty
+        var faculties = document.getElementsByName('faculty');
+        var Faculty = new Map();
+        for (var k = 0; k < keyValues.length; k++) {
+            Faculty.set(keyValues[k].split('=')[0], keyValues[k].split('=')[1]);
+        }
+        for (var f = 0; f < faculties.length; f++) {
+            faculties[f].innerHTML = Faculty.get(faculties[f].innerText).toString();    //此处一定要加toString()方法，否则显示出Undefined【未解决问题】
+        }
+        //TeacherName
+        keyValues = sessionStorage.TeacherName.split('&');
+        var TeacherName = new Map();
+        var courseteachers = document.getElementsByName('courseteacher');
+        for (var k = 0; k < keyValues.length; k++) {
+            TeacherName.set(keyValues[k].split('=')[0], keyValues[k].split('=')[1]);
+        }
+        for (var c = 0; c < courseteachers.length; c++) {
+            courseteachers[c].innerHTML = TeacherName.get(courseteachers[c].innerText).toString();
+        }
+    }
+
     $(document).ready(function () {
         $('table').filterTable({ // apply filterTable to all tables on this page
             inputSelector: '#input-filter' // use the existing input instead of creating a new one
         });
 
         loadTooltip();
-        loadSolve()
+        doHumanReadableStuff();
+        loadSolve();
     });
 
     function transferSession(para) {

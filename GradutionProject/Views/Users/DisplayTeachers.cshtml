@@ -38,7 +38,7 @@
                     <tr>
                         <td><a name="hiddena" style="color:blue" href="SpecificUser?id=@rows[0]">@rows[1]</a></td>
                         <td name="faculty">@rows[14]</td>
-                        <td>@rows[2]</td>
+                        <td name="gender">@rows[2]</td>
                         <td><a href="mailto:@rows[4]">@rows[4]</a></td>
                         <td>@rows[7]</td>
                         <td>@rows[6]</td>
@@ -76,13 +76,21 @@
         //loadFaculty: The follow is to make human readable faculties
         var faculties = document.getElementsByName('faculty');
         var keyValues = sessionStorage.Faculty.split('&');
-        //sessionStorage.removeItem('Faculty');
         var Faculty = new Map();
         for (var k = 0; k < keyValues.length; k++) {
             Faculty.set(keyValues[k].split('=')[0], keyValues[k].split('=')[1]);
         }
         for (var f = 0; f < faculties.length; f++) {
             faculties[f].innerHTML = Faculty.get(faculties[f].innerText).toString();    //此处一定要加toString()方法，否则显示出Undefined【未解决问题】
+        }
+
+        //load HumanReadable Gender outputs
+        var genderTds = document.getElementsByName('gender');
+        for (var g = 0; g < genderTds.length; g++) {
+            switch (genderTds[g].innerText) {
+                case 'M': genderTds[g].innerHTML = '男'; break;
+                case 'F': genderTds[g].innerHTML = '女'; break;
+            }
         }
 
     }

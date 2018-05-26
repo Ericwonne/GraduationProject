@@ -660,11 +660,11 @@
                                     }
                                 }
                             </td>
-                            <td class="category"></td>
-                            <td>@row[16]</td>
+                            <td class="category"></td>    <!--课程类别-->  
+                            <td>@row[16]</td>                <!--所属学院-->  
                             <td><a title="" href="SpecificCourse?id=@row[0]">@row[1]</a></td>
                             <td>@Convert.ToDateTime(row[4]).ToString("yy年MM月dd日")至 @Convert.ToDateTime(row[5]).ToString("MM月dd日")</td>
-                            <td>@row[2]</td>
+                            <td>@row[2]</td>                  <!--任课教师-->  
                             <td>@row[6]</td>
                             <td name="@row[7]">@P.Period[row[7].ToString()]</td>
                             <td>

@@ -753,19 +753,28 @@ namespace GradutionProject.Models
         internal static string LoadDenpendencies()
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
-            string cmdTxt = "select uniqueCode,name from faculty_information";
+            string cmdTxt = "select uniqueCode,name from faculty_information";  //Get Faculty
             DataSet set = new DataSet();
 
             //Start of connection
             connect.Open();
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
             adapter.Fill(set, "Faculty");
+
+            cmdTxt = "select * from v_uidname where uid like 'UT%'";  //Get Teacher's Name
+            adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "TeacherName");
             connect.Close();
 
             string result = "", sep = "&";
             for (int i = 0; i < set.Tables["Faculty"].Rows.Count; i++)
             {
                 result = result + set.Tables["Faculty"].Rows[i][0].ToString() + "=" + set.Tables["Faculty"].Rows[i][1].ToString() + sep;
+            }
+            result = result + "&"; //Become a string containing two lists of info
+            for(int i = 0; i < set.Tables["TeacherName"].Rows.Count; i++)
+            {
+                result = result + set.Tables["TeacherName"].Rows[i][0].ToString() + "=" + set.Tables["TeacherName"].Rows[i][1].ToString() + sep;
             }
             result = result.Substring(0, result.Length - 1);
             return result;

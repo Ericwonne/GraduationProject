@@ -225,6 +225,13 @@ namespace GradutionProject.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult AddTeacher()
+        {
+            //404 not found
+            return PartialView("FoF");
+        }
+
         [HttpPost]
         public ActionResult AddTeacher(FormCollection fc)
         {
