@@ -7,7 +7,6 @@
     System.Data.DataRow trow = t.Rows[0];
 
     ViewBag.Title = crow[1] + "-学生选课管理信息系统";
-    ViewBag.Title = "MyCourse";
 }
 <head>
     <style type="text/css">
@@ -482,83 +481,136 @@
 <body>
     <h2>@crow[1]</h2>
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-bottom:3%">
         <div class="row-fluid">
             <div class="span6">
                 <img class="img-rounded" alt="140x140" src="img/a.jpg" />
-                <div class="progress">
-                    <div class="bar">
-                    </div>
+                <div class="progress" style="margin-bottom:10px">
+                    <progress class="bar" style="width:100%" value="@c.Rows[0][9]" max="@c.Rows[0][14]"></progress>
                 </div>
                 <p>
-                    <em>Git</em>是一个分布式的版本控制系统，最初由<strong>Linus Torvalds</strong>编写，用作Linux内核代码的管理。在推出后，Git在其它项目中也取得了很大成功，尤其是在Ruby社区中。
-                </p> <button class="btn btn-primary btn-large btn-block" type="button">按钮</button>
+                <p class="text-warning">
+                    <i class="glyphicon glyphicon-asterisk" style="font-size:x-small"></i>
+                    课程容量一共<span id="total_amount" style="font-size:x-large">@c.Rows[0][14]</span>人，已有<span id="selected_amount" style="font-size:x-large">@c.Rows[0][9]</span>个人选择。
+                </p>
+                <button class="btn btn-danger btn-large btn-block" type="button" style="margin-top:10px;margin-bottom:20px;font-size:large" onclick="removeCourse()">将此课程移除（即：学生们不再可以选这门课，且必须在该门颗选课人数少于10人的情况下才能操作）</button>
             </div>
-            <div class="span6">
-                <dl>
-                    <dt>
-                        Rolex
-                    </dt>
-                    <dd>
-                        劳力士创始人为汉斯.威尔斯多夫，1908年他在瑞士将劳力士注册为商标。
-                    </dd>
-                    <dt>
-                        Vacheron Constantin
-                    </dt>
-                    <dd>
-                        始创于1775年的江诗丹顿已有250年历史，
-                    </dd>
-                    <dd>
-                        是世界上历史最悠久、延续时间最长的名表之一。
-                    </dd>
-                    <dt>
-                        IWC
-                    </dt>
-                    <dd>
-                        创立于1868年的万国表有“机械表专家”之称。
-                    </dd>
-                    <dt>
-                        Cartier
-                    </dt>
-                    <dd>
-                        卡地亚拥有150多年历史，是法国珠宝金银首饰的制造名家。
-                    </dd>
-                </dl>
-                <dl>
-                    <dt>
-                        Rolex
-                    </dt>
-                    <dd>
-                        劳力士创始人为汉斯.威尔斯多夫，1908年他在瑞士将劳力士注册为商标。
-                    </dd>
-                    <dt>
-                        Vacheron Constantin
-                    </dt>
-                    <dd>
-                        始创于1775年的江诗丹顿已有250年历史，
-                    </dd>
-                    <dd>
-                        是世界上历史最悠久、延续时间最长的名表之一。
-                    </dd>
-                    <dt>
-                        IWC
-                    </dt>
-                    <dd>
-                        创立于1868年的万国表有“机械表专家”之称。
-                    </dd>
-                    <dt>
-                        Cartier
-                    </dt>
-                    <dd>
-                        卡地亚拥有150多年历史，是法国珠宝金银首饰的制造名家。
-                    </dd>
-                </dl>
+
+            <div style="display:inline;border-color:aqua;border-width:5px">
+                <div class="span6" style="float:left; width:40%">
+                    <dl>
+                        <dt style="font-size:large">
+                            课程编号
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][0]
+                        </dd>
+                        <dt style="font-size:large">
+                            课程名称
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][1]
+                        </dd>
+                        <dt style="font-size:large">
+                            任课教师
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][2]
+                        </dd>
+                        <dt style="font-size:large">
+                            发布日期
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][3]
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt style="font-size:large">
+                            开始日期
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][4]
+                        </dd>
+                        <dt style="font-size:large">
+                            结束日期
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][5]
+                        </dd>
+                        <dt style="font-size:large">
+                            上课地点
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][6]
+                        </dd>
+                        <dt style="font-size:large">
+                            上课时间
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][7]
+                        </dd>
+                    </dl>
+                </div>
+                <div class="span6">
+                    <dl>
+                        <dt style="font-size:large">
+                            考试编号
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][8]
+                        </dd>
+                        <dt style="font-size:large">
+                            选课人数
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][9]
+                        </dd>
+                        <dt style="font-size:large">
+                            收藏人数
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][10]
+                        </dd>
+                        <dt style="font-size:large">
+                            课程介绍
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][11]
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt style="font-size:large">
+                            课程详细信息
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][12]
+                        </dd>
+                        <dt style="font-size:large">
+                            学科门类
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][13]
+                        </dd>
+                        <dt style="font-size:large">
+                            课程容量
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][14]
+                        </dd>
+                        <dt style="font-size:large">
+                            所属院系
+                        </dt>
+                        <dd style="margin-bottom:10px">
+                            @c.Rows[0][15]
+                        </dd>
+                    </dl>
+                </div>
             </div>
         </div>
     </div>
 
 
-    <div id="remark_div" class="alert alert-success" role="alert" style="margin-top:3%;margin-bottom:1px">
+    <div id="remark_div" class="alert alert-success" role="alert" style="margin-top:7%">
         <h4><i class="glyphicon glyphicon-pencil"></i>&nbsp;&nbsp;写下你的评论</h4>
     </div>
 
@@ -671,6 +723,15 @@
         if (identity == 'T') {
             document.getElementsByTagName('form')[0].setAttribute("hidden", "");
             document.getElementById('remark_div').innerHTML = "大家的评论";
+        }
+    }
+    function removeCourse() {
+        var decision = confirm("你确定要移除这门课嘛？");
+        if (decision == true) {
+            //执行修改课程属性
+        }
+        else {
+            return;
         }
     }
 </script>

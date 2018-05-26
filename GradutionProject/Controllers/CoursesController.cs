@@ -90,6 +90,10 @@ namespace GradutionProject.Controllers
             {
                 return Redirect("MainPage");
             }
+            else if (id.Length != 10)
+            {
+                return PartialView("FoF");
+            }
 
             //tc = teacher_course_information
             DataSet tc = DBManip.GetCourseInfo(id);
@@ -182,6 +186,19 @@ namespace GradutionProject.Controllers
 
 
             return selectType;         //Uncollected
+        }
+
+        public object ValidateVenuePeriod(string json)
+        {
+            if (json.Contains('&') == false)
+            {
+                return PartialView("FoF");
+            }
+            else
+            {
+
+                return null;
+            }
         }
     }
 }
