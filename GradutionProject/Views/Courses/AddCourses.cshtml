@@ -58,63 +58,66 @@
         <!--<input type="text" id="form-group-input2" name="period" class="form-control" placeholder="例：星期三上午9:55至11:25">-->
         <select type="text" id="form-group-input2" name="period" class="form-control" onchange="checkAva()">
             <option value="notselected">-------请选择-------</option>
-            <option value="GA">星期日1,2节</option>
-            <option value="AA">星期一1,2节</option>
-            <option value="BA">星期二1,2节</option>
-            <option value="CA">星期三1,2节</option>
-            <option value="DA">星期四1,2节</option>
-            <option value="EA"> 星期五1,2节</option>
-            <option value="FA"> 星期六1,2节</option>
+            <optgroup label="星期日">
+                <option value="GA">星期日1,2节</option>
+                <option value="GB">星期日3,4节</option>
+                <option value="GC">星期日3,4,5节</option>
+                <option value="GD">星期日6,7节</option>
+                <option value="GE">星期日8,9节</option>
+                <option value="GF">星期日10~12节</option>
+            </optgroup>
 
+            <optgroup label="星期一">
+                <option value="AA">星期一1,2节</option>
+                <option value="AB">星期一3,4节</option>
+                <option value="AC">星期一3,4,5节</option>
+                <option value="AD">星期一6,7节</option>
+                <option value="AE">星期一8,9节</option>
+                <option value="AF">星期一10~12节</option>
+            </optgroup>
 
+            <optgroup label="星期二">
+                <option value="BA">星期二1,2节</option>
+                <option value="BB">星期二3,4节</option>
+                <option value="BC">星期二3,4,5节</option>
+                <option value="BD">星期二6,7节</option>
+                <option value="BE">星期二8,9节</option>
+                <option value="BF">星期二10~12节</option>
+            </optgroup>
 
-            <option value="GB">星期日3,4节</option>
-            <option value="AB">星期一3,4节</option>
-            <option value="BB">星期二3,4节</option>
-            <option value="CB">星期三3,4节</option>
-            <option value="DB">星期四3,4节</option>
-            <option value="EB"> 星期五3,4节</option>
-            <option value="FB"> 星期六3,4节</option>
+            <optgroup label="星期三">
+                <option value="CA">星期三1,2节</option>
+                <option value="CB">星期三3,4节</option>
+                <option value="CC">星期三3,4,5节</option>
+                <option value="CD">星期三6,7节</option>
+                <option value="CE">星期三8,9节</option>
+                <option value="CF">星期三10~12节</option>
+            </optgroup>
 
-
-
-            <option value="GC">星期日3,4,5节</option>
-            <option value="AC">星期一3,4,5节</option>
-            <option value="BC">星期二3,4,5节</option>
-            <option value="CC">星期三3,4,5节</option>
-            <option value="DC">星期四3,4,5节</option>
-            <option value="EC"> 星期五3,4,5节</option>
-            <option value="FC"> 星期六3,4,5节</option>
-
-
-
-            <option value="GD">星期日6,7节</option>
-            <option value="AD">星期一6,7节</option>
-            <option value="BD">星期二6,7节</option>
-            <option value="CD">星期三6,7节</option>
-            <option value="DD">星期四6,7节</option>
-            <option value="ED">星期五6,7节</option>
-            <option value="FD">星期六6,7节</option>
-
-
-
-            <option value="GE">星期日8,9节</option>
-            <option value="AE">星期一8,9节</option>
-            <option value="BE">星期二8,9节</option>
-            <option value="CE">星期三8,9节</option>
-            <option value="DE">星期四8,9节</option>
-            <option value="EE"> 星期五8,9节</option>
-            <option value="FE"> 星期六8,9节</option>
-
-
-
-            <option value="GF">星期日10~12节</option>
-            <option value="AF">星期一10~12节</option>
-            <option value="BF">星期二10~12节</option>
-            <option value="CF">星期三10~12节</option>
-            <option value="DF">星期四10~12节</option>
-            <option value="EF"> 星期五10~12节</option>
-            <option value="FF"> 星期六10~12节</option>
+            <optgroup label="星期四">
+                <option value="DA">星期四1,2节</option>
+                <option value="DB">星期四3,4节</option>
+                <option value="DC">星期四3,4,5节</option>
+                <option value="DD">星期四6,7节</option>
+                <option value="DE">星期四8,9节</option>
+                <option value="DF">星期四10~12节</option>
+            </optgroup>
+            <optgroup label="星期五">
+                <option value="EA"> 星期五1,2节</option>
+                <option value="EB"> 星期五3,4节</option>
+                <option value="EC"> 星期五3,4,5节</option>
+                <option value="ED">星期五6,7节</option>
+                <option value="EE"> 星期五8,9节</option>
+                <option value="EF"> 星期五10~12节</option>
+            </optgroup>
+            <optgroup label="星期六">
+                <option value="FA"> 星期六1,2节</option>
+                <option value="FB"> 星期六3,4节</option>
+                <option value="FC"> 星期六3,4,5节</option>
+                <option value="FD">星期六6,7节</option>
+                <option value="FE"> 星期六8,9节</option>
+                <option value="FF"> 星期六10~12节</option>
+            </optgroup>
         </select>
 
         <label class="control-label" for="form-group-input3">课程介绍</label>
@@ -219,21 +222,28 @@
         //form-group-input4_        --examVenue         //NOT gonna validate for time's nearly up to submit the thesis
 
         var venue = document.getElementById('form-group-input1');
+        var period = document.getElementById('form-group-input2');
         if (venue.value == 'notselected') {
             alert("您还未选择上课地点，请先选择上课地点！");
+            period.value = "notselected";
             return;
         }
         else {
-            var period = document.getElementById('form-group-input2');
-            var ajaxData = venue.value + '&' + period.value;
+            var ajaxData = venue.value + '_' + period.value;
             //Validate
             $.ajax({
                 type: "GET",
                 url: "ValidateVenuePeriod",
-                async: false,               //同步: Google"如何获取Ajax的返回值,了解只有同步机制下可以获取返回值，否则获取到的就是undefined"
+                async: true,               //同步: Google"如何获取Ajax的返回值,了解只有同步机制下可以获取返回值，否则获取到的就是undefined"
                 data: 'json=' + ajaxData,
                 success: function (response) {
-
+                    if (response == "false") {
+                        return;
+                    }
+                    else {
+                        alert("在" + period.selectedOptions[0].innerText + "这个时间段教室" + venue.selectedOptions[0].innerText + "已经被占用了！");
+                        period.value = "notselected";
+                    }
                 },
                 error: function (response) {
                     console.log(response);

@@ -772,7 +772,7 @@ namespace GradutionProject.Models
                 result = result + set.Tables["Faculty"].Rows[i][0].ToString() + "=" + set.Tables["Faculty"].Rows[i][1].ToString() + sep;
             }
             result = result + "&"; //Become a string containing two lists of info
-            for(int i = 0; i < set.Tables["TeacherName"].Rows.Count; i++)
+            for (int i = 0; i < set.Tables["TeacherName"].Rows.Count; i++)
             {
                 result = result + set.Tables["TeacherName"].Rows[i][0].ToString() + "=" + set.Tables["TeacherName"].Rows[i][1].ToString() + sep;
             }
@@ -792,6 +792,34 @@ namespace GradutionProject.Models
             adapter.Fill(set, "AllCourses");
             connect.Close();
             return set.Tables["AllCourses"];
+        }
+
+        internal static string IfConflicted(string venue, string period)    //venue: roomID  period: dayperiod
+        {
+            MySqlConnection connect = new MySqlConnection(connectionString);
+            string cmdTxt = "select * from roomuse_information where roomID='" + venue + "' and dayperiod='" + period + "' and ava='Y'";
+            DataSet set = new DataSet();
+
+            //Start of connection
+            connect.Open();
+            MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "ifconflicted");
+            connect.Close();
+
+            if (set.Tables["ifconflicted"].Rows.Count == 0)
+            {
+                return "false";
+            }
+            else
+            {
+                string result = "";
+                for (int i = 0; i < set.Tables["ifconflicted"].Columns.Count; i++)
+                {
+                    result += set.Tables["ifconflicted"].Columns[i].ColumnName + "=" + set.Tables["ifconflicted"].Rows[0][i].ToString() + "&";
+                }
+                result = result.Substring(0, result.Length - 1);
+                return result;
+            }
         }
     }
 

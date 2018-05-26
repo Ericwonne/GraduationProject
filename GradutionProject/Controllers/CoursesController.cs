@@ -190,14 +190,29 @@ namespace GradutionProject.Controllers
 
         public object ValidateVenuePeriod(string json)
         {
-            if (json.Contains('&') == false)
+            if (json == "" || json.Contains('_') == false)
             {
                 return PartialView("FoF");
             }
             else
             {
-
-                return null;
+                string[] para = json.Split('_');
+                if (para.Length != 2)
+                {
+                    return PartialView("FoF");
+                }
+                else
+                {
+                    string result = DBManip.IfConflicted(para[0], para[1]);
+                    if (result == "false")
+                    {
+                        return Content("false");
+                    }
+                    else
+                    {
+                        return Content(result);
+                    }
+                }
             }
         }
     }
