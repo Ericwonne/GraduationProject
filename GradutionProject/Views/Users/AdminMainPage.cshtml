@@ -499,7 +499,7 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    所有学生列表
+                    学生列表<small>一共有<strong>@student.Rows.Count</strong>  位学生</small>
                     <small></small>
                 </h3>
             </div>
@@ -558,7 +558,7 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    教师列表
+                    教师列表<small>一共有<strong>@teacher.Rows.Count</strong>  位教师</small>
                     <small></small>
                 </h3>
             </div>
@@ -660,11 +660,11 @@
                                     }
                                 }
                             </td>
-                            <td class="category"></td>    <!--课程类别-->  
-                            <td>@row[16]</td>                <!--所属学院-->  
+                            <td class="category"></td>                              <!--课程类别-->  
+                            <td name="faculty">@row[16]</td>                <!--所属学院-->  
                             <td><a title="" href="SpecificCourse?id=@row[0]">@row[1]</a></td>
                             <td>@Convert.ToDateTime(row[4]).ToString("yy年MM月dd日")至 @Convert.ToDateTime(row[5]).ToString("MM月dd日")</td>
-                            <td>@row[2]</td>                  <!--任课教师-->  
+                            <td name="courseteacher">@row[2]</td>      <!--任课教师-->
                             <td>@row[6]</td>
                             <td name="@row[7]">@P.Period[row[7].ToString()]</td>
                             <td>
@@ -800,6 +800,8 @@
 
     //Load evertthing alright in onload function
     window.onload = function loadPage() {
+        //Do changes to the tables' unreadable characters
+        doHumanReadableStuff();
         //Initialize the map
         DBFieldToHumanReadable = new Map(
             [
@@ -1176,5 +1178,29 @@
         parames.push({ name: "cmdTxt", value: sqlTxt });
 
         Post("ModifySpecificCourse", parames);
+    }
+
+    //DO HumanReadable stuff
+    function doHumanReadableStuff() {
+        var keyValues = sessionStorage.Faculty.split('&');
+        //Faculty
+        var faculties = document.getElementsByName('faculty');
+        var Faculty = new Map();
+        for (var k = 0; k < keyValues.length; k++) {
+            Faculty.set(keyValues[k].split('=')[0], keyValues[k].split('=')[1]);
+        }
+        for (var f = 0; f < faculties.length; f++) {
+            faculties[f].innerHTML = Faculty.get(faculties[f].innerText).toString();    //此处一定要加toString()方法，否则显示出Undefined【未解决问题】
+        }
+        //TeacherName
+        keyValues = sessionStorage.TeacherName.split('&');
+        var TeacherName = new Map();
+        var courseteachers = document.getElementsByName('courseteacher');
+        for (var k = 0; k < keyValues.length; k++) {
+            TeacherName.set(keyValues[k].split('=')[0], keyValues[k].split('=')[1]);
+        }
+        for (var c = 0; c < courseteachers.length; c++) {
+            courseteachers[c].innerHTML = TeacherName.get(courseteachers[c].innerText).toString();
+        }
     }
 </script>

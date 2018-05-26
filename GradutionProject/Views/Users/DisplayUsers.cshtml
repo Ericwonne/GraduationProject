@@ -466,14 +466,14 @@
             }
 </style>
 <body>
-    <h2>教务管理系统的所有用户（管理员除外）</h2>
+    <h2>教务管理系统的所有用户（管理员除外）<small>一共有<strong>@Model.Rows.Count</strong>  位用户</small></h2>
     <br />
     <div class="container">
         <div class="input-group">
             <div class="input-group-addon"><i class="fa fa-search fa-lg"></i>&nbsp;</div>
             <input class="form-control" type="search" id="input-filter" size="15" placeholder="搜索表格中的条目" />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <small><i class="glyphicon glyphicon-question-sign" style="color:forestgreen"></i></small> 用户类型（S:学生 &nbsp;&nbsp;  T:教师）
+            <small><i class="glyphicon glyphicon-question-sign" style="color:forestgreen"></i></small> 用户类型（学生 &nbsp; 教师）
             &nbsp;&nbsp;&nbsp;&nbsp;
         </div>
         <table class="table">
@@ -497,7 +497,7 @@
                         <td><a name="hiddena" style="color:blue" href="SpecificUser?id=@rows[0]">@rows[1]</a></td>
                         <td><a href="mailto:@rows[2]">@rows[2]</a></td>
                         <td>@rows[3]</td>
-                        <td>@rows[4]</td>
+                        <td name="usertype">@rows[4]</td>
                         <td>
                             <!--傻傻的方法 onclick="getSpecificInfo(this.parentElement.parentElement.children[0].children[0].getAttribute('href').split('=')[1])"-->
                             <button id="@rows[0]" class="btn btn-default tippy-arrow" data-toggle="modal" data-target="#myModal" onclick="getSpecificInfo('@rows[0]', '@rows[1]')" title="@rows[1]  @rows[2]">
@@ -550,6 +550,8 @@
 
     //Onload
     window.onload = function LoadAllDependencies() {
+        //change usertype to humanreadble
+        userTypeHumanReadable();
         //HumanReadable Map
         DBFieldToHumanReadable = new Map(
             [
@@ -729,5 +731,15 @@
         document.body.appendChild(temp_form);
         //提交数据
         temp_form.submit();
+    }
+    
+    function userTypeHumanReadable() {
+        var usertype=document.getElementsByName('usertype');
+        for (var i = 0; i < usertype.length; i++) {
+            switch (usertype[i].innerText) {
+                case 'S': usertype[i].innerHTML = '学生'; break;
+                case 'T': usertype[i].innerHTML = '教师'; break;
+            }
+        }
     }
 </script>
