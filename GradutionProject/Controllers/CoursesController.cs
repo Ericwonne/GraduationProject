@@ -98,6 +98,7 @@ namespace GradutionProject.Controllers
             //tc = teacher_course_information
             DataSet tc = DBManip.GetCourseInfo(id);
             Session["S_courseid"] = id;
+            ViewData["V_uid"] = ((User)Session["S_user"]).UniqueClientID;   //stduent id
             switch (state)
             {
                 //Only three situations: select/collect/both
@@ -117,7 +118,7 @@ namespace GradutionProject.Controllers
         public ActionResult MyCourse(string id)  // id = courseID
         {
             DataSet tc = DBManip.GetCourseInfo(id);
-            ViewData["V_uid"] = ((User)Session["S_user"]).UniqueClientID;
+            ViewData["V_uid"] = ((User)Session["S_user"]).UniqueClientID;   //teacher id
             return View(tc);
         }
 
@@ -196,7 +197,7 @@ namespace GradutionProject.Controllers
             }
             else
             {
-                string[] para = json.Split('_');
+                string[] para = json.Split('_');    //[0] venue  [1] period
                 if (para.Length != 2)
                 {
                     return PartialView("FoF");
@@ -211,6 +212,34 @@ namespace GradutionProject.Controllers
                     else
                     {
                         return Content(result);
+                    }
+                }
+            }
+        }
+
+        public object ValidateVenuePeriodForStudent(string json)
+        {
+            if (json == "" || json.Contains('_') == false)
+            {
+                return PartialView("FoF");
+            }
+            else
+            {
+                string[] para = json.Split('_');    //[0] period  [1] studentID
+                if (para.Length != 2)
+                {
+                    return PartialView("FoF");
+                }
+                else
+                {
+                    bool result = DBManip.IfConflictedStudent(para[0], para[1]);
+                    if (result == false)
+                    {
+                        return Content("false");
+                    }
+                    else
+                    {
+                        return Content("true");
                     }
                 }
             }

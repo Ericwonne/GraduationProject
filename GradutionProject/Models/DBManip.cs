@@ -821,6 +821,27 @@ namespace GradutionProject.Models
                 return result;
             }
         }
+
+        internal static bool IfConflictedStudent(string period, string studentID)
+        {
+            MySqlConnection connect = new MySqlConnection(connectionString);
+            string cmdTxt = "select '" + period + "' in (select period from course_information where courseID in (select cuid from course_records where suid='" + studentID + "'))";
+            DataSet set = new DataSet();
+
+            //Start of connection
+            connect.Open();
+            MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "ifconflictedstudent");
+            connect.Close();
+            if (set.Tables["ifconflictedstudent"].Rows[0][0].ToString() == "0")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 
 

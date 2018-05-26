@@ -690,6 +690,29 @@
 
 <script>
     function choose() {
+        //验证课程时间是否冲突
+        var period = "@crow[7]";
+        var student = "@ViewData["V_uid"].ToString()";
+        var ajaxData = period + "_" + student;
+        $.ajax({
+            type: "GET",
+            url: "ValidateVenuePeriodForStudent",
+            async: false,               //同步: Google"如何获取Ajax的返回值,了解只有同步机制下可以获取返回值，否则获取到的就是undefined"
+            data: 'json=' + ajaxData,
+            success: function (response) {
+                if (response == "false") {
+                    //Do nothing
+                }
+                else {
+                    alert("您的选课在该时间已经冲突！");
+                    return;
+                }
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+
         useAjax('ChooseCourse');
 
         //动态改变Progressbar的值
@@ -729,9 +752,9 @@
             }
         });
     }
-    
+
     //function getCookie() set them to variables
-    function loadAmounts(){
+    function loadAmounts() {
         document.getElementById('total_amount').innerHTML = sessionStorage.c_amt.split('_')[0];
         document.getElementById('selected_amount').innerHTML = sessionStorage.c_amt.split('_')[1];
         var progress = document.getElementsByTagName("progress")[0];
