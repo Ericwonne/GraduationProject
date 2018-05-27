@@ -84,8 +84,9 @@
             url: "LoadDenpendencies",
             async: false,               //同步: Google"如何获取Ajax的返回值,了解只有同步机制下可以获取返回值，否则获取到的就是undefined"
             success: function (response) {
-                sessionStorage.Faculty = response.toString().split('&&')[0];
-                sessionStorage.TeacherName = response.toString().split('&&')[1];
+                sessionStorage.Faculty = response.toString().split('&*&')[0];
+                sessionStorage.TeacherName = response.toString().split('&*&')[1];
+                sessionStorage.RoomName = response.toString().split('&*&')[2];
             },
             error: function (response) {
                 console.log(response);

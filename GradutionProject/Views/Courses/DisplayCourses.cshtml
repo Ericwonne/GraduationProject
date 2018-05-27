@@ -101,7 +101,7 @@
                         </td>
                         <td>@Convert.ToDateTime(row[2]).ToString("yy年MM月dd日")至 @Convert.ToDateTime(row[3]).ToString("MM月dd日")</td>
                         <td name="courseteacher">@row[8]</td>    <!--任课教师-->
-                        <td>@row[4]</td>
+                        <td name="roomname">@row[4]</td>                                          <!--上课地点-->
                         <td name="@row[5]">@P.Period[row[5].ToString()]</td>
                         <td>@row[6] &nbsp;(<span style="color:darkslategray">@row[10]</span>)</td>
                         @{ if (ViewData["browseType"].ToString() == "")
@@ -194,6 +194,16 @@
         for (var c = 0; c < courseteachers.length; c++) {
             courseteachers[c].innerHTML = TeacherName.get(courseteachers[c].innerText).toString();
         }
+        //RoomName
+        keyValues = sessionStorage.RoomName.split('&');
+        var RoomName = new Map();
+        var roomnames = document.getElementsByName('roomname');
+        for (var k = 0; k < keyValues.length; k++) {
+            RoomName.set(keyValues[k].split('=')[0], keyValues[k].split('=')[1]);
+        }
+        for (var r = 0; r < roomnames.length; r++) {
+            roomnames[r].innerHTML = RoomName.get(roomnames[r].innerText).toString();
+        }
     }
 
     $(document).ready(function () {
@@ -203,7 +213,7 @@
 
         loadTooltip();
         doHumanReadableStuff();
-        
+
         var type = "@ViewData["browseType"].ToString()";
         if (type != "") {
             loadSolve();

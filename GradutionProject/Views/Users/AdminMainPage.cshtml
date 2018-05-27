@@ -607,16 +607,16 @@
                                 <tbody>
                                     @foreach (System.Data.DataRow rows in teacher.Rows)
                                     {
-                                        <tr>
-                                            <td hidden>@rows[0]</td>
-                                            <td>@rows[1]</td>
-                                            <td name="@rows[2].ToString().ToLower()">@rows[2]</td>
-                                            <td>@rows[4]</td>
-                                            <td>@rows[7]</td>
-                                            <td>@rows[6]</td>
-                                            <td>@rows[8]</td>
-                                            <td>@rows[10]</td>
-                                        </tr>
+                                    <tr>
+                                        <td hidden>@rows[0]</td>
+                                        <td>@rows[1]</td>
+                                        <td name="@rows[2].ToString().ToLower()">@rows[2]</td>
+                                        <td>@rows[4]</td>
+                                        <td>@rows[7]</td>
+                                        <td>@rows[6]</td>
+                                        <td>@rows[8]</td>
+                                        <td>@rows[10]</td>
+                                    </tr>
                                     }
                                 </tbody>
                             </table>
@@ -695,10 +695,10 @@
                             </td>
                             <td class="category"></td>                              <!--课程类别-->
                             <td name="faculty">@row[16]</td>                <!--所属学院-->
-                            <td><a title="" href="SpecificCourse?id=@row[0]">@row[1]</a></td>
+                            <td><a title="" href="../Courses/SpecificCourse?id=@row[0]">@row[1]</a></td>
                             <td>@Convert.ToDateTime(row[4]).ToString("yy年MM月dd日")至 @Convert.ToDateTime(row[5]).ToString("MM月dd日")</td>
                             <td name="courseteacher">@row[2]</td>      <!--任课教师-->
-                            <td>@row[6]</td>
+                            <td name="roomname">@row[6]</td>           <!--上课地点-->
                             <td name="@row[7]">@P.Period[row[7].ToString()]</td>
                             <td>
                                 <!--傻傻的方法 onclick="getSpecificInfo(this.parentElement.parentElement.children[0].children[0].getAttribute('href').split('=')[1])"-->
@@ -1234,6 +1234,16 @@
         }
         for (var c = 0; c < courseteachers.length; c++) {
             courseteachers[c].innerHTML = TeacherName.get(courseteachers[c].innerText).toString();
+        }
+        //RoomName
+        keyValues = sessionStorage.RoomName.split('&');
+        var RoomName = new Map();
+        var roomnames = document.getElementsByName('roomname');
+        for (var k = 0; k < keyValues.length; k++) {
+            RoomName.set(keyValues[k].split('=')[0], keyValues[k].split('=')[1]);
+        }
+        for (var r = 0; r < roomnames.length; r++) {
+            roomnames[r].innerHTML = RoomName.get(roomnames[r].innerText.toString().replace(/(^\s*)|(\s*$)/g, "")).toString();      //此处不知为何roomname td下的innerText多出了空格，导致无法搜索到键值对
         }
     }
 </script>

@@ -38,7 +38,7 @@ namespace GradutionProject.Controllers
         }
         public object AddCourse(FormCollection fc)
         {
-            if (Session["S_if_added_this_course"].ToString() == null || Session["S_if_added_this_course"].ToString() == "no")
+            if (Session["S_if_added_this_course"] == null || Session["S_if_added_this_course"].ToString() == "no")
             {
                 Session["S_if_added_this_course"] = "yes";
             }

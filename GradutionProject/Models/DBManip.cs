@@ -764,17 +764,27 @@ namespace GradutionProject.Models
             cmdTxt = "select * from v_uidname where uid like 'UT%'";  //Get Teacher's Name
             adapter = new MySqlDataAdapter(cmdTxt, connect);
             adapter.Fill(set, "TeacherName");
+
+            cmdTxt = "select roomID, roomName from room_information";  //Get room name
+            adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "RoomName");
+            //Connection Close
             connect.Close();
 
             string result = "", sep = "&";
-            for (int i = 0; i < set.Tables["Faculty"].Rows.Count; i++)
+            for (int i = 0; i < set.Tables["Faculty"].Rows.Count; i++)                       //Faculty
             {
                 result = result + set.Tables["Faculty"].Rows[i][0].ToString() + "=" + set.Tables["Faculty"].Rows[i][1].ToString() + sep;
             }
-            result = result + "&"; //Become a string containing two lists of info
-            for (int i = 0; i < set.Tables["TeacherName"].Rows.Count; i++)
+            result = result + "*&";  //Become a string containing multiple lists of info
+            for (int i = 0; i < set.Tables["TeacherName"].Rows.Count; i++)            //Teacher Name
             {
                 result = result + set.Tables["TeacherName"].Rows[i][0].ToString() + "=" + set.Tables["TeacherName"].Rows[i][1].ToString() + sep;
+            }
+            result = result + "*&";  //Become a string containing multiple lists of info
+            for (int i = 0; i < set.Tables["RoomName"].Rows.Count; i++)            //Room Name
+            {
+                result = result + set.Tables["RoomName"].Rows[i][0].ToString() + "=" + set.Tables["RoomName"].Rows[i][1].ToString() + sep;
             }
             result = result.Substring(0, result.Length - 1);
             return result;
