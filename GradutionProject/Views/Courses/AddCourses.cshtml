@@ -8,7 +8,7 @@
 
 <h2>添加课程&nbsp;<small>这里可以添加您想要的课程，管理员会进行审核</small></h2>
 <br />
-<form id="addCourse" method="post" action="AddCourse">
+<form id="addCourse" method="post" action="AddCourse" onsubmit="return validation()">
     <div class="text-info" style="font-size:x-large">
         完善课程信息
     </div>
@@ -251,9 +251,24 @@
             });
         }
 
+    }
 
+    function validation() {
+        var inputs = document.getElementsByTagName('input');
+        var selects = document.getElementsByTagName('select');
 
+        for (var i = 0; i < inputs.length - 1; i++) {
+            if (inputs[i].value == "") {
+                alert("您还未完成填写！");
+                return false;
+            }
+        }
 
-
+        for (var i = 0; i < selects.length; i++) {
+            if (selects[i].value == "notselected") {
+                alert("您还未完成填写！");
+                return false;
+            }
+        }
     }
 </script>

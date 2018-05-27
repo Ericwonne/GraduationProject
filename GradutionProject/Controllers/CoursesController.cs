@@ -38,12 +38,14 @@ namespace GradutionProject.Controllers
         }
         public object AddCourse(FormCollection fc)
         {
+            //未设置重复添加课程的检测，只有此处Session用作判断，但没什么实质作用
             if (Session["S_if_added_this_course"] == null || Session["S_if_added_this_course"].ToString() == "no")
             {
                 Session["S_if_added_this_course"] = "yes";
             }
             else
             {
+                Session["S_if_added_this_course"] = "no";
                 return "You have added this course";
             }
             Course course = new Course
