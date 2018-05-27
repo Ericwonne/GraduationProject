@@ -203,7 +203,12 @@
 
         loadTooltip();
         doHumanReadableStuff();
-        loadSolve();
+        
+        var type = "@ViewData["browseType"].ToString()";
+        if (type != "") {
+            loadSolve();
+        }
+
     });
 
     function transferSession(para) {

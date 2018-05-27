@@ -105,6 +105,7 @@ namespace GradutionProject.Controllers
                 case "A":
                 case "B":
                 case "C":
+                case "N":
                     break;
                 default: state = ""; break;
             }

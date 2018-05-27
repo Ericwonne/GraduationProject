@@ -489,11 +489,11 @@
                     <progress class="bar" style="width:100%" value="@c.Rows[0][9]" max="@c.Rows[0][14]"></progress>
                 </div>
                 <p>
-                <p class="text-warning">
+                <p class="text-warning" style="margin-bottom:10px">
                     <i class="glyphicon glyphicon-asterisk" style="font-size:x-small"></i>
                     课程容量一共<span id="total_amount" style="font-size:x-large">@c.Rows[0][14]</span>人，已有<span id="selected_amount" style="font-size:x-large">@c.Rows[0][9]</span>个人选择。
                 </p>
-                <button class="btn btn-danger btn-large btn-block" type="button" style="margin-top:10px;margin-bottom:20px;font-size:large" onclick="removeCourse()">将此课程移除（即：学生们不再可以选这门课，且必须在该门颗选课人数少于10人的情况下才能操作）</button>
+                <button id="removebutton" class="btn btn-danger btn-large btn-block" type="button" style="margin-top:10px;margin-bottom:20px;font-size:large" onclick="removeCourse()">将此课程移除（即：学生们不再可以选这门课，且必须在该门颗选课人数少于10人的情况下才能操作）</button>
             </div>
 
             <div style="display:inline;border-color:aqua;border-width:5px">
@@ -723,6 +723,9 @@
         if (identity == 'T') {
             document.getElementsByTagName('form')[0].setAttribute("hidden", "");
             document.getElementById('remark_div').innerHTML = "大家的评论";
+        }
+        else if (identity == 'S') {
+            document.getElementById('removebutton').setAttribute("hidden", "");
         }
     }
     function removeCourse() {
