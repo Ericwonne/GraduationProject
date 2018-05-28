@@ -153,7 +153,7 @@ namespace GradutionProject.Models
             //【问题yi解决】：数据库中的课程表和考试表中的编号互为外键制约，现在导致插入课程表中外键数据时有一定的问题
             //【解决办法】：在数据库中实现触发器，当更新课程表中的CourseID的时候，外键于此的考试表中的CourseID同时更新。
             //【问题】重复插入的时候要做容错判断，否则会出错。
-            cmdTxt = "insert into course_information(courseID,courseName,courseTeacher,publishDate,startDate,endDate,venue,period,examID,courseInfo,subTag,faculty,ava) values('" + course.CourseID + "','" + course.CourseName + "','" + course.CourseTeacher + "','" + course.PublishDate + "','" + course.StartDate + "','" + course.EndDate + "','" + course.Venue + "','" + course.Period + "','" + course.ExamID + "','" + course.CourseInfo + "','" + course.SubTag + "','" + course.Faculty + "','N')";
+            cmdTxt = "insert into course_information(courseID,courseName,courseTeacher,capacity,publishDate,startDate,endDate,venue,period,examID,courseInfo,subTag,faculty,ava) values('" + course.CourseID + "','" + course.CourseName + "','" + course.CourseTeacher + "','" + course.Capacity + "','" + course.PublishDate + "','" + course.StartDate + "','" + course.EndDate + "','" + course.Venue + "','" + course.Period + "','" + course.ExamID + "','" + course.CourseInfo + "','" + course.SubTag + "','" + course.Faculty + "','N')";
             MySqlCommand cmd = new MySqlCommand(cmdTxt, connect);
 
 

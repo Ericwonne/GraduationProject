@@ -139,8 +139,9 @@ namespace GradutionProject.Models
         public string DetailInfo { get; set; }
         public string SubTag { get; set; }
         public string Faculty { get; set; }
+        public string Capacity { get; set; }
 
-        public Course(string courseID, string courseName, string courseTeacher, string publishDate, string startDate, string endDate, string venue, string period, string examID, int chosen, int collected, string courseInfo, string detailInfo, string subTag,string faculty)
+        public Course(string courseID, string courseName, string courseTeacher, string publishDate, string startDate, string endDate, string venue, string period, string examID, int chosen, int collected, string courseInfo, string detailInfo, string subTag, string faculty, string capacity)
         {
             CourseID = courseID;
             CourseName = courseName;
@@ -157,6 +158,7 @@ namespace GradutionProject.Models
             DetailInfo = detailInfo;
             SubTag = subTag;
             Faculty = faculty;
+            Capacity = capacity;
         }
         public Course()
         {

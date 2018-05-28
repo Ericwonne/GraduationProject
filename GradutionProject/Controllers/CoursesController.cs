@@ -61,7 +61,8 @@ namespace GradutionProject.Controllers
                 Period = fc["period"],
                 CourseInfo = fc["courseInfo"],
                 CourseType = fc["subject"],
-                Faculty = fc["faculty"]
+                Faculty = fc["faculty"],
+                Capacity = fc["capacity"]
             };
             Exam exam = new Exam
             {

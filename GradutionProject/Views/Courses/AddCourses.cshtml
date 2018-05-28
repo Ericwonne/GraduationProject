@@ -51,26 +51,20 @@
 
         <div style="display:inline">
             <div style="float:left; width:40%">
-                <label class="control-label" for="subject">选择学科门类</label>
-                <select id="subject" class="form-control" name="subject" onload="loadSubject();">
-                    @foreach (System.Data.DataRow rows in subject.Rows)
-                    {
-                        <option value="@rows[0]"> @rows[1]</option>
-                    }
-
-                    @*<option value="CA">哲学</option>
-                        <option value="CB">经济学</option>
-                        <option value="CC">法学</option>
-                        <option value="CD">教育学</option>
-                        <option value="CE">文学</option>
-                        <option value="CF">历史学</option>
-                        <option value="CG">理学</option>
-                        <option value="CH">工学</option>
-                        <option value="CI">农学</option>
-                        <option value="CJ">医学</option>
-                        <option value="CK">军事学</option>
-                        <option value="CL">管理学</option>
-                        <option value="CM">艺术学</option>*@
+                <label class="control-label" for="capacity">课程容量</label>
+                <select type="text" id="capacity" name="capacity" class="form-control">
+                    <option value="20">10~20人</option>
+                    <option value="30">20~30人</option>
+                    <option value="40">30~40人</option>
+                    <option value="50">40~50人</option>
+                    <option value="60">50~60人</option>
+                    <option value="70">60~70人</option>
+                    <option value="80">70~80人</option>
+                    <option value="90">80~90人</option>
+                    <option value="100">90~100人</option>
+                    <option value="120">100~120人</option>
+                    <option value="140">120~140人</option>
+                    <option value="160">140~160人</option>
                 </select>
             </div>
             <div style="margin-bottom:1%">
@@ -180,7 +174,7 @@
         </div>
     </div>
 
-    
+
     <div class="text-info" style="font-size:x-large;margin-top:5%">
         完善考试信息
     </div>
