@@ -94,9 +94,9 @@ namespace GradutionProject.Controllers
         [CookieFilter]
         public ActionResult SpecificCourse(string id, string state)   // id = courseID; state = selected/not selected
         {
-            if (id == null)
+            if (id == null || state == null)
             {
-                return Redirect("MainPage");
+                return Redirect("../Users/MainPage");
             }
             else if (id.Length != 10)
             {
