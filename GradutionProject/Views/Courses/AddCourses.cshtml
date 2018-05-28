@@ -4,6 +4,7 @@
     //System.Data.DataTable building = Model.Tables["BuildingList"];
     System.Data.DataTable subject = Model.Tables["SubjectList"];
     System.Data.DataTable room = Model.Tables["RoomList"];
+    System.Data.DataTable faculty = Model.Tables["Faculty"];
 }
 
 <h2>添加课程&nbsp;<small>这里可以添加您想要的课程，管理员会进行审核</small></h2>
@@ -13,122 +14,178 @@
         完善课程信息
     </div>
     <div class="form-group">
-        <label class="control-label" for="subject">选择学科门类</label>
-        <select id="subject" class="form-control" name="subject" onload="loadSubject();">
-            @foreach (System.Data.DataRow rows in subject.Rows)
-            {
-                <option value="@rows[0]"> @rows[1]</option>
-            }
+        <div style="display:inline; margin-bottom:3%">
+            <div style="float:left; width:40%">
+                <label class="control-label" for="subject">选择学科门类</label>
+                <select id="subject" class="form-control" name="subject" onload="loadSubject();">
+                    @foreach (System.Data.DataRow rows in subject.Rows)
+                    {
+                        <option value="@rows[0]"> @rows[1]</option>
+                    }
 
-            @*<option value="CA">哲学</option>
-                <option value="CB">经济学</option>
-                <option value="CC">法学</option>
-                <option value="CD">教育学</option>
-                <option value="CE">文学</option>
-                <option value="CF">历史学</option>
-                <option value="CG">理学</option>
-                <option value="CH">工学</option>
-                <option value="CI">农学</option>
-                <option value="CJ">医学</option>
-                <option value="CK">军事学</option>
-                <option value="CL">管理学</option>
-                <option value="CM">艺术学</option>*@
-        </select>
+                    @*<option value="CA">哲学</option>
+                        <option value="CB">经济学</option>
+                        <option value="CC">法学</option>
+                        <option value="CD">教育学</option>
+                        <option value="CE">文学</option>
+                        <option value="CF">历史学</option>
+                        <option value="CG">理学</option>
+                        <option value="CH">工学</option>
+                        <option value="CI">农学</option>
+                        <option value="CJ">医学</option>
+                        <option value="CK">军事学</option>
+                        <option value="CL">管理学</option>
+                        <option value="CM">艺术学</option>*@
+                </select>
+            </div>
+            <div style="margin-bottom:1%">
+                <label class="control-label" for="faculty">选择开设院系</label>
+                <select id="faculty" class="form-control" name="faculty">
+                    @foreach (System.Data.DataRow rows in faculty.Rows)
+                    {
+                        <option value="@rows[0]"> @rows[1]</option>
+                    }
+                </select>
+            </div>
+        </div>
 
-        <label class="control-label" for="form-group-input">课程名称</label>
-        <input type="text" id="form-group-input" name="courseName" class="form-control" placeholder="请输入少于50个汉字">
+        <div style="display:inline">
+            <div style="float:left; width:40%">
+                <label class="control-label" for="subject">选择学科门类</label>
+                <select id="subject" class="form-control" name="subject" onload="loadSubject();">
+                    @foreach (System.Data.DataRow rows in subject.Rows)
+                    {
+                        <option value="@rows[0]"> @rows[1]</option>
+                    }
 
-        <label class="control-label" for="datetimepicker1">起始时间</label>
-        <input type="text" id="datetimepicker1" name="startDate" class="form-control" placeholder="若不确定请留空" />
+                    @*<option value="CA">哲学</option>
+                        <option value="CB">经济学</option>
+                        <option value="CC">法学</option>
+                        <option value="CD">教育学</option>
+                        <option value="CE">文学</option>
+                        <option value="CF">历史学</option>
+                        <option value="CG">理学</option>
+                        <option value="CH">工学</option>
+                        <option value="CI">农学</option>
+                        <option value="CJ">医学</option>
+                        <option value="CK">军事学</option>
+                        <option value="CL">管理学</option>
+                        <option value="CM">艺术学</option>*@
+                </select>
+            </div>
+            <div style="margin-bottom:1%">
+                <label class="control-label" for="form-group-input">课程名称</label>
+                <input type="text" id="form-group-input" name="courseName" class="form-control" placeholder="请输入少于50个汉字">
+            </div>
+        </div>
 
-        <label class="control-label" for="datetimepicker2">结束时间</label>
-        <input type="text" id="datetimepicker2" name="endDate" class="form-control" placeholder="若不确定请留空" />
+        <div style="display:inline">
+            <div style="float:left; width:40%">
+                <label class="control-label" for="datetimepicker1">起始时间</label>
+                <input type="text" id="datetimepicker1" name="startDate" class="form-control" placeholder="若不确定请留空" />
+            </div>
+            <div style="margin-bottom:1%">
+                <label class="control-label" for="datetimepicker2">结束时间</label>
+                <input type="text" id="datetimepicker2" name="endDate" class="form-control" placeholder="若不确定请留空" />
+            </div>
+        </div>
 
-        <label class="control-label" for="form-group-input1">上课地点</label>
-        <!--<input type="text" id="form-group-input1" name="venue" class="form-control" placeholder="例：第一教学楼305">-->
-        <select type="text" id="form-group-input1" name="venue" class="form-control" onclick="getSelectedBuilding()">
-            <option value="notselected">-------请选择-------</option>
-            @foreach (System.Data.DataRow rows in room.Rows)
-            {
-                <option value="@rows[0]"> @rows[1] [容量 @rows[2]人]</option>
-            }
-        </select>
+        <div style="display:inline">
+            <div style="float:left; width:40%">
+                <label class="control-label" for="form-group-input1">上课地点</label>
+                <!--<input type="text" id="form-group-input1" name="venue" class="form-control" placeholder="例：第一教学楼305">-->
+                <select type="text" id="form-group-input1" name="venue" class="form-control" onclick="getSelectedBuilding()">
+                    <option value="notselected">-------请选择-------</option>
+                    @foreach (System.Data.DataRow rows in room.Rows)
+                    {
+                        <option value="@rows[0]"> @rows[1] [容量 @rows[2]人]</option>
+                    }
+                </select>
 
-        <label class="control-label" for="form-group-input2">上课时间</label>
-        <!--<input type="text" id="form-group-input2" name="period" class="form-control" placeholder="例：星期三上午9:55至11:25">-->
-        <select type="text" id="form-group-input2" name="period" class="form-control" onchange="checkAva()">
-            <option value="notselected">-------请选择-------</option>
-            <optgroup label="星期日">
-                <option value="GA">星期日1,2节</option>
-                <option value="GB">星期日3,4节</option>
-                <option value="GC">星期日3,4,5节</option>
-                <option value="GD">星期日6,7节</option>
-                <option value="GE">星期日8,9节</option>
-                <option value="GF">星期日10~12节</option>
-            </optgroup>
+            </div>
+            <div style="margin-bottom:2%">
+                <label class="control-label" for="form-group-input2">上课时间</label>
+                <!--<input type="text" id="form-group-input2" name="period" class="form-control" placeholder="例：星期三上午9:55至11:25">-->
+                <select type="text" id="form-group-input2" name="period" class="form-control" onchange="checkAva()">
+                    <option value="notselected">-------请选择-------</option>
+                    <optgroup label="星期日">
+                        <option value="GA">星期日1,2节</option>
+                        <option value="GB">星期日3,4节</option>
+                        <option value="GC">星期日3,4,5节</option>
+                        <option value="GD">星期日6,7节</option>
+                        <option value="GE">星期日8,9节</option>
+                        <option value="GF">星期日10~12节</option>
+                    </optgroup>
 
-            <optgroup label="星期一">
-                <option value="AA">星期一1,2节</option>
-                <option value="AB">星期一3,4节</option>
-                <option value="AC">星期一3,4,5节</option>
-                <option value="AD">星期一6,7节</option>
-                <option value="AE">星期一8,9节</option>
-                <option value="AF">星期一10~12节</option>
-            </optgroup>
+                    <optgroup label="星期一">
+                        <option value="AA">星期一1,2节</option>
+                        <option value="AB">星期一3,4节</option>
+                        <option value="AC">星期一3,4,5节</option>
+                        <option value="AD">星期一6,7节</option>
+                        <option value="AE">星期一8,9节</option>
+                        <option value="AF">星期一10~12节</option>
+                    </optgroup>
 
-            <optgroup label="星期二">
-                <option value="BA">星期二1,2节</option>
-                <option value="BB">星期二3,4节</option>
-                <option value="BC">星期二3,4,5节</option>
-                <option value="BD">星期二6,7节</option>
-                <option value="BE">星期二8,9节</option>
-                <option value="BF">星期二10~12节</option>
-            </optgroup>
+                    <optgroup label="星期二">
+                        <option value="BA">星期二1,2节</option>
+                        <option value="BB">星期二3,4节</option>
+                        <option value="BC">星期二3,4,5节</option>
+                        <option value="BD">星期二6,7节</option>
+                        <option value="BE">星期二8,9节</option>
+                        <option value="BF">星期二10~12节</option>
+                    </optgroup>
 
-            <optgroup label="星期三">
-                <option value="CA">星期三1,2节</option>
-                <option value="CB">星期三3,4节</option>
-                <option value="CC">星期三3,4,5节</option>
-                <option value="CD">星期三6,7节</option>
-                <option value="CE">星期三8,9节</option>
-                <option value="CF">星期三10~12节</option>
-            </optgroup>
+                    <optgroup label="星期三">
+                        <option value="CA">星期三1,2节</option>
+                        <option value="CB">星期三3,4节</option>
+                        <option value="CC">星期三3,4,5节</option>
+                        <option value="CD">星期三6,7节</option>
+                        <option value="CE">星期三8,9节</option>
+                        <option value="CF">星期三10~12节</option>
+                    </optgroup>
 
-            <optgroup label="星期四">
-                <option value="DA">星期四1,2节</option>
-                <option value="DB">星期四3,4节</option>
-                <option value="DC">星期四3,4,5节</option>
-                <option value="DD">星期四6,7节</option>
-                <option value="DE">星期四8,9节</option>
-                <option value="DF">星期四10~12节</option>
-            </optgroup>
-            <optgroup label="星期五">
-                <option value="EA"> 星期五1,2节</option>
-                <option value="EB"> 星期五3,4节</option>
-                <option value="EC"> 星期五3,4,5节</option>
-                <option value="ED">星期五6,7节</option>
-                <option value="EE"> 星期五8,9节</option>
-                <option value="EF"> 星期五10~12节</option>
-            </optgroup>
-            <optgroup label="星期六">
-                <option value="FA"> 星期六1,2节</option>
-                <option value="FB"> 星期六3,4节</option>
-                <option value="FC"> 星期六3,4,5节</option>
-                <option value="FD">星期六6,7节</option>
-                <option value="FE"> 星期六8,9节</option>
-                <option value="FF"> 星期六10~12节</option>
-            </optgroup>
-        </select>
+                    <optgroup label="星期四">
+                        <option value="DA">星期四1,2节</option>
+                        <option value="DB">星期四3,4节</option>
+                        <option value="DC">星期四3,4,5节</option>
+                        <option value="DD">星期四6,7节</option>
+                        <option value="DE">星期四8,9节</option>
+                        <option value="DF">星期四10~12节</option>
+                    </optgroup>
+                    <optgroup label="星期五">
+                        <option value="EA"> 星期五1,2节</option>
+                        <option value="EB"> 星期五3,4节</option>
+                        <option value="EC"> 星期五3,4,5节</option>
+                        <option value="ED">星期五6,7节</option>
+                        <option value="EE"> 星期五8,9节</option>
+                        <option value="EF"> 星期五10~12节</option>
+                    </optgroup>
+                    <optgroup label="星期六">
+                        <option value="FA"> 星期六1,2节</option>
+                        <option value="FB"> 星期六3,4节</option>
+                        <option value="FC"> 星期六3,4,5节</option>
+                        <option value="FD">星期六6,7节</option>
+                        <option value="FE"> 星期六8,9节</option>
+                        <option value="FF"> 星期六10~12节</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
 
-        <label class="control-label" for="form-group-input3">课程介绍</label>
-        <textarea id="form-group-input3" rows="4" cols="20" name="courseInfo" class="form-control"></textarea>
+        <div>
+            <div style="margin-bottom:1%">
+                <label class="control-label" for="form-group-input3">课程介绍</label>
+                <textarea id="form-group-input3" rows="4" cols="20" name="courseInfo" class="form-control"></textarea>
+            </div>
+        </div>
     </div>
 
+    
     <div class="text-info" style="font-size:x-large;margin-top:5%">
         完善考试信息
     </div>
 
-    <label class="control-label" for="datetimepicker3">考试时间</label>
+    <label class="control-label" for="datetimepicker3" style="margin-top:1%">考试时间</label>
     <input type="text" id="datetimepicker3" name="examPeriod" class="form-control" placeholder="若不确定请留空" />
 
     @*此处应该改为列表选择教学楼数据【未完成】*@
@@ -139,7 +196,7 @@
                 <option value="@rows[0]"> @rows[1]</option>
             }
         </select>*@
-    <label class="control-label" for="form-group-input4_">考试教室</label>
+    <label class="control-label" for="form-group-input4_" style="margin-top:1%">考试教室</label>
     <select type="text" id="form-group-input4_" name="examVenueClass" class="form-control" onclick="getSelectedBuilding()">
         <option value="notselected">-------请选择-------</option>
         @foreach (System.Data.DataRow rows in room.Rows)
@@ -149,7 +206,7 @@
     </select>
 
 
-    <label class="control-label" for="form-group-input5">考试时长</label>
+    <label class="control-label" for="form-group-input5" style="margin-top:1%">考试时长</label>
     <select id="form-group-input5" name="examDuration" class="form-control">
         <option value="1">1小时</option>
         <option value="1.5">1.5小时</option>
@@ -162,13 +219,13 @@
         <option value="5">5小时</option>
     </select>
 
-    <label class="control-label">考试类型</label>
+    <label class="control-label" style="margin-top:1%">考试类型</label>
     <select id="subject" class="form-control" name="examType">
         <option value="open">开卷考试</option>
         <option value="close">闭卷考试</option>
     </select>
 
-    <div style="margin-top:3%">
+    <div style="margin-top:4%">
         <input id="submitCourse" type="submit" value="添加课程" class="form-control btn-info" />
     </div>
 </form>

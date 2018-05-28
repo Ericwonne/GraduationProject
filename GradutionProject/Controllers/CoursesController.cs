@@ -22,7 +22,8 @@ namespace GradutionProject.Controllers
             DataTable
                 //building = DBManip.GetBuildingList(), 
                 subject = DBManip.GetSubjectList(),
-                room = DBManip.GetRoomList();
+                room = DBManip.GetRoomList(),
+                faculty = DBManip.GetFacultyList();
             DataSet set = new DataSet();
             //building.TableName = "BuildingList";
             //set.Tables.Add(building.Copy());
@@ -33,9 +34,12 @@ namespace GradutionProject.Controllers
             room.TableName = "RoomList";
             set.Tables.Add(room.Copy());
 
+            faculty.TableName = "Faculty";
+            set.Tables.Add(faculty.Copy());
 
             return View(set);
         }
+        [HttpPost]
         public object AddCourse(FormCollection fc)
         {
             //未设置重复添加课程的检测，只有此处Session用作判断，但没什么实质作用
@@ -56,7 +60,8 @@ namespace GradutionProject.Controllers
                 Venue = fc["venue"],
                 Period = fc["period"],
                 CourseInfo = fc["courseInfo"],
-                CourseType = fc["subject"]
+                CourseType = fc["subject"],
+                Faculty = fc["faculty"]
             };
             Exam exam = new Exam
             {
