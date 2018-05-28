@@ -209,7 +209,7 @@
                         <tr>
                             <td><a href="../Courses/MyCourse?id=@row[0]"> @row[1] </a> </td>
                             <td>@Convert.ToDateTime(row[4]).ToString("yy年MM月dd日") 至 @Convert.ToDateTime(row[5]).ToString("MM月dd日")</td>
-                            <td>@row[6]</td>
+                            <td name="roomname">@row[6]</td>
                             <td>@P.Period[row[7].ToString()]</td>
                             <td>@Count_All[CoursesOfTeacher.Rows.IndexOf(row)]</td>
                         </tr>
@@ -295,7 +295,7 @@
                             <td><a href="../Courses/MyCourse?id=@row[0]"> @row[1] </a> </td>
                             <td>否</td>
                             <td>@Convert.ToDateTime(row[4]).ToString("yy年MM月dd日") 至 @Convert.ToDateTime(row[5]).ToString("MM月dd日")</td>
-                            <td>@P.Period[row[7].ToString()], @row[6], 共 @Count_All[CoursesOfTeacher.Rows.IndexOf(row)]人</td>
+                            <td>@P.Period[row[7].ToString()],<span name="roomname">@row[6]</span>, 共 @Count_All[CoursesOfTeacher.Rows.IndexOf(row)]人</td>
                             <td>Placeholder</td>
                             <td><a href="#">管理</a></td>
                         </tr>
@@ -434,6 +434,17 @@
         showTeachWeek();                //显示教学周
         RenderTable();                       //渲染表格课程
 
+        //Display Human Readable RoomName
+        var keyValues = sessionStorage.RoomName.split('&');
+        var RoomName = new Map();
+        var roomnames = document.getElementsByName('roomname');
+        for (var k = 0; k < keyValues.length; k++) {
+            RoomName.set(keyValues[k].split('=')[0], keyValues[k].split('=')[1]);
+        }
+        for (var r = 0; r < roomnames.length; r++) {
+            roomnames[r].innerHTML = RoomName.get(roomnames[r].innerText.toString().replace(/(^\s*)|(\s*$)/g, "")).toString();      //此处不知为何roomname td下的innerText多出了空格，导致无法搜索到键值对
+        }
+
         //-------------------------------------Begin 处理tab pane显示问题-----------------------------------------//
         //!!!不知道为什么后台传过来的值如果第一个字符是“#”，前端就无法接收到这个值。
         //var item = "ViewData["tab"].ToString()";
@@ -459,105 +470,105 @@
 </script>
 
 <script>
-        //class PeriodGetter {
+                //class PeriodGetter {
 
-        //}
+                //}
 
-        ////在Javascript中创建一个对象 -来自网络（https://blog.csdn.net/xi_2130/article/details/50276025）
-        //var Person = function (name, age) {
-        //    //共有属性
-        //    this.name = name;
-        //    //共有方法
-        //    this.sayName = function () {
-        //        console.log(this.name);
-        //    };
-        //    //静态私有属性(只能用于内部调用)
-        //    var home = "China";
-        //    //静态私有方法(只能用于内部调用)
-        //    function sayHome() {
-        //        console.log(home);
-        //    }
-        //    //构造器
-        //    this.setAge = function (age) {
-        //        console.log(age + 12);
-        //    };
-        //    this.setAge(age);
-        //}
-        ////静态方法（只能被类来访问）
-        //Person.sayAge = function () {
-        //    console.log("your age is 12");
-        //}
-        ////静态属性（只能被类来访问）
-        //Person.drink = "water";
-        ////静态共有方法（类和实例都可以访问）
-        //Person.prototype.sayWord = function () {
-        //    console.log("ys is a boy");
-        //}
-
-
-
-        ////在Javascript中创建封装类的方法（类似Python）-来自网络
-        //var Person = (function () {
-        //    //静态私有属性方法
-        //    var home = "China";
-        //    function sayHome(name) {
-        //        console.log(name + "'s home in " + home);
-        //    }
-        //    //构造函数
-        //    function _person(name, age) {
-        //        var _this = this;
-        //        //构造函数安全模式，避免创建时候丢掉new关键字
-        //        if (_this instanceof _person) {
-        //            //共有属性, 方法
-        //            _this.name = name;
-        //            _this.getHome = function () {
-        //                //内部访问私有属性，方法
-        //                sayHome(_this.name);
-        //            };
-        //            _this.test = sayHome; //用于测试
-        //            //构造器
-        //            _this.setAge = function (age) {
-        //                _this.age = age + 12;
-        //            }(age);
-        //        } else {
-        //            return new _person(name, age);
-        //        }
-        //    }
-        //    //静态共有属性方法
-        //    _person.prototype = {
-        //        constructor: _person,
-        //        drink: "water",
-        //        sayWord: function () {
-        //            console.log("ys is a boy");
-        //        }
-        //    }
-        //    return _person;
-        //})();
-
-        ////调用如下：
-        //var p1 = new Person("ys", 12);
-        //p1.getHome();                   //ys's home in China
-        //console.log(p1.age);            //24
-
-        //var p2 = Person("ys", 12);
-        //p2.getHome();                   //ys's home in China
-        //console.log(p2.age);            //24
-
-        //console.log(p2.test == p1.test);  //true, 证明静态私有变量共享性
+                ////在Javascript中创建一个对象 -来自网络（https://blog.csdn.net/xi_2130/article/details/50276025）
+                //var Person = function (name, age) {
+                //    //共有属性
+                //    this.name = name;
+                //    //共有方法
+                //    this.sayName = function () {
+                //        console.log(this.name);
+                //    };
+                //    //静态私有属性(只能用于内部调用)
+                //    var home = "China";
+                //    //静态私有方法(只能用于内部调用)
+                //    function sayHome() {
+                //        console.log(home);
+                //    }
+                //    //构造器
+                //    this.setAge = function (age) {
+                //        console.log(age + 12);
+                //    };
+                //    this.setAge(age);
+                //}
+                ////静态方法（只能被类来访问）
+                //Person.sayAge = function () {
+                //    console.log("your age is 12");
+                //}
+                ////静态属性（只能被类来访问）
+                //Person.drink = "water";
+                ////静态共有方法（类和实例都可以访问）
+                //Person.prototype.sayWord = function () {
+                //    console.log("ys is a boy");
+                //}
 
 
-        //这个网址讲解了Javascript创建类的几种方式和存在的问题： https://blog.csdn.net/Cool_Wayen/article/details/53220007
-        //function Car() {
-        //    this.color = "b";
-        //    this.length = 1;
-        //    this.data1 = new Array();
-        //}
 
-        //Car.prototype.run = function () {
-        //    alert("dddd");
-        //}
+                ////在Javascript中创建封装类的方法（类似Python）-来自网络
+                //var Person = (function () {
+                //    //静态私有属性方法
+                //    var home = "China";
+                //    function sayHome(name) {
+                //        console.log(name + "'s home in " + home);
+                //    }
+                //    //构造函数
+                //    function _person(name, age) {
+                //        var _this = this;
+                //        //构造函数安全模式，避免创建时候丢掉new关键字
+                //        if (_this instanceof _person) {
+                //            //共有属性, 方法
+                //            _this.name = name;
+                //            _this.getHome = function () {
+                //                //内部访问私有属性，方法
+                //                sayHome(_this.name);
+                //            };
+                //            _this.test = sayHome; //用于测试
+                //            //构造器
+                //            _this.setAge = function (age) {
+                //                _this.age = age + 12;
+                //            }(age);
+                //        } else {
+                //            return new _person(name, age);
+                //        }
+                //    }
+                //    //静态共有属性方法
+                //    _person.prototype = {
+                //        constructor: _person,
+                //        drink: "water",
+                //        sayWord: function () {
+                //            console.log("ys is a boy");
+                //        }
+                //    }
+                //    return _person;
+                //})();
+
+                ////调用如下：
+                //var p1 = new Person("ys", 12);
+                //p1.getHome();                   //ys's home in China
+                //console.log(p1.age);            //24
+
+                //var p2 = Person("ys", 12);
+                //p2.getHome();                   //ys's home in China
+                //console.log(p2.age);            //24
+
+                //console.log(p2.test == p1.test);  //true, 证明静态私有变量共享性
 
 
-        //Javascript中的Dictionary
-        //见zMy_Copied_Js.js文件。
+                //这个网址讲解了Javascript创建类的几种方式和存在的问题： https://blog.csdn.net/Cool_Wayen/article/details/53220007
+                //function Car() {
+                //    this.color = "b";
+                //    this.length = 1;
+                //    this.data1 = new Array();
+                //}
+
+                //Car.prototype.run = function () {
+                //    alert("dddd");
+                //}
+
+
+                //Javascript中的Dictionary
+                //见zMy_Copied_Js.js文件。
 </script>

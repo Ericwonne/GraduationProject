@@ -338,11 +338,11 @@
                     var oLi = document.createElement("li");
                     var oDate = new Date();
                     oLi.innerHTML = "<div class=\"userPic\"><img src=\"" + get.byClass("current", get.byId("face"))[0].src + "\"></div>\
-                                                                                                                                                                                                                                                                                                 <div class=\"content\">\
-                                                                                                                                                                                                                                                                                                    <div class=\"userName\"><a href=\"javascript:;\">" + oUserName.value + "</a>:</div>\
-                                                                                                                                                                                                                                                                                                    <div class=\"msgInfo\">" + oConBox.value.replace(/<[^>]*>|&nbsp;/ig, "") + "</div>\
-                                                                                                                                                                                                                                                                                                    <div class=\"times\"><span>" + format(oDate.getMonth() + 1) + "\u6708" + format(oDate.getDate()) + "\u65e5 " + format(oDate.getHours()) + ":" + format(oDate.getMinutes()) + "</span><a class=\"del\" href=\"javascript:;\">\u5220\u9664</a></div>\
-                                                                                                                                                                                                                                                                                                 </div>";
+                                                                                                                                                                                                                                                                                                                 <div class=\"content\">\
+                                                                                                                                                                                                                                                                                                                    <div class=\"userName\"><a href=\"javascript:;\">" + oUserName.value + "</a>:</div>\
+                                                                                                                                                                                                                                                                                                                    <div class=\"msgInfo\">" + oConBox.value.replace(/<[^>]*>|&nbsp;/ig, "") + "</div>\
+                                                                                                                                                                                                                                                                                                                    <div class=\"times\"><span>" + format(oDate.getMonth() + 1) + "\u6708" + format(oDate.getDate()) + "\u65e5 " + format(oDate.getHours()) + ":" + format(oDate.getMinutes()) + "</span><a class=\"del\" href=\"javascript:;\">\u5220\u9664</a></div>\
+                                                                                                                                                                                                                                                                                                                 </div>";
                     //插入元素
                     aLi.length ? oUl.insertBefore(oLi, aLi[0]) : oUl.appendChild(oLi);
 
@@ -694,6 +694,7 @@
         var period = "@crow[7]";
         var student = "@ViewData["V_uid"].ToString()";
         var ajaxData = period + "_" + student;
+        var flag = false; //ifconflicted
         $.ajax({
             type: "GET",
             url: "ValidateVenuePeriodForStudent",
@@ -705,13 +706,16 @@
                 }
                 else {
                     alert("您的选课在该时间已经冲突！");
-                    return;
+                    flag = true;
                 }
             },
             error: function (response) {
                 console.log(response);
             }
         });
+        if (flag == true) {
+            return
+        }
 
         useAjax('ChooseCourse');
 

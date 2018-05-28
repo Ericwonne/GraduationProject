@@ -607,16 +607,16 @@
                                 <tbody>
                                     @foreach (System.Data.DataRow rows in teacher.Rows)
                                     {
-                                    <tr>
-                                        <td hidden>@rows[0]</td>
-                                        <td>@rows[1]</td>
-                                        <td name="@rows[2].ToString().ToLower()">@rows[2]</td>
-                                        <td>@rows[4]</td>
-                                        <td>@rows[7]</td>
-                                        <td>@rows[6]</td>
-                                        <td>@rows[8]</td>
-                                        <td>@rows[10]</td>
-                                    </tr>
+                                        <tr>
+                                            <td hidden>@rows[0]</td>
+                                            <td>@rows[1]</td>
+                                            <td name="@rows[2].ToString().ToLower()">@rows[2]</td>
+                                            <td>@rows[4]</td>
+                                            <td>@rows[7]</td>
+                                            <td>@rows[6]</td>
+                                            <td>@rows[8]</td>
+                                            <td>@rows[10]</td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
@@ -708,7 +708,7 @@
                                 </button>
                             </td>
                         </tr>
-                                    }
+                    }
                 </tbody>
             </table>
 
@@ -1215,8 +1215,9 @@
 
     //DO HumanReadable stuff
     function doHumanReadableStuff() {
-        var keyValues = sessionStorage.Faculty.split('&');
+        var keyValues = null;
         //Faculty
+        keyValues = sessionStorage.Faculty.split('&');
         var faculties = document.getElementsByName('faculty');
         var Faculty = new Map();
         for (var k = 0; k < keyValues.length; k++) {

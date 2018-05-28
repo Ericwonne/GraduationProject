@@ -278,8 +278,7 @@
                 <thead>
                     <tr>
                         <th>课程名称</th>
-                        <th>开始日期</th>
-                        <th>结束日期</th>
+                        <th>上课周期</th>
                         <th>上课地点</th>
                         <th>上课时间</th>
                     </tr>
@@ -293,7 +292,6 @@
                                 <td>当前无课程</td>
                                 <td>当前无课程</td>
                                 <td>当前无课程</td>
-                                <td>当前无课程</td>
                             </tr>
                         }
                         else
@@ -302,9 +300,8 @@
                             {
                                 <tr>
                                     <td>@row[1] </td>
-                                    <td>@row[4].ToString().Substring(0, 10)</td>
-                                    <td>@row[5].ToString().Substring(0, 10)</td>
-                                    <td>@row[6]</td>
+                                    <td>@row[4].ToString().Substring(0, 10) 至 @row[5].ToString().Substring(5, 5)</td>
+                                    <td name="roomname">@row[6]</td>
                                     <td>@P.Period[row[7].ToString()]</td>
                                 </tr>
                             }
@@ -362,8 +359,17 @@
         <div class="page-header">
             <h3>
                 <small><i class="glyphicon glyphicon-tags"></i></small>
-                页面标题实例
-                <small>子标题</small>
+                我的考试
+                <small>当前教学周内参加课程对应的考试</small>
+            </h3>
+        </div>
+        <p>这是一个示例文本。当你有新的内容填充进来时，请替换掉它。</p>
+
+        <div class="page-header">
+            <h3>
+                <small><i class="glyphicon glyphicon-tags"></i></small>
+                我的成绩
+                <small>所有修都过的课程的成绩都在这里</small>
             </h3>
         </div>
         <p>这是一个示例文本。当你有新的内容填充进来时，请替换掉它。</p>
@@ -478,6 +484,17 @@
         var daycode = new Array("G", "A", "B", "C", "D", "E", "F");
         var day_number = showTeachWeek();
         RenderTable(daycode[day_number]);
+
+        //Display Human Readable RoomName
+        var keyValues = sessionStorage.RoomName.split('&');
+        var RoomName = new Map();
+        var roomnames = document.getElementsByName('roomname');
+        for (var k = 0; k < keyValues.length; k++) {
+            RoomName.set(keyValues[k].split('=')[0], keyValues[k].split('=')[1]);
+        }
+        for (var r = 0; r < roomnames.length; r++) {
+            roomnames[r].innerHTML = RoomName.get(roomnames[r].innerText.toString().replace(/(^\s*)|(\s*$)/g, "")).toString();      //此处不知为何roomname td下的innerText多出了空格，导致无法搜索到键值对
+        }
 
         //-------------------------------------Begin 处理tab pane显示问题-----------------------------------------//
         //!!!不知道为什么后台传过来的值如果第一个字符是“#”，前端就无法接收到这个值。
