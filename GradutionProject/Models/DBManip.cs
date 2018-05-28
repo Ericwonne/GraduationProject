@@ -9,7 +9,7 @@ namespace GradutionProject.Models
 {
     public class DBManip
     {
-        private static string connectionString = "Server=localhost;Database=gpdb;User id = root; password=;";
+        private static string connectionString = "Server=localhost;Database=gpdb;User id = root; password=;charset=utf8";
 
         //Check if user already exist in the DB table gpdb.login_examine
         internal static bool CheckUserExistence(ref User user, bool ifCheckboth = false)

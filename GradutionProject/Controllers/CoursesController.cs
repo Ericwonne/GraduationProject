@@ -39,18 +39,19 @@ namespace GradutionProject.Controllers
 
             return View(set);
         }
+
+        [CookieFilter]
         [HttpPost]
         public object AddCourse(FormCollection fc)
         {
             //未设置重复添加课程的检测，只有此处Session用作判断，但没什么实质作用
-            if (Session["S_if_added_this_course"] == null || Session["S_if_added_this_course"].ToString() == "no")
+            if (Session["S_if_added_this_course"] != null && Session["S_if_added_this_course"].ToString() == "yes")
             {
-                Session["S_if_added_this_course"] = "yes";
+                return "You have added this course";
             }
             else
             {
-                Session["S_if_added_this_course"] = "no";
-                return "You have added this course";
+                Session["S_if_added_this_course"] = "yes";
             }
             Course course = new Course
             {
@@ -78,7 +79,7 @@ namespace GradutionProject.Controllers
             course.CourseTeacher = teacher.UniqueClientID;
             DBManip.AddCourse(course, exam);
 
-            return "Error";
+            return Redirect("../Users/MainPage");
         }
 
         [CookieFilter]
