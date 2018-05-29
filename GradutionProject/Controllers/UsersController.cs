@@ -249,10 +249,8 @@ namespace GradutionProject.Controllers
 
         public ActionResult SpecificUser(string id)
         {
-            string[] tableTest = new string[2];
-            tableTest[0] = DBManip.GetSpecificUser(id);
-            tableTest[1] = "A TestTable";
-            return View(tableTest);
+            string[] jsonResult = DBManip.GetSpecificUser(id).Split('&');
+            return View(jsonResult);
         }
 
         public object GetSpecificUser(string id)

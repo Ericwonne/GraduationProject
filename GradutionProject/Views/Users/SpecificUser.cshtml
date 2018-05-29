@@ -3,5 +3,122 @@
     ViewBag.Title = "SpecificUser";
 }
 
-<h2>SpecificUser</h2>
+<h2>@Model[1].Split('=')[1]</h2>
+<br /><br />
 
+<div style="display:inline;border-color:aqua;border-width:5px">
+    <div class="span6" style="float:left; width:40%">
+        <dl>
+            <dt style="font-size:large">
+                课程编号
+            </dt>
+            <dd style="margin-bottom:10px">
+                @Model[0].Split('=')[1]
+            </dd>
+            <dt style="font-size:large">
+                姓名
+            </dt>
+            <dd style="margin-bottom:10px">
+                @Model[1].Split('=')[1]
+            </dd>
+            <dt style="font-size:large">
+                性别
+            </dt>
+            <dd style="margin-bottom:10px">
+                @Model[2].Split('=')[1]
+            </dd>
+            <dt style="font-size:large">
+                年龄
+            </dt>
+            <dd style="margin-bottom:10px">
+                @Model[3].Split('=')[1]
+            </dd>
+        </dl>
+        <dl>
+            <dt style="font-size:large">
+                电子邮件
+            </dt>
+            <dd style="margin-bottom:10px">
+                @Model[4].Split('=')[1]
+            </dd>
+            <dt style="font-size:large">
+                微信
+            </dt>
+            <dd style="margin-bottom:10px">
+                @Model[5].Split('=')[1]
+            </dd>
+            <dt style="font-size:large">
+                QQ号码
+            </dt>
+            <dd style="margin-bottom:10px">
+                @Model[6].Split('=')[1]
+            </dd>
+            <dt style="font-size:large">
+                电话号码
+            </dt>
+            <dd style="margin-bottom:10px">
+                @Model[7].Split('=')[1]
+            </dd>
+        </dl>
+    </div>
+    <div class="span6">
+        <dl>
+            <dt style="font-size:large">
+                学校
+            </dt>
+            <dd style="margin-bottom:10px">
+                @Model[8].Split('=')[1]
+            </dd>
+            <dt style="font-size:large">
+                学院
+            </dt>
+            <dd style="margin-bottom:10px">
+                @Model[9].Split('=')[1]
+            </dd>
+            <dt style="font-size:large">
+                专业
+            </dt>
+            <dd style="margin-bottom:10px">
+                @Model[10].Split('=')[1]
+            </dd>
+            <dt style="font-size:large">
+                学位
+            </dt>
+            <dd style="margin-bottom:10px">
+                @Model[11].Split('=')[1]
+            </dd>
+        </dl>
+        <dl>
+            <dt style="font-size:large">
+                年级
+            </dt>
+            <dd style="margin-bottom:10px">
+                @Model[12].Split('=')[1]
+            </dd>
+            <dt style="font-size:large">
+                卡号
+            </dt>
+            <dd style="margin-bottom:10px">
+                @Model[13].Split('=')[1]
+            </dd>
+            <dt style="font-size:large">
+                院系
+            </dt>
+            <dd style="margin-bottom:10px">
+                PLACEHOLDER
+            </dd>
+            <dt style="font-size:large">
+                PLACEHOLDER
+            </dt>
+            <dd style="margin-bottom:10px">
+                PLACEHOLDER
+            </dd>
+        </dl>
+    </div>
+</div>
+<br />
+<script>
+    onload = function loadInfo() {
+
+    }
+</script>
