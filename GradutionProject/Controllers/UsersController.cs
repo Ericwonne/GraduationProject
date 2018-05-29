@@ -92,10 +92,11 @@ namespace GradutionProject.Controllers
             DataTable teacher = DBManip.GetTeacherTable(),
                              student = DBManip.GetStudentTable(),
                              course = DBManip.GetAllCourses();
+
             //此处注意：DataSet的Add()方法不能添加两个没有命名的DataTable；见下网址：
             //https://www.cnblogs.com/chenhuzi/archive/2010/11/02/dataset-add-more-table-example.html
 
-            DataSet set = new DataSet();
+            DataSet set = DBManip.GetInfo();
             student.TableName = "student";
             set.Tables.Add(student.Copy());
 
@@ -104,6 +105,7 @@ namespace GradutionProject.Controllers
 
             course.TableName = "AllCourses";
             set.Tables.Add(course.Copy());
+
             return View(set);
         }
 

@@ -5,6 +5,12 @@
     System.Data.DataTable student = Model.Tables["student"];            //student table
     System.Data.DataTable teacher = Model.Tables["teacher"];            //teacher table
     System.Data.DataTable AllCourses = Model.Tables["AllCourses"];  //course table
+
+    System.Data.DataTable Build = Model.Tables["Build"];                    //Info
+    System.Data.DataTable Subject = Model.Tables["Subject"];            //Info
+    System.Data.DataTable Faculty = Model.Tables["Faculty"];             //Info
+    System.Data.DataTable College = Model.Tables["College"];           //Info
+    System.Data.DataTable Room = Model.Tables["Room"];           //Info
 }
 <style type="text/css">
     td.alt {
@@ -759,6 +765,36 @@
                     教学楼
                     <small></small>
                 </h3>
+                <div class="container" style="margin-top:2%">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>a</th>
+                                            <th>a</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (System.Data.DataRow row in Build.Rows)
+                                        {
+                                            <tr>
+                                                <td>@row[0]</td>
+                                                <td>@row[1]</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom:2em;">
+                            <button class="btn btn-info"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <!---->
@@ -769,6 +805,35 @@
                     教室
                     <small></small>
                 </h3>
+                <div class="container" style="margin-top:2%">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>a</th>
+                                            <th>a</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (System.Data.DataRow row in Room.Rows)
+                                        {
+                                            <tr>
+                                                <td>@row[0]</td>
+                                                <td>@row[1]</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom:2em;">
+                            <button class="btn btn-info"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!---->
@@ -779,6 +844,35 @@
                     学院名称
                     <small></small>
                 </h3>
+                <div class="container" style="margin-top:2%">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>a</th>
+                                            <th>a</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (System.Data.DataRow row in College.Rows)
+                                        {
+                                            <tr>
+                                                <td>@row[0]</td>
+                                                <td>@row[1]</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom:2em;">
+                            <button class="btn btn-info"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!---->
@@ -789,6 +883,35 @@
                     系别名称
                     <small></small>
                 </h3>
+                <div class="container" style="margin-top:2%">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>a</th>
+                                            <th>a</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (System.Data.DataRow row in Faculty.Rows)
+                                        {
+                                            <tr>
+                                                <td>@row[0]</td>
+                                                <td>@row[1]</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom:2em;">
+                            <button class="btn btn-info"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!---->
@@ -799,6 +922,35 @@
                     学科门类
                     <small></small>
                 </h3>
+                <div class="container" style="margin-top:2%">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>a</th>
+                                            <th>a</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (System.Data.DataRow row in Subject.Rows)
+                                        {
+                                            <tr>
+                                                <td>@row[0]</td>
+                                                <td>@row[1]</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom:2em;">
+                            <button class="btn btn-info"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!---->
@@ -820,7 +972,7 @@
 <script src="~/Scripts/jquery.filtertable.min.js"></script>
 <script src="~/Scripts/tippy.js"></script>
 <script src="~/Scripts/bootstable.js"></script>
-
+@*<script src="http://tablesorter.com/addons/pager/jquery.tablesorter.pager.js"></script>*@
 <script>
     //Floppy: used to show the tooltip of each course
     new Tippy('.tippy-arrow', { position: 'top', animation: 'scale', arrow: 'true' });
@@ -864,6 +1016,11 @@
         $('#coursetable').filterTable({ // apply filterTable to all tables on this page
             inputSelector: '#input-filter' // use the existing input instead of creating a new one
         })
+
+        //Sorting and Paging the table
+        //$("table")
+        //    .tablesorter({ widthFixed: true, widgets: ['zebra'] })
+        //    .tablesorterPager({ container: $("#pager") });
 
         //Change the database field to human readable. Not on teachertable due to it has been processed at backend.
         var tds = document.getElementById('studenttable').getElementsByTagName('td');  //student table
