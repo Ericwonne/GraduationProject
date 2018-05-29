@@ -96,13 +96,17 @@ namespace GradutionProject.Controllers
         [CookieFilter]
         public ActionResult SpecificCourse(string id, string state)   // id = courseID; state = selected/not selected
         {
-            if (id == null || state == null)
+            if (id != null && state == null)
+            {
+                if (id.Length != 10)
+                {
+                    return PartialView("FoF");
+                }
+                state = "";
+            }
+            else if (id == null && state == null)
             {
                 return Redirect("../Users/MainPage");
-            }
-            else if (id.Length != 10)
-            {
-                return PartialView("FoF");
             }
 
             //tc = teacher_course_information

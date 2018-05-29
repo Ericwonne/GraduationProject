@@ -767,12 +767,11 @@
     }
 
     function onButtonLoad(para) {
-        loadAmounts();
-
         if (para == "") {
             document.getElementById('identity_choice').setAttribute('hidden', '');
             return;
         }
+        loadAmounts();
 
         var ifselected = para;
         var button1, button2, span1, span2;
