@@ -808,7 +808,7 @@ namespace GradutionProject.Models
         internal static DataTable GetAllCourses()
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
-            string cmdTxt = "select * from course_information";
+            string cmdTxt = "select * from course_information order by publishDate desc";
             DataSet set = new DataSet();
 
             //Start of connection

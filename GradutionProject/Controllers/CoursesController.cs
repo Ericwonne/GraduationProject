@@ -56,6 +56,7 @@ namespace GradutionProject.Controllers
             Course course = new Course
             {
                 CourseName = fc["courseName"],
+                PublishDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                 StartDate = fc["startDate"],
                 EndDate = fc["endDate"],
                 Venue = fc["venue"],
