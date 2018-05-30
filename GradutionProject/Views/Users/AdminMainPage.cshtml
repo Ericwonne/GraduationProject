@@ -763,13 +763,13 @@
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
                     教学楼
-                    <small></small>
+                    <small><button class="btn btn-sm active" onmouseover="controlPlusPart('plus_build_table_div')" >展开/隐藏</button></small>
                 </h3>
                 <div class="container" style="margin-top:2%">
-                    <div class="row">
+                    <div class="row" id="plus_build_table_div">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
+                                <table class="table table-bordered table-striped" id="plus_build_table">
                                     <thead>
                                         <tr>
                                             <th>教学楼编号</th>
@@ -789,7 +789,7 @@
                             </div>
                         </div>
                         <div class="col-md-12" style="padding-bottom:2em;">
-                            <button class="btn btn-info"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-info" id="plus_add_build"><i class="fa fa-plus"></i> 新增数据</button>
                             <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
                         </div>
                     </div>
@@ -803,13 +803,13 @@
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
                     教室
-                    <small></small>
+                    <small><button class="btn btn-sm active" onmouseover="controlPlusPart('plus_room_table_div')">展开/隐藏</button></small>
                 </h3>
                 <div class="container" style="margin-top:2%">
-                    <div class="row">
+                    <div class="row" id="plus_room_table_div">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
+                                <table class="table table-bordered table-striped" id="plus_room_table">
                                     <thead>
                                         <tr>
                                             <th>教室编号</th>
@@ -829,7 +829,7 @@
                             </div>
                         </div>
                         <div class="col-md-12" style="padding-bottom:2em;">
-                            <button class="btn btn-info"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-info" id="plus_add_room"><i class="fa fa-plus"></i> 新增数据</button>
                             <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
                         </div>
                     </div>
@@ -842,13 +842,13 @@
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
                     学院名称
-                    <small></small>
+                    <small><button class="btn btn-sm active" onmouseover="controlPlusPart('plus_college_table_div')">展开/隐藏</button></small>
                 </h3>
                 <div class="container" style="margin-top:2%">
-                    <div class="row">
+                    <div class="row" id="plus_college_table_div">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
+                                <table class="table table-bordered table-striped" id="plus_college_table">
                                     <thead>
                                         <tr>
                                             <th>学院代号</th>
@@ -868,7 +868,7 @@
                             </div>
                         </div>
                         <div class="col-md-12" style="padding-bottom:2em;">
-                            <button class="btn btn-info"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-info" id="plus_add_college"><i class="fa fa-plus"></i> 新增数据</button>
                             <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
                         </div>
                     </div>
@@ -881,13 +881,13 @@
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
                     系别名称
-                    <small></small>
+                    <small><button class="btn btn-sm active" onmouseover="controlPlusPart('plus_faculty_table_div')">展开/隐藏</button></small>
                 </h3>
                 <div class="container" style="margin-top:2%">
-                    <div class="row">
+                    <div class="row" id="plus_faculty_table_div">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
+                                <table class="table table-bordered table-striped" id="plus_faculty_table">
                                     <thead>
                                         <tr>
                                             <th>系别代号</th>
@@ -907,7 +907,7 @@
                             </div>
                         </div>
                         <div class="col-md-12" style="padding-bottom:2em;">
-                            <button class="btn btn-info"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-info" id="plus_add_faculty"><i class="fa fa-plus"></i> 新增数据</button>
                             <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
                         </div>
                     </div>
@@ -920,13 +920,13 @@
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
                     学科门类
-                    <small></small>
+                    <small><button class="btn btn-sm active" onmouseover="controlPlusPart('plus_subject_table_div')">展开/隐藏</button></small>
                 </h3>
                 <div class="container" style="margin-top:2%">
-                    <div class="row">
+                    <div class="row" id="plus_subject_table_div">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
+                                <table class="table table-bordered table-striped" id="plus_subject_table">
                                     <thead>
                                         <tr>
                                             <th>学科代号</th>
@@ -946,7 +946,7 @@
                             </div>
                         </div>
                         <div class="col-md-12" style="padding-bottom:2em;">
-                            <button class="btn btn-info"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-info" id="plus_add_subject"><i class="fa fa-plus"></i> 新增数据</button>
                             <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
                         </div>
                     </div>
@@ -1207,6 +1207,22 @@
     $('#teachertable').SetEditable({
         $addButton: $('#addteacher')
     });
+    //plus_add part
+    $('#plus_build_table').SetEditable({
+        $addButton: $('#plus_add_build')
+    });
+    $('#plus_room_table').SetEditable({
+        $addButton: $('#plus_add_room')
+    });
+    $('#plus_college_table').SetEditable({
+        $addButton: $('#plus_add_college')
+    });
+    $('#plus_faculty_table').SetEditable({
+        $addButton: $('#plus_add_faculty')
+    });
+    $('#plus_subject_table').SetEditable({
+        $addButton: $('#plus_add_subject')
+    });
 </script>
 
 
@@ -1402,6 +1418,17 @@
         }
         for (var r = 0; r < roomnames.length; r++) {
             roomnames[r].innerHTML = RoomName.get(roomnames[r].innerText.toString().replace(/(^\s*)|(\s*$)/g, "")).toString();      //此处不知为何roomname td下的innerText多出了空格，导致无法搜索到键值对
+        }
+    }
+
+    //
+    function controlPlusPart(div) {
+        var tableDiv = document.getElementById(div);
+        if (tableDiv.getAttribute('style') == 'display:none') {
+            tableDiv.removeAttribute('style');
+        }
+        else {
+            tableDiv.setAttribute('style', 'display:none');
         }
     }
 </script>
