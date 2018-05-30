@@ -195,6 +195,7 @@
     <Content Include="Content\img\m.jpg" />
     <Content Include="Content\img\xueyuan.png" />
     <Content Include="Content\jquery.datetimepicker.css" />
+    <Content Include="Content\last_time_copied.css" />
     <Content Include="Content\Scripts\bootstrap-hover-dropdown.js" />
     <Content Include="Content\Scripts\bootstrap-hover-dropdown.min.js" />
     <Content Include="Content\style.css" />

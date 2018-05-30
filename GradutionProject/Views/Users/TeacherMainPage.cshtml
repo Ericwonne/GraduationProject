@@ -64,8 +64,7 @@
     System.Data.DataRow[] home7 = Model.Tables["this_semester_course"].Select("startDate like'" + wholeweek[6].ToString("yyyy-MM-dd") + "%'");
 }
 
-
-
+<link href="~/Content/last_time_copied.css" />
 <div class="form-inline">
     <h2>欢迎你！@ViewData["V_uname"].ToString()老师</h2>
     <div>
@@ -338,17 +337,48 @@
             </table>
         </div>
 
+        <div style="margin-bottom:5%">
+            <div class="page-header" style="margin-top:5px">
+                <h3>
+                    <small><i class="glyphicon glyphicon-tags"></i></small>
+                    管理我的个人信息
+                    <small></small>
+                </h3>
+            </div>
+            <div>
+                <section class="htmleaf-content bgcolor-4">
+                    <span class="input input--chisato">
+                        <input class="input__field input__field--chisato" type="text" id="input-13">
+                        <label class="input__label input__label--chisato" for="input-13">
+                            <span class="input__label-content input__label-content--chisato" data-content="First Name">First Name</span>
+                        </label>
+                    </span>
+                    <span class="input input--chisato">
+                        <input class="input__field input__field--chisato" type="text" id="input-14">
+                        <label class="input__label input__label--chisato" for="input-14">
+                            <span class="input__label-content input__label-content--chisato" data-content="Middle Name">Middle Name</span>
+                        </label>
+                    </span>
+                    <span class="input input--chisato">
+                        <input class="input__field input__field--chisato" type="text" id="input-15">
+                        <label class="input__label input__label--chisato" for="input-15">
+                            <span class="input__label-content input__label-content--chisato" data-content="Last Name">Last Name</span>
+                        </label>
+                    </span>
+                </section>
+            </div>
+        </div>
     </div>
 
     <div class="tab-pane fade" id="jmeter" style="padding-top:20px">
 
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.3
+        暂无
 
     </div>
 
     <div class="tab-pane fade" id="ejb" style="padding-top:20px">
 
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.4
+        暂无
 
     </div>
 
@@ -469,106 +499,178 @@
     }
 </script>
 
+<!--Below Scripts Are For Inputs' Glamorous Format-->
 <script>
-                //class PeriodGetter {
+    (function (window) {
 
-                //}
+        'use strict';
 
-                ////在Javascript中创建一个对象 -来自网络（https://blog.csdn.net/xi_2130/article/details/50276025）
-                //var Person = function (name, age) {
-                //    //共有属性
-                //    this.name = name;
-                //    //共有方法
-                //    this.sayName = function () {
-                //        console.log(this.name);
-                //    };
-                //    //静态私有属性(只能用于内部调用)
-                //    var home = "China";
-                //    //静态私有方法(只能用于内部调用)
-                //    function sayHome() {
-                //        console.log(home);
-                //    }
-                //    //构造器
-                //    this.setAge = function (age) {
-                //        console.log(age + 12);
-                //    };
-                //    this.setAge(age);
-                //}
-                ////静态方法（只能被类来访问）
-                //Person.sayAge = function () {
-                //    console.log("your age is 12");
-                //}
-                ////静态属性（只能被类来访问）
-                //Person.drink = "water";
-                ////静态共有方法（类和实例都可以访问）
-                //Person.prototype.sayWord = function () {
-                //    console.log("ys is a boy");
-                //}
+        // class helper functions from bonzo https://github.com/ded/bonzo
+
+        function classReg(className) {
+            return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
+        }
+
+        // classList support for class management
+        // altho to be fair, the api sucks because it won't accept multiple classes at once
+        var hasClass, addClass, removeClass;
+
+        if ('classList' in document.documentElement) {
+            hasClass = function (elem, c) {
+                return elem.classList.contains(c);
+            };
+            addClass = function (elem, c) {
+                elem.classList.add(c);
+            };
+            removeClass = function (elem, c) {
+                elem.classList.remove(c);
+            };
+        }
+        else {
+            hasClass = function (elem, c) {
+                return classReg(c).test(elem.className);
+            };
+            addClass = function (elem, c) {
+                if (!hasClass(elem, c)) {
+                    elem.className = elem.className + ' ' + c;
+                }
+            };
+            removeClass = function (elem, c) {
+                elem.className = elem.className.replace(classReg(c), ' ');
+            };
+        }
+
+        function toggleClass(elem, c) {
+            var fn = hasClass(elem, c) ? removeClass : addClass;
+            fn(elem, c);
+        }
+
+        var classie = {
+            // full names
+            hasClass: hasClass,
+            addClass: addClass,
+            removeClass: removeClass,
+            toggleClass: toggleClass,
+            // short names
+            has: hasClass,
+            add: addClass,
+            remove: removeClass,
+            toggle: toggleClass
+        };
+
+        // transport
+        if (typeof define === 'function' && define.amd) {
+            // AMD
+            define(classie);
+        } else {
+            // browser global
+            window.classie = classie;
+        }
+
+    })(window);
+
+</script>
+
+<script>
+                        //class PeriodGetter {
+
+                        //}
+
+                        ////在Javascript中创建一个对象 -来自网络（https://blog.csdn.net/xi_2130/article/details/50276025）
+                        //var Person = function (name, age) {
+                        //    //共有属性
+                        //    this.name = name;
+                        //    //共有方法
+                        //    this.sayName = function () {
+                        //        console.log(this.name);
+                        //    };
+                        //    //静态私有属性(只能用于内部调用)
+                        //    var home = "China";
+                        //    //静态私有方法(只能用于内部调用)
+                        //    function sayHome() {
+                        //        console.log(home);
+                        //    }
+                        //    //构造器
+                        //    this.setAge = function (age) {
+                        //        console.log(age + 12);
+                        //    };
+                        //    this.setAge(age);
+                        //}
+                        ////静态方法（只能被类来访问）
+                        //Person.sayAge = function () {
+                        //    console.log("your age is 12");
+                        //}
+                        ////静态属性（只能被类来访问）
+                        //Person.drink = "water";
+                        ////静态共有方法（类和实例都可以访问）
+                        //Person.prototype.sayWord = function () {
+                        //    console.log("ys is a boy");
+                        //}
 
 
 
-                ////在Javascript中创建封装类的方法（类似Python）-来自网络
-                //var Person = (function () {
-                //    //静态私有属性方法
-                //    var home = "China";
-                //    function sayHome(name) {
-                //        console.log(name + "'s home in " + home);
-                //    }
-                //    //构造函数
-                //    function _person(name, age) {
-                //        var _this = this;
-                //        //构造函数安全模式，避免创建时候丢掉new关键字
-                //        if (_this instanceof _person) {
-                //            //共有属性, 方法
-                //            _this.name = name;
-                //            _this.getHome = function () {
-                //                //内部访问私有属性，方法
-                //                sayHome(_this.name);
-                //            };
-                //            _this.test = sayHome; //用于测试
-                //            //构造器
-                //            _this.setAge = function (age) {
-                //                _this.age = age + 12;
-                //            }(age);
-                //        } else {
-                //            return new _person(name, age);
-                //        }
-                //    }
-                //    //静态共有属性方法
-                //    _person.prototype = {
-                //        constructor: _person,
-                //        drink: "water",
-                //        sayWord: function () {
-                //            console.log("ys is a boy");
-                //        }
-                //    }
-                //    return _person;
-                //})();
+                        ////在Javascript中创建封装类的方法（类似Python）-来自网络
+                        //var Person = (function () {
+                        //    //静态私有属性方法
+                        //    var home = "China";
+                        //    function sayHome(name) {
+                        //        console.log(name + "'s home in " + home);
+                        //    }
+                        //    //构造函数
+                        //    function _person(name, age) {
+                        //        var _this = this;
+                        //        //构造函数安全模式，避免创建时候丢掉new关键字
+                        //        if (_this instanceof _person) {
+                        //            //共有属性, 方法
+                        //            _this.name = name;
+                        //            _this.getHome = function () {
+                        //                //内部访问私有属性，方法
+                        //                sayHome(_this.name);
+                        //            };
+                        //            _this.test = sayHome; //用于测试
+                        //            //构造器
+                        //            _this.setAge = function (age) {
+                        //                _this.age = age + 12;
+                        //            }(age);
+                        //        } else {
+                        //            return new _person(name, age);
+                        //        }
+                        //    }
+                        //    //静态共有属性方法
+                        //    _person.prototype = {
+                        //        constructor: _person,
+                        //        drink: "water",
+                        //        sayWord: function () {
+                        //            console.log("ys is a boy");
+                        //        }
+                        //    }
+                        //    return _person;
+                        //})();
 
-                ////调用如下：
-                //var p1 = new Person("ys", 12);
-                //p1.getHome();                   //ys's home in China
-                //console.log(p1.age);            //24
+                        ////调用如下：
+                        //var p1 = new Person("ys", 12);
+                        //p1.getHome();                   //ys's home in China
+                        //console.log(p1.age);            //24
 
-                //var p2 = Person("ys", 12);
-                //p2.getHome();                   //ys's home in China
-                //console.log(p2.age);            //24
+                        //var p2 = Person("ys", 12);
+                        //p2.getHome();                   //ys's home in China
+                        //console.log(p2.age);            //24
 
-                //console.log(p2.test == p1.test);  //true, 证明静态私有变量共享性
-
-
-                //这个网址讲解了Javascript创建类的几种方式和存在的问题： https://blog.csdn.net/Cool_Wayen/article/details/53220007
-                //function Car() {
-                //    this.color = "b";
-                //    this.length = 1;
-                //    this.data1 = new Array();
-                //}
-
-                //Car.prototype.run = function () {
-                //    alert("dddd");
-                //}
+                        //console.log(p2.test == p1.test);  //true, 证明静态私有变量共享性
 
 
-                //Javascript中的Dictionary
-                //见zMy_Copied_Js.js文件。
+                        //这个网址讲解了Javascript创建类的几种方式和存在的问题： https://blog.csdn.net/Cool_Wayen/article/details/53220007
+                        //function Car() {
+                        //    this.color = "b";
+                        //    this.length = 1;
+                        //    this.data1 = new Array();
+                        //}
+
+                        //Car.prototype.run = function () {
+                        //    alert("dddd");
+                        //}
+
+
+                        //Javascript中的Dictionary
+                        //见zMy_Copied_Js.js文件。
 </script>
