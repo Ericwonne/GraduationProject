@@ -114,7 +114,11 @@ namespace GradutionProject.Controllers
         public ActionResult TeacherMainPage()
         {
             ViewData["V_uname"] = DBManip.GetUser(((User)Session["S_user"]).UniqueClientID);
+            ViewData["V_uid"] = ((User)Session["S_user"]).UniqueClientID;
             DataSet set = DBManip.GetCourseOfTeacher(((User)Session["S_user"]).UniqueClientID);
+            DataTable teacherInfo = DBManip.GetTeacherTable();
+            teacherInfo.TableName = "TeacherInfo";
+            set.Tables.Add(teacherInfo.Copy());
             return View(set);
         }
 
@@ -360,6 +364,12 @@ namespace GradutionProject.Controllers
                 return PartialView("Error");
             }
             return Redirect("AdminMainPage");
+        }
+
+        public object UserInfoEdit(string cmdtxt)
+        {
+            //DBManip.ModifyDBwithSQL(cmdtxt);
+            return null;
         }
     }
 }

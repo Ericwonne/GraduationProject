@@ -6,6 +6,7 @@
     System.Data.DataTable this_semester_course = Model.Tables["this_semester_course"];
     System.Data.DataTable AllMyStudent = Model.Tables["AllMyStudent"];
     System.Data.DataTable courseTable = Model.Tables["courseTable"];
+    System.Data.DataTable teacherInfo = Model.Tables["TeacherInfo"];
 
     string[] Count_All = new string[CoursesOfTeacher.Rows.Count];
     int counts = 0;
@@ -345,27 +346,95 @@
                     <small></small>
                 </h3>
             </div>
-            <div>
-                <section class="htmleaf-content bgcolor-4">
-                    <span class="input input--chisato">
-                        <input class="input__field input__field--chisato" type="text" id="input-13">
-                        <label class="input__label input__label--chisato" for="input-13">
-                            <span class="input__label-content input__label-content--chisato" data-content="First Name">First Name</span>
-                        </label>
-                    </span>
-                    <span class="input input--chisato">
-                        <input class="input__field input__field--chisato" type="text" id="input-14">
-                        <label class="input__label input__label--chisato" for="input-14">
-                            <span class="input__label-content input__label-content--chisato" data-content="Middle Name">Middle Name</span>
-                        </label>
-                    </span>
-                    <span class="input input--chisato">
-                        <input class="input__field input__field--chisato" type="text" id="input-15">
-                        <label class="input__label input__label--chisato" for="input-15">
-                            <span class="input__label-content input__label-content--chisato" data-content="Last Name">Last Name</span>
-                        </label>
-                    </span>
-                </section>
+            <div id="input-info-div">
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info1" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info1">
+                        <span class="input__label-content input__label-content--chisato" data-content="姓名">@teacherInfo.Rows[0][1]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info2" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info2">
+                        <span class="input__label-content input__label-content--chisato" data-content="性别">@teacherInfo.Rows[0][2]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info3" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info3">
+                        <span class="input__label-content input__label-content--chisato" data-content="年龄">@teacherInfo.Rows[0][3]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info4" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info4">
+                        <span class="input__label-content input__label-content--chisato" data-content="邮箱">@teacherInfo.Rows[0][4]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info5" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info5">
+                        <span class="input__label-content input__label-content--chisato" data-content="微信">@teacherInfo.Rows[0][5]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info6" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info6">
+                        <span class="input__label-content input__label-content--chisato" data-content="QQ号码">@teacherInfo.Rows[0][6]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info7" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info7">
+                        <span class="input__label-content input__label-content--chisato" data-content="手机号码">@teacherInfo.Rows[0][7]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info8" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info8">
+                        <span class="input__label-content input__label-content--chisato" data-content="毕业院校">@teacherInfo.Rows[0][8]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info9" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info9">
+                        <span class="input__label-content input__label-content--chisato" data-content="学院">@teacherInfo.Rows[0][9]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info10" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info10">
+                        <span class="input__label-content input__label-content--chisato" data-content="专业">@teacherInfo.Rows[0][10]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info11" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info11">
+                        <span class="input__label-content input__label-content--chisato" data-content="工号">@teacherInfo.Rows[0][12]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info12" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info12">
+                        <span class="input__label-content input__label-content--chisato" data-content="学院">@teacherInfo.Rows[0][14]</span>
+                    </label>
+                </span>
+
+                <div class="input input--chisato">
+                    <button class="btn btn-sm btn-primary" onclick="inputInfoBtn()">点击提交</button>
+                </div>
             </div>
         </div>
     </div>
@@ -455,6 +524,34 @@
         }
         //window.location.href = window.location.href.toString().split('?')[0] + "?tab=" + param.toString().substring(1, param.length);
         //alert(window.location.href);
+    }
+    function inputInfoBtn() {
+        if (confirm("您确定提交更改吗？") == false) {
+            return;
+        }
+        var inputs = document.getElementById('input-info-div').getElementsByTagName('input');
+        var paramters = ['name', 'gender', 'age', 'email', 'wechat', 'qqNumber', 'phone', 'university', 'college', 'major', 'workNo', 'faculty'];
+        //Submit the change after validation
+        var cmdtxt = "update teacher_information set ";
+        for (var i = 0; i < inputs.length; i++) {
+            cmdtxt = cmdtxt + paramters[i] + "='" + inputs[i].value + "',";
+        }
+        cmdtxt = cmdtxt.substr(0, cmdtxt.length - 1);
+        cmdtxt = cmdtxt + " where uniqueClientID='" + "@ViewData["V_uid"]" + "'";
+        $.ajax({
+            type: "GET",
+            url: "UserInfoEdit",
+            data: "cmdtxt=" + cmdtxt,
+            async: true,               //同步: Google"如何获取Ajax的返回值,了解只有同步机制下可以获取返回值，否则获取到的就是undefined"
+            success: function (response) {
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+    function input_info_to_label(id) {
+        document.getElementById(id).nextElementSibling.children[0].innerText = '_';     //document.getElementById(id).value; 无奈之举
     }
 </script>
 
@@ -572,105 +669,105 @@
 </script>
 
 <script>
-                        //class PeriodGetter {
+                //class PeriodGetter {
 
-                        //}
+                //}
 
-                        ////在Javascript中创建一个对象 -来自网络（https://blog.csdn.net/xi_2130/article/details/50276025）
-                        //var Person = function (name, age) {
-                        //    //共有属性
-                        //    this.name = name;
-                        //    //共有方法
-                        //    this.sayName = function () {
-                        //        console.log(this.name);
-                        //    };
-                        //    //静态私有属性(只能用于内部调用)
-                        //    var home = "China";
-                        //    //静态私有方法(只能用于内部调用)
-                        //    function sayHome() {
-                        //        console.log(home);
-                        //    }
-                        //    //构造器
-                        //    this.setAge = function (age) {
-                        //        console.log(age + 12);
-                        //    };
-                        //    this.setAge(age);
-                        //}
-                        ////静态方法（只能被类来访问）
-                        //Person.sayAge = function () {
-                        //    console.log("your age is 12");
-                        //}
-                        ////静态属性（只能被类来访问）
-                        //Person.drink = "water";
-                        ////静态共有方法（类和实例都可以访问）
-                        //Person.prototype.sayWord = function () {
-                        //    console.log("ys is a boy");
-                        //}
-
-
-
-                        ////在Javascript中创建封装类的方法（类似Python）-来自网络
-                        //var Person = (function () {
-                        //    //静态私有属性方法
-                        //    var home = "China";
-                        //    function sayHome(name) {
-                        //        console.log(name + "'s home in " + home);
-                        //    }
-                        //    //构造函数
-                        //    function _person(name, age) {
-                        //        var _this = this;
-                        //        //构造函数安全模式，避免创建时候丢掉new关键字
-                        //        if (_this instanceof _person) {
-                        //            //共有属性, 方法
-                        //            _this.name = name;
-                        //            _this.getHome = function () {
-                        //                //内部访问私有属性，方法
-                        //                sayHome(_this.name);
-                        //            };
-                        //            _this.test = sayHome; //用于测试
-                        //            //构造器
-                        //            _this.setAge = function (age) {
-                        //                _this.age = age + 12;
-                        //            }(age);
-                        //        } else {
-                        //            return new _person(name, age);
-                        //        }
-                        //    }
-                        //    //静态共有属性方法
-                        //    _person.prototype = {
-                        //        constructor: _person,
-                        //        drink: "water",
-                        //        sayWord: function () {
-                        //            console.log("ys is a boy");
-                        //        }
-                        //    }
-                        //    return _person;
-                        //})();
-
-                        ////调用如下：
-                        //var p1 = new Person("ys", 12);
-                        //p1.getHome();                   //ys's home in China
-                        //console.log(p1.age);            //24
-
-                        //var p2 = Person("ys", 12);
-                        //p2.getHome();                   //ys's home in China
-                        //console.log(p2.age);            //24
-
-                        //console.log(p2.test == p1.test);  //true, 证明静态私有变量共享性
+                ////在Javascript中创建一个对象 -来自网络（https://blog.csdn.net/xi_2130/article/details/50276025）
+                //var Person = function (name, age) {
+                //    //共有属性
+                //    this.name = name;
+                //    //共有方法
+                //    this.sayName = function () {
+                //        console.log(this.name);
+                //    };
+                //    //静态私有属性(只能用于内部调用)
+                //    var home = "China";
+                //    //静态私有方法(只能用于内部调用)
+                //    function sayHome() {
+                //        console.log(home);
+                //    }
+                //    //构造器
+                //    this.setAge = function (age) {
+                //        console.log(age + 12);
+                //    };
+                //    this.setAge(age);
+                //}
+                ////静态方法（只能被类来访问）
+                //Person.sayAge = function () {
+                //    console.log("your age is 12");
+                //}
+                ////静态属性（只能被类来访问）
+                //Person.drink = "water";
+                ////静态共有方法（类和实例都可以访问）
+                //Person.prototype.sayWord = function () {
+                //    console.log("ys is a boy");
+                //}
 
 
-                        //这个网址讲解了Javascript创建类的几种方式和存在的问题： https://blog.csdn.net/Cool_Wayen/article/details/53220007
-                        //function Car() {
-                        //    this.color = "b";
-                        //    this.length = 1;
-                        //    this.data1 = new Array();
-                        //}
 
-                        //Car.prototype.run = function () {
-                        //    alert("dddd");
-                        //}
+                ////在Javascript中创建封装类的方法（类似Python）-来自网络
+                //var Person = (function () {
+                //    //静态私有属性方法
+                //    var home = "China";
+                //    function sayHome(name) {
+                //        console.log(name + "'s home in " + home);
+                //    }
+                //    //构造函数
+                //    function _person(name, age) {
+                //        var _this = this;
+                //        //构造函数安全模式，避免创建时候丢掉new关键字
+                //        if (_this instanceof _person) {
+                //            //共有属性, 方法
+                //            _this.name = name;
+                //            _this.getHome = function () {
+                //                //内部访问私有属性，方法
+                //                sayHome(_this.name);
+                //            };
+                //            _this.test = sayHome; //用于测试
+                //            //构造器
+                //            _this.setAge = function (age) {
+                //                _this.age = age + 12;
+                //            }(age);
+                //        } else {
+                //            return new _person(name, age);
+                //        }
+                //    }
+                //    //静态共有属性方法
+                //    _person.prototype = {
+                //        constructor: _person,
+                //        drink: "water",
+                //        sayWord: function () {
+                //            console.log("ys is a boy");
+                //        }
+                //    }
+                //    return _person;
+                //})();
+
+                ////调用如下：
+                //var p1 = new Person("ys", 12);
+                //p1.getHome();                   //ys's home in China
+                //console.log(p1.age);            //24
+
+                //var p2 = Person("ys", 12);
+                //p2.getHome();                   //ys's home in China
+                //console.log(p2.age);            //24
+
+                //console.log(p2.test == p1.test);  //true, 证明静态私有变量共享性
 
 
-                        //Javascript中的Dictionary
-                        //见zMy_Copied_Js.js文件。
+                //这个网址讲解了Javascript创建类的几种方式和存在的问题： https://blog.csdn.net/Cool_Wayen/article/details/53220007
+                //function Car() {
+                //    this.color = "b";
+                //    this.length = 1;
+                //    this.data1 = new Array();
+                //}
+
+                //Car.prototype.run = function () {
+                //    alert("dddd");
+                //}
+
+
+                //Javascript中的Dictionary
+                //见zMy_Copied_Js.js文件。
 </script>
