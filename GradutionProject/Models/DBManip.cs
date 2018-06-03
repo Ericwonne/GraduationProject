@@ -808,7 +808,7 @@ namespace GradutionProject.Models
         internal static DataTable GetAllCourses()
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
-            string cmdTxt = "select * from course_information";
+            string cmdTxt = "select * from course_information order by publishDate desc";
             DataSet set = new DataSet();
 
             //Start of connection
@@ -866,6 +866,50 @@ namespace GradutionProject.Models
             {
                 return true;
             }
+        }
+
+        internal static DataSet GetInfo()
+        {
+            //-----------ABANDONED-----------//------------LOW EFFICIENCY
+            //MySqlConnection connect = new MySqlConnection(connectionString);
+            ////Below cmdTxt is rather stupid because it consumes a lot of cpu resource;
+            //string cmdTxt = "select code, name,(select count(*) from build_information) from build_information union select code, name, (select count(*) from subject_category) from subject_category union select uniqueCode, name,(select count(*) from faculty_information) from faculty_information";
+            //DataSet set = new DataSet();
+
+            ////Start of connection
+            //connect.Open();
+            //MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
+            //adapter.Fill(set, "Info");
+            //connect.Close();
+            //return set.Tables["Info"];
+
+            MySqlConnection connect = new MySqlConnection(connectionString);
+            string cmdTxt = "select code, name from build_information";
+            DataSet set = new DataSet();
+
+            //Start of connection
+            connect.Open();
+            MySqlDataAdapter adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "Build");
+
+            cmdTxt = "select code,name from subject_category";
+            adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "Subject");
+
+            cmdTxt = "select uniqueCode,name from faculty_information";
+            adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "Faculty");
+
+            cmdTxt = "select roomID,roomName from room_information";
+            adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "Room");
+
+            cmdTxt = "select uniqueCode,name from college_information";
+            adapter = new MySqlDataAdapter(cmdTxt, connect);
+            adapter.Fill(set, "College");
+            connect.Close();
+            return set;
+
         }
     }
 

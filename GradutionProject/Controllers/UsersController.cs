@@ -92,10 +92,11 @@ namespace GradutionProject.Controllers
             DataTable teacher = DBManip.GetTeacherTable(),
                              student = DBManip.GetStudentTable(),
                              course = DBManip.GetAllCourses();
+
             //此处注意：DataSet的Add()方法不能添加两个没有命名的DataTable；见下网址：
             //https://www.cnblogs.com/chenhuzi/archive/2010/11/02/dataset-add-more-table-example.html
 
-            DataSet set = new DataSet();
+            DataSet set = DBManip.GetInfo();
             student.TableName = "student";
             set.Tables.Add(student.Copy());
 
@@ -104,6 +105,7 @@ namespace GradutionProject.Controllers
 
             course.TableName = "AllCourses";
             set.Tables.Add(course.Copy());
+
             return View(set);
         }
 
@@ -112,7 +114,11 @@ namespace GradutionProject.Controllers
         public ActionResult TeacherMainPage()
         {
             ViewData["V_uname"] = DBManip.GetUser(((User)Session["S_user"]).UniqueClientID);
+            ViewData["V_uid"] = ((User)Session["S_user"]).UniqueClientID;
             DataSet set = DBManip.GetCourseOfTeacher(((User)Session["S_user"]).UniqueClientID);
+            DataTable teacherInfo = DBManip.GetTeacherTable();
+            teacherInfo.TableName = "TeacherInfo";
+            set.Tables.Add(teacherInfo.Copy());
             return View(set);
         }
 
@@ -249,10 +255,8 @@ namespace GradutionProject.Controllers
 
         public ActionResult SpecificUser(string id)
         {
-            string[] tableTest = new string[2];
-            tableTest[0] = DBManip.GetSpecificUser(id);
-            tableTest[1] = "A TestTable";
-            return View(tableTest);
+            string[] jsonResult = DBManip.GetSpecificUser(id).Split('&');
+            return View(jsonResult);
         }
 
         public object GetSpecificUser(string id)
@@ -360,6 +364,12 @@ namespace GradutionProject.Controllers
                 return PartialView("Error");
             }
             return Redirect("AdminMainPage");
+        }
+
+        public object UserInfoEdit(string cmdtxt)
+        {
+            //DBManip.ModifyDBwithSQL(cmdtxt);
+            return null;
         }
     }
 }

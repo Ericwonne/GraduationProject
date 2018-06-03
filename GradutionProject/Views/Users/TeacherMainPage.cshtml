@@ -6,6 +6,7 @@
     System.Data.DataTable this_semester_course = Model.Tables["this_semester_course"];
     System.Data.DataTable AllMyStudent = Model.Tables["AllMyStudent"];
     System.Data.DataTable courseTable = Model.Tables["courseTable"];
+    System.Data.DataTable teacherInfo = Model.Tables["TeacherInfo"];
 
     string[] Count_All = new string[CoursesOfTeacher.Rows.Count];
     int counts = 0;
@@ -64,8 +65,7 @@
     System.Data.DataRow[] home7 = Model.Tables["this_semester_course"].Select("startDate like'" + wholeweek[6].ToString("yyyy-MM-dd") + "%'");
 }
 
-
-
+<link href="~/Content/last_time_copied.css" />
 <div class="form-inline">
     <h2>欢迎你！@ViewData["V_uname"].ToString()老师</h2>
     <div>
@@ -338,17 +338,116 @@
             </table>
         </div>
 
+        <div style="margin-bottom:5%">
+            <div class="page-header" style="margin-top:5px">
+                <h3>
+                    <small><i class="glyphicon glyphicon-tags"></i></small>
+                    管理我的个人信息
+                    <small></small>
+                </h3>
+            </div>
+            <div id="input-info-div">
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info1" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info1">
+                        <span class="input__label-content input__label-content--chisato" data-content="姓名">@teacherInfo.Rows[0][1]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info2" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info2">
+                        <span class="input__label-content input__label-content--chisato" data-content="性别">@teacherInfo.Rows[0][2]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info3" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info3">
+                        <span class="input__label-content input__label-content--chisato" data-content="年龄">@teacherInfo.Rows[0][3]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info4" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info4">
+                        <span class="input__label-content input__label-content--chisato" data-content="邮箱">@teacherInfo.Rows[0][4]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info5" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info5">
+                        <span class="input__label-content input__label-content--chisato" data-content="微信">@teacherInfo.Rows[0][5]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info6" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info6">
+                        <span class="input__label-content input__label-content--chisato" data-content="QQ号码">@teacherInfo.Rows[0][6]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info7" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info7">
+                        <span class="input__label-content input__label-content--chisato" data-content="手机号码">@teacherInfo.Rows[0][7]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info8" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info8">
+                        <span class="input__label-content input__label-content--chisato" data-content="毕业院校">@teacherInfo.Rows[0][8]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info9" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info9">
+                        <span class="input__label-content input__label-content--chisato" data-content="学院">@teacherInfo.Rows[0][9]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info10" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info10">
+                        <span class="input__label-content input__label-content--chisato" data-content="专业">@teacherInfo.Rows[0][10]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info11" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info11">
+                        <span class="input__label-content input__label-content--chisato" data-content="工号">@teacherInfo.Rows[0][12]</span>
+                    </label>
+                </span>
+                <!---->
+                <span class="input input--chisato">
+                    <input class="input__field input__field--chisato" type="text" id="input-info12" onchange="input_info_to_label(this.getAttribute('id'))">
+                    <label class="input__label input__label--chisato" for="input-info12">
+                        <span class="input__label-content input__label-content--chisato" data-content="学院">@teacherInfo.Rows[0][14]</span>
+                    </label>
+                </span>
+
+                <div class="input input--chisato">
+                    <button class="btn btn-sm btn-primary" onclick="inputInfoBtn()">点击提交</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="tab-pane fade" id="jmeter" style="padding-top:20px">
 
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.3
+        暂无
 
     </div>
 
     <div class="tab-pane fade" id="ejb" style="padding-top:20px">
 
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.4
+        暂无
 
     </div>
 
@@ -426,6 +525,34 @@
         //window.location.href = window.location.href.toString().split('?')[0] + "?tab=" + param.toString().substring(1, param.length);
         //alert(window.location.href);
     }
+    function inputInfoBtn() {
+        if (confirm("您确定提交更改吗？") == false) {
+            return;
+        }
+        var inputs = document.getElementById('input-info-div').getElementsByTagName('input');
+        var paramters = ['name', 'gender', 'age', 'email', 'wechat', 'qqNumber', 'phone', 'university', 'college', 'major', 'workNo', 'faculty'];
+        //Submit the change after validation
+        var cmdtxt = "update teacher_information set ";
+        for (var i = 0; i < inputs.length; i++) {
+            cmdtxt = cmdtxt + paramters[i] + "='" + inputs[i].value + "',";
+        }
+        cmdtxt = cmdtxt.substr(0, cmdtxt.length - 1);
+        cmdtxt = cmdtxt + " where uniqueClientID='" + "@ViewData["V_uid"]" + "'";
+        $.ajax({
+            type: "GET",
+            url: "UserInfoEdit",
+            data: "cmdtxt=" + cmdtxt,
+            async: true,               //同步: Google"如何获取Ajax的返回值,了解只有同步机制下可以获取返回值，否则获取到的就是undefined"
+            success: function (response) {
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+    function input_info_to_label(id) {
+        document.getElementById(id).nextElementSibling.children[0].innerText = '_';     //document.getElementById(id).value; 无奈之举
+    }
 </script>
 
 <script>
@@ -467,6 +594,78 @@
         document.getElementById(tagid).setAttribute("class", "active");
         //-------------------------------------End    处理tab pane显示问题-----------------------------------------//
     }
+</script>
+
+<!--Below Scripts Are For Inputs' Glamorous Format-->
+<script>
+    (function (window) {
+
+        'use strict';
+
+        // class helper functions from bonzo https://github.com/ded/bonzo
+
+        function classReg(className) {
+            return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
+        }
+
+        // classList support for class management
+        // altho to be fair, the api sucks because it won't accept multiple classes at once
+        var hasClass, addClass, removeClass;
+
+        if ('classList' in document.documentElement) {
+            hasClass = function (elem, c) {
+                return elem.classList.contains(c);
+            };
+            addClass = function (elem, c) {
+                elem.classList.add(c);
+            };
+            removeClass = function (elem, c) {
+                elem.classList.remove(c);
+            };
+        }
+        else {
+            hasClass = function (elem, c) {
+                return classReg(c).test(elem.className);
+            };
+            addClass = function (elem, c) {
+                if (!hasClass(elem, c)) {
+                    elem.className = elem.className + ' ' + c;
+                }
+            };
+            removeClass = function (elem, c) {
+                elem.className = elem.className.replace(classReg(c), ' ');
+            };
+        }
+
+        function toggleClass(elem, c) {
+            var fn = hasClass(elem, c) ? removeClass : addClass;
+            fn(elem, c);
+        }
+
+        var classie = {
+            // full names
+            hasClass: hasClass,
+            addClass: addClass,
+            removeClass: removeClass,
+            toggleClass: toggleClass,
+            // short names
+            has: hasClass,
+            add: addClass,
+            remove: removeClass,
+            toggle: toggleClass
+        };
+
+        // transport
+        if (typeof define === 'function' && define.amd) {
+            // AMD
+            define(classie);
+        } else {
+            // browser global
+            window.classie = classie;
+        }
+
+    })(window);
+
 </script>
 
 <script>

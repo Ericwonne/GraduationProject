@@ -2262,6 +2262,8 @@ table {
 
 .input--chisato {
     padding-top: 1em;
+    width:auto;
+    font-size:larger;
 }
 
 .input__field--chisato {

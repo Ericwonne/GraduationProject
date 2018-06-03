@@ -5,6 +5,12 @@
     System.Data.DataTable student = Model.Tables["student"];            //student table
     System.Data.DataTable teacher = Model.Tables["teacher"];            //teacher table
     System.Data.DataTable AllCourses = Model.Tables["AllCourses"];  //course table
+
+    System.Data.DataTable Build = Model.Tables["Build"];                    //Info
+    System.Data.DataTable Subject = Model.Tables["Subject"];            //Info
+    System.Data.DataTable Faculty = Model.Tables["Faculty"];             //Info
+    System.Data.DataTable College = Model.Tables["College"];           //Info
+    System.Data.DataTable Room = Model.Tables["Room"];           //Info
 }
 <style type="text/css">
     td.alt {
@@ -472,28 +478,28 @@
 <ul id="myTab" class="nav nav-tabs">
     <li id="student_tab" class="active">
         <a href="#student" data-toggle="tab">
-            管理学生
+            查看学生
         </a>
     </li>
     <li id="teacher_tab">
         <a href="#teacher" data-toggle="tab">
-            管理教师
+            查看教师
         </a>
     </li>
     <li id="course_tab">
         <a href="#course" data-toggle="tab">
-            管理课程
+            查看课程
         </a>
     </li>
     <li id="miscellaneous_tab">
         <a href="#miscellaneous" data-toggle="tab">
-            管理其他
+            查看其他
         </a>
     </li>
 </ul>
 
 <div id="myTabContent" class="tab-content">
-    <!--管理学生-->
+    <!--查看学生-->
     <div class="tab-pane fade in active" id="student">
         <div style="margin-bottom:5%;margin-top:2%">
             <div class="page-header" style="margin-top:5px">
@@ -511,7 +517,7 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    管理学生<small>一共有<strong>@student.Rows.Count</strong>  位学生</small>
+                    查看学生<small>一共有<strong>@student.Rows.Count</strong>  位学生</small>
                     <small></small>
                 </h3>
             </div>
@@ -565,7 +571,7 @@
             </div>
         </div>
     </div>
-    <!--管理教师-->
+    <!--查看教师-->
     <div class="tab-pane fade" id="teacher">
         <div style="margin-bottom:5%;margin-top:2%">
             <div class="page-header" style="margin-top:5px">
@@ -583,7 +589,7 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    管理教师<small>一共有<strong>@teacher.Rows.Count</strong>  位教师</small>
+                    查看教师<small>一共有<strong>@teacher.Rows.Count</strong>  位教师</small>
                     <small></small>
                 </h3>
             </div>
@@ -630,7 +636,7 @@
             </div>
         </div>
     </div>
-    <!--管理课程-->
+    <!--查看课程-->
     <div class="tab-pane fade" id="course">
         <div style="margin-bottom:5%;margin-top:2%">
             <div class="page-header" style="margin-top:5px">
@@ -648,7 +654,7 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    管理课程<small>一共有<strong>@AllCourses.Rows.Count</strong>  门课</small>
+                    查看课程<small>一共有<strong>@AllCourses.Rows.Count</strong>  门课</small>
                 </h3>
             </div>
             <div class="input-group">
@@ -738,14 +744,14 @@
 
         </div>
     </div>
-    <!--管理杂项-->
+    <!--查看杂项-->
     <div class="tab-pane fade" id="miscellaneous">
         <!--所有用户-->
         <div style="margin-bottom:5%;margin-top:2%">
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    管理所有用户
+                    所有用户
                     <small></small>
                 </h3>
             </div>
@@ -756,9 +762,39 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    管理教学楼
-                    <small></small>
+                    教学楼
+                    <small><button class="btn btn-sm active" onmouseover="controlPlusPart('plus_build_table_div')" >展开/隐藏</button></small>
                 </h3>
+                <div class="container" style="margin-top:2%">
+                    <div class="row" id="plus_build_table_div">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="plus_build_table">
+                                    <thead>
+                                        <tr>
+                                            <th>教学楼编号</th>
+                                            <th>教学楼名称</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (System.Data.DataRow row in Build.Rows)
+                                        {
+                                            <tr>
+                                                <td>@row[0]</td>
+                                                <td>@row[1]</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom:2em;">
+                            <button class="btn btn-info" id="plus_add_build"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <!---->
@@ -766,9 +802,38 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    管理教室
-                    <small></small>
+                    教室
+                    <small><button class="btn btn-sm active" onmouseover="controlPlusPart('plus_room_table_div')">展开/隐藏</button></small>
                 </h3>
+                <div class="container" style="margin-top:2%">
+                    <div class="row" id="plus_room_table_div">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="plus_room_table">
+                                    <thead>
+                                        <tr>
+                                            <th>教室编号</th>
+                                            <th>教室名称</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (System.Data.DataRow row in Room.Rows)
+                                        {
+                                            <tr>
+                                                <td>@row[0]</td>
+                                                <td>@row[1]</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom:2em;">
+                            <button class="btn btn-info" id="plus_add_room"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!---->
@@ -776,9 +841,38 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    管理学院名称
-                    <small></small>
+                    学院名称
+                    <small><button class="btn btn-sm active" onmouseover="controlPlusPart('plus_college_table_div')">展开/隐藏</button></small>
                 </h3>
+                <div class="container" style="margin-top:2%">
+                    <div class="row" id="plus_college_table_div">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="plus_college_table">
+                                    <thead>
+                                        <tr>
+                                            <th>学院代号</th>
+                                            <th>学院名称</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (System.Data.DataRow row in College.Rows)
+                                        {
+                                            <tr>
+                                                <td>@row[0]</td>
+                                                <td>@row[1]</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom:2em;">
+                            <button class="btn btn-info" id="plus_add_college"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!---->
@@ -786,9 +880,38 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    管理系别名称
-                    <small></small>
+                    系别名称
+                    <small><button class="btn btn-sm active" onmouseover="controlPlusPart('plus_faculty_table_div')">展开/隐藏</button></small>
                 </h3>
+                <div class="container" style="margin-top:2%">
+                    <div class="row" id="plus_faculty_table_div">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="plus_faculty_table">
+                                    <thead>
+                                        <tr>
+                                            <th>系别代号</th>
+                                            <th>系别名称</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (System.Data.DataRow row in Faculty.Rows)
+                                        {
+                                            <tr>
+                                                <td>@row[0]</td>
+                                                <td>@row[1]</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom:2em;">
+                            <button class="btn btn-info" id="plus_add_faculty"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!---->
@@ -796,9 +919,38 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    管理学科门类
-                    <small></small>
+                    学科门类
+                    <small><button class="btn btn-sm active" onmouseover="controlPlusPart('plus_subject_table_div')">展开/隐藏</button></small>
                 </h3>
+                <div class="container" style="margin-top:2%">
+                    <div class="row" id="plus_subject_table_div">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="plus_subject_table">
+                                    <thead>
+                                        <tr>
+                                            <th>学科代号</th>
+                                            <th>学科名称</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (System.Data.DataRow row in Subject.Rows)
+                                        {
+                                            <tr>
+                                                <td>@row[0]</td>
+                                                <td>@row[1]</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom:2em;">
+                            <button class="btn btn-info" id="plus_add_subject"><i class="fa fa-plus"></i> 新增数据</button>
+                            <button class="btn btn-danger"><i class="fa fa-upload"></i> 提交数据</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!---->
@@ -806,7 +958,7 @@
             <div class="page-header" style="margin-top:5px">
                 <h3>
                     <small><i class="glyphicon glyphicon-tags"></i></small>
-                    管理二级学科
+                    二级学科
                     <small></small>
                 </h3>
             </div>
@@ -820,7 +972,7 @@
 <script src="~/Scripts/jquery.filtertable.min.js"></script>
 <script src="~/Scripts/tippy.js"></script>
 <script src="~/Scripts/bootstable.js"></script>
-
+@*<script src="http://tablesorter.com/addons/pager/jquery.tablesorter.pager.js"></script>*@
 <script>
     //Floppy: used to show the tooltip of each course
     new Tippy('.tippy-arrow', { position: 'top', animation: 'scale', arrow: 'true' });
@@ -864,6 +1016,11 @@
         $('#coursetable').filterTable({ // apply filterTable to all tables on this page
             inputSelector: '#input-filter' // use the existing input instead of creating a new one
         })
+
+        //Sorting and Paging the table
+        //$("table")
+        //    .tablesorter({ widthFixed: true, widgets: ['zebra'] })
+        //    .tablesorterPager({ container: $("#pager") });
 
         //Change the database field to human readable. Not on teachertable due to it has been processed at backend.
         var tds = document.getElementById('studenttable').getElementsByTagName('td');  //student table
@@ -1049,6 +1206,22 @@
     });
     $('#teachertable').SetEditable({
         $addButton: $('#addteacher')
+    });
+    //plus_add part
+    $('#plus_build_table').SetEditable({
+        $addButton: $('#plus_add_build')
+    });
+    $('#plus_room_table').SetEditable({
+        $addButton: $('#plus_add_room')
+    });
+    $('#plus_college_table').SetEditable({
+        $addButton: $('#plus_add_college')
+    });
+    $('#plus_faculty_table').SetEditable({
+        $addButton: $('#plus_add_faculty')
+    });
+    $('#plus_subject_table').SetEditable({
+        $addButton: $('#plus_add_subject')
     });
 </script>
 
@@ -1245,6 +1418,17 @@
         }
         for (var r = 0; r < roomnames.length; r++) {
             roomnames[r].innerHTML = RoomName.get(roomnames[r].innerText.toString().replace(/(^\s*)|(\s*$)/g, "")).toString();      //此处不知为何roomname td下的innerText多出了空格，导致无法搜索到键值对
+        }
+    }
+
+    //
+    function controlPlusPart(div) {
+        var tableDiv = document.getElementById(div);
+        if (tableDiv.getAttribute('style') == 'display:none') {
+            tableDiv.removeAttribute('style');
+        }
+        else {
+            tableDiv.setAttribute('style', 'display:none');
         }
     }
 </script>

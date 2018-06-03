@@ -56,6 +56,7 @@ namespace GradutionProject.Controllers
             Course course = new Course
             {
                 CourseName = fc["courseName"],
+                PublishDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                 StartDate = fc["startDate"],
                 EndDate = fc["endDate"],
                 Venue = fc["venue"],
@@ -95,13 +96,17 @@ namespace GradutionProject.Controllers
         [CookieFilter]
         public ActionResult SpecificCourse(string id, string state)   // id = courseID; state = selected/not selected
         {
-            if (id == null || state == null)
+            if (id != null && state == null)
+            {
+                if (id.Length != 10)
+                {
+                    return PartialView("FoF");
+                }
+                state = "";
+            }
+            else if (id == null && state == null)
             {
                 return Redirect("../Users/MainPage");
-            }
-            else if (id.Length != 10)
-            {
-                return PartialView("FoF");
             }
 
             //tc = teacher_course_information
